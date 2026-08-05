@@ -273,27 +273,43 @@
         <div class="divider"></div>
 
         <!-- Payment Setup -->
-        <h3 class="text-sm font-bold text-earth mb-3 uppercase tracking-wide">Payment Details (GCash)</h3>
+        <h3 class="text-sm font-bold text-earth mb-3 uppercase tracking-wide">Payment Details</h3>
         
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4 text-center">
-          <p class="text-xs text-smoke mb-2">Scan or tap to pay via GCash: <strong id="gcash-display-number"></strong></p>
-          <!-- TODO: Add your GCash QR Image here -->
-          <img src="https://placehold.co/200x200/F4E8C9/6B4226?text=GCash+QR" alt="GCash QR" class="w-32 h-32 mx-auto rounded-md shadow-sm mb-3">
-          <!-- GCash deep link -->
-          <a id="gcash-pay-link" href="#" target="_blank" class="btn btn-primary w-full">
-            <span id="gcash-pay-label">Pay via GCash App</span>
-          </a>
-          <button id="copy-gcash-btn" type="button" class="btn btn-outline w-full mt-2" onclick="Checkout.copyGCashNumber()">Copy GCash Number</button>
+        <div class="flex gap-2 mb-4">
+          <label class="radio-pill flex-1 text-center" data-payment="gcash">
+            <input type="radio" name="payment_method" value="gcash" checked /> 📱 GCash
+          </label>
+          <label class="radio-pill flex-1 text-center" data-payment="cash">
+            <input type="radio" name="payment_method" value="cash" /> 💵 Cash (Pay at Booth)
+          </label>
         </div>
-
-        <div class="space-y-4">
-          <div>
-            <label class="form-label">Your Name</label>
-            <input type="text" id="f-name" class="form-input" placeholder="e.g. Maria Clara" required />
+        
+        <div id="payment-gcash-fields">
+          <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4 text-center">
+            <p class="text-xs text-smoke mb-2">Scan or tap to pay via GCash: <strong id="gcash-display-number"></strong></p>
+            <!-- TODO: Add your GCash QR Image here -->
+            <img src="https://placehold.co/200x200/F4E8C9/6B4226?text=GCash+QR" alt="GCash QR" class="w-32 h-32 mx-auto rounded-md shadow-sm mb-3">
+            <!-- GCash deep link -->
+            <a id="gcash-pay-link" href="#" target="_blank" class="btn btn-primary w-full">
+              <span id="gcash-pay-label">Pay via GCash App</span>
+            </a>
+            <button id="copy-gcash-btn" type="button" class="btn btn-outline w-full mt-2" onclick="Checkout.copyGCashNumber()">Copy GCash Number</button>
           </div>
           <div>
             <label class="form-label">GCash Name (Sender)</label>
             <input type="text" id="f-gcash-name" class="form-input" placeholder="e.g. Juan D." required />
+          </div>
+        </div>
+        
+        <div id="payment-cash-fields" class="hidden bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4 text-center">
+          <p class="text-sm text-smoke font-bold mb-1">Pay at the Booth</p>
+          <p class="text-xs text-smoke">Please prepare the exact amount if possible. We will process your order once payment is received at our booth.</p>
+        </div>
+
+        <div class="space-y-4 mt-4">
+          <div>
+            <label class="form-label">Your Name</label>
+            <input type="text" id="f-name" class="form-input" placeholder="e.g. Maria Clara" required />
           </div>
         </div>
 

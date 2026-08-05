@@ -72,9 +72,14 @@ const Checkout = (() => {
     const overlay = document.getElementById('checkout-overlay');
     if (overlay) overlay.classList.remove('hidden');
 
+   // Initialize functionality once DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    _initToggles();
+  });
+
     Cart.renderCheckoutItemsList();
     _renderGCashPanel();
-    _initFulfillmentToggle();
+    _initToggles();
 
     // ── Auto-apply Spirit Quest voucher from localStorage ──
     const savedVoucher = localStorage.getItem('active_voucher');
@@ -146,13 +151,14 @@ const Checkout = (() => {
     }
   }
 
-  // ── Fulfillment Toggle ──────────────────────────────────────────────────────
+  // ── Form Toggles ──────────────────────────────────────────────────────
 
-  function _initFulfillmentToggle() {
-    const pills = document.querySelectorAll('.radio-pill[data-fulfillment]');
-    pills.forEach(pill => {
+  function _initToggles() {
+    // Fulfillment
+    const fPills = document.querySelectorAll('.radio-pill[data-fulfillment]');
+    fPills.forEach(pill => {
       pill.addEventListener('click', () => {
-        pills.forEach(p => p.classList.remove('selected'));
+        fPills.forEach(p => p.classList.remove('selected'));
         pill.classList.add('selected');
         pill.querySelector('input').checked = true;
 
@@ -164,9 +170,29 @@ const Checkout = (() => {
       });
     });
 
-    // Set default: Booth Pickup
-    const defaultPill = document.querySelector('.radio-pill[data-fulfillment="pickup"]');
-    if (defaultPill) defaultPill.click();
+    // Payment Method
+    const pPills = document.querySelectorAll('.radio-pill[data-payment]');
+    pPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pPills.forEach(p => p.classList.remove('selected'));
+        pill.classList.add('selected');
+        pill.querySelector('input').checked = true;
+
+        const isGcash = pill.dataset.payment === 'gcash';
+        const gcashFields = document.getElementById('payment-gcash-fields');
+        const cashFields = document.getElementById('payment-cash-fields');
+        
+        if (gcashFields) gcashFields.classList.toggle('hidden', !isGcash);
+        if (cashFields) cashFields.classList.toggle('hidden', isGcash);
+      });
+    });
+
+    // Set defaults
+    const defaultFPill = document.querySelector('.radio-pill[data-fulfillment="pickup"]');
+    if (defaultFPill) defaultFPill.click();
+    
+    const defaultPPill = document.querySelector('.radio-pill[data-payment="gcash"]');
+    if (defaultPPill) defaultPPill.click();
   }
 
   // ── Copy GCash Number to Clipboard ─────────────────────────────────────────
@@ -212,19 +238,20 @@ const Checkout = (() => {
 
   function _validateForm() {
     const name        = document.getElementById('f-name')?.value?.trim();
-    const gcashName   = document.getElementById('f-gcash-name')?.value?.trim();
     const fulfillment = document.querySelector('input[name="fulfillment"]:checked')?.value;
+    const payment     = document.querySelector('input[name="payment_method"]:checked')?.value;
     const building    = document.getElementById('f-destination')?.value?.trim();
+    const gcashName   = payment === 'gcash' ? document.getElementById('f-gcash-name')?.value?.trim() : 'CASH';
 
     if (!name)        { window.showToast('Please enter your name.', 'error');              return null; }
-    if (!gcashName)   { window.showToast('Please enter your GCash account name.', 'error'); return null; }
+    if (payment === 'gcash' && !gcashName) { window.showToast('Please enter your GCash account name.', 'error'); return null; }
     if (!fulfillment) { window.showToast('Please choose pickup or delivery.', 'error'); return null; }
     if (fulfillment === 'delivery' && !building) {
       window.showToast('Please enter your delivery building & room.', 'error');
       return null;
     }
 
-    return { name, mobile: 'N/A', gcashName, fulfillment, building: building || '' };
+    return { name, mobile: 'N/A', gcashName, payment, fulfillment, building: building || '' };
   }
 
   // ── Complete Order ──────────────────────────────────────────────────────────
@@ -244,6 +271,7 @@ const Checkout = (() => {
       customerName: formData.name,
       mobile:       formData.mobile,
       gcashName:    formData.gcashName,
+      payment:      formData.payment,
       fulfillment:  formData.fulfillment,    // "pickup" | "delivery"
       destination:  formData.building,
       items:        snapshot.items.map(l => ({
@@ -397,8 +425,8 @@ const Checkout = (() => {
           <span class="font-semibold">${safeName}</span>
         </div>
         <div class="receipt-row">
-          <span class="text-smoke text-xs font-semibold uppercase tracking-wide">GCash Name</span>
-          <span class="font-semibold">${safeGcashName}</span>
+          <span class="text-smoke text-xs font-semibold uppercase tracking-wide">Payment Mode</span>
+          <span class="font-semibold">${payload.payment === 'cash' ? '💵 Cash' : '📱 GCash (' + safeGcashName + ')'}</span>
         </div>
         <div class="receipt-row">
           <span class="text-smoke text-xs font-semibold uppercase tracking-wide">Fulfillment</span>

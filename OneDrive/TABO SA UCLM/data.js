@@ -51,7 +51,7 @@ const PRODUCTS = [
       highlight: "High Protein Core",
       highlightDescription: "Exceptional lean protein from native free-range chicken makes this dish an ideal post-activity recovery meal, supporting muscle repair and sustained energy."
     },
-    image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/67/Chicken_Binakol.jpg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     quizTags: ["chill", "savory", "mist"]
   },
@@ -98,7 +98,7 @@ const PRODUCTS = [
       highlight: "Lean & Heart-Healthy",
       highlightDescription: "Low in saturated fat and rich in Omega-3 fatty acids from river fish, this dish actively supports cardiovascular health and keeps cholesterol levels balanced."
     },
-    image: "https://images.unsplash.com/photo-1594041680534-e8c8cde561cb?w=800&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/11/Inihaw_na_bangus.jpg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     quizTags: ["hyped", "smoky", "river"]
   },
@@ -141,7 +141,7 @@ const PRODUCTS = [
       highlight: "Rich in Complex Carbs",
       highlightDescription: "Heirloom red rice provides slow-digesting complex carbohydrates that sustain energy for hours, making it the perfect fuel for highland farmers and active lifestyles."
     },
-    image: "https://images.unsplash.com/photo-1621245842817-21a41ff77f3f?w=800&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/c/c2/Suman_sa_Ibos.jpg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     quizTags: ["chill", "savory", "peak"]
   },
@@ -186,7 +186,7 @@ const PRODUCTS = [
       highlight: "High Fiber & Protein",
       highlightDescription: "Pigeon peas are among the richest plant-based protein and dietary fiber sources in Visayan cuisine, promoting healthy digestion and long-lasting satiety."
     },
-    image: "https://images.unsplash.com/photo-1548943487-a2e4e43b4850?w=800&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Kadyos_Baboy_Langka_%28KBL%29.jpg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     quizTags: ["hardcore", "savory", "peak"]
   },
@@ -222,18 +222,18 @@ const PRODUCTS = [
     },
     ingredientTheme: "Coconut shells used for baking infuses a subtle woody, toasted aroma into the sweet taro.",
     nutrition: {
-      calories: 310,
+      calories: 290,
       carbs: "52g",
       protein: "3g",
-      fat: "11g",
-      sugar: "28g",
-      fiber: "2g",
-      highlight: "Energy Dense Sweet",
-      highlightDescription: "A concentrated source of natural carbohydrates and fats from taro and coconut cream, making this a beloved high-energy post-harvest celebration treat."
+      fat: "8g",
+      sugar: "18g",
+      fiber: "5g",
+      highlight: "High Energy & Fiber",
+      highlightDescription: "Taro root is an excellent source of dietary fiber and complex carbohydrates, providing a sustained energy boost while supporting healthy digestion."
     },
-    image: "https://images.unsplash.com/photo-1605333555298-500e57201389?w=800&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/3/30/Binagol.jpg",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["chill", "sweet", "mist"]
+    quizTags: ["chill", "sweet", "river"]
   },
   {
     id: "prod-106",

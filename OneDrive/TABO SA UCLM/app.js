@@ -294,18 +294,22 @@ const App = (() => {
     const rightCol = document.getElementById('home-gallery-right');
     if (!leftCol || !rightCol) return;
 
-    // Left column: food + people portraits (local images)
+    // Left column (5 images)
     const leftItems = [
       { img: 'be12f643-361f-4ad9-9cbc-c89416a5dba5.jpg', caption: 'Tinuom na Manok, a highland delicacy', galleryId: 'gallery-cuisine' },
       { img: 'e1e5a388-ace2-4e6a-a6db-2db4181c5450.jpg', caption: 'Tamales, wrapped in corn husks', galleryId: 'gallery-cuisine' },
       { img: 'c3749917-6e05-4b82-86a6-79ee251240ae.jpg', caption: 'Elders in traditional Bukidnon attire', galleryId: 'gallery-people' },
+      { img: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Mount_Madja-as.jpg', caption: 'Mount Madja-as, the sacred peak', galleryId: 'gallery-history' },
+      { img: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Tnalak_Weaving.jpg', caption: 'The meticulous art of weaving', galleryId: 'gallery-conservation' },
     ];
 
-    // Right column: fashion + craft + elder (local images)
+    // Right column (5 images)
     const rightItems = [
       { img: 'fc075faf-172b-4ce9-8559-143ca84f5c26.jpg', caption: 'A Panubok weaver, keeper of the craft', galleryId: 'gallery-conservation' },
       { img: '7fc84c48-b93b-4a9f-9141-d2c70ebdaadb.jpg', caption: 'Panay Bukidnon traditional dress', galleryId: 'gallery-culture' },
       { img: '50a19d46-e237-4b5c-958a-8454f060f70d.jpg', caption: 'Bagsang — an embroidered spirit motif', galleryId: 'gallery-tradition' },
+      { img: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Ati-Atihan_Festival.jpg', caption: 'Traditional dances honoring nature', galleryId: 'gallery-culture' },
+      { img: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Kulintang_ensemble_01.jpg', caption: 'Rhythms of the ancestral gongs', galleryId: 'gallery-culture' },
     ];
 
     function makeTile(item) {
