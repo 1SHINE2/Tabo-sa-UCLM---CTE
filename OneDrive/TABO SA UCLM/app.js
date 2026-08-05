@@ -153,7 +153,7 @@ const App = (() => {
         
         <!-- FUN FACTS (UP-RIGHT STAGGER) -->
         <div class="w-11/12 md:w-4/5 ml-auto mb-10 p-5 bg-leaf/5 rounded-l-2xl border-r-4 border-leaf shadow-sm relative">
-          <div class="absolute -top-4 -right-2 text-leaf/20 text-6xl font-display">”</div>
+          <div class="absolute -top-4 -right-2 text-leaf/20 text-6xl font-display">&rdquo;</div>
           <h4 class="text-xl font-bold text-earth mb-3 font-display text-right">Fascinating Details</h4>
           <ul class="fun-fact-list mb-0">
             ${funFactsHtml}
@@ -162,7 +162,7 @@ const App = (() => {
         
         <!-- SOCIO-CULTURAL IMPACT (UP-LEFT STAGGER) -->
         <div class="w-11/12 md:w-4/5 mr-auto mb-12 p-5 bg-earth/5 rounded-r-2xl border-l-4 border-earth shadow-sm relative">
-          <div class="absolute -top-4 -left-2 text-earth/20 text-6xl font-display">“</div>
+          <div class="absolute -top-4 -left-2 text-earth/20 text-6xl font-display">&ldquo;</div>
           <h4 class="text-xl font-bold text-earth mb-3 font-display text-left">Socio-Cultural Impact</h4>
           <p class="text-smoke text-sm leading-relaxed text-left">${product.history?.impact || ''}</p>
         </div>
@@ -251,7 +251,7 @@ const App = (() => {
     });
     document.querySelectorAll('.tappable-chip').forEach(c => c.classList.remove('chip-active'));
     if (!open) {
-      desc.style.display = 'inline';
+      desc.style.display = 'block'; // FIXED: Changed from inline to block
       chipEl.classList.add('chip-active');
     }
   };
