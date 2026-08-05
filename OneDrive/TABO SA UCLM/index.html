@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Tabo sa UCLM — Panay Bukidnon</title>
+  
+  <!-- Tailwind CSS via CDN for utility classes -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="panubok-bg">
+
+  <!-- ── Global Header & Navigation ── -->
+  <header id="global-header">
+    <button id="menu-toggle" class="hamburger-btn" type="button" aria-label="Open Menu">☰</button>
+    <div class="font-display font-bold text-xl truncate">Tabo sa UCLM</div>
+  </header>
+
+  <!-- ── Sidebar Drawer ── -->
+  <div id="sidebar-overlay"></div>
+  <nav id="sidebar-drawer">
+    <div class="p-5 border-b border-gray-200">
+      <h2 class="font-display text-2xl text-earth mb-1">Panay Bukidnon</h2>
+      <p class="text-xs text-smoke uppercase tracking-wider">Tabo sa UCLM</p>
+    </div>
+    <div class="flex-grow flex flex-col mt-2">
+      <!-- 🏠 Homepage -->
+      <a href="#home" class="sidebar-link">
+        <span class="text-xl">🏠</span> Homepage
+      </a>
+      <!-- 🔮 Interactive Quest -->
+      <a href="#quest" class="sidebar-link">
+        <span class="text-xl">🔮</span> Interactive Quest
+      </a>
+      <!-- 🛒 Online Shopping -->
+      <a href="#menu" class="sidebar-link">
+        <span class="text-xl">🛒</span> Online Menu
+      </a>
+      <div class="mt-auto">
+        <!-- 🔐 Cashier POS -->
+        <a href="#cashier" class="sidebar-link border-t border-gray-200" style="border-bottom: none;">
+          <span class="text-xl">🔐</span> Cashier POS
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── View Container ── -->
+  <main id="app-container" class="pb-24">
+    
+    <!-- 1️⃣ HOMEPAGE VIEW (#home) -->
+    <section id="view-home" class="view-section active">
+      <!-- Masonry Gallery -->
+      <div class="masonry-gallery">
+        <a href="#gallery-highlands" class="masonry-item">
+          <!-- TODO: Replace with beautiful Panay Bukidnon / Cultural Image -->
+          <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80" alt="Mountain Highlands" />
+          <div class="absolute inset-0 bg-black/30 flex items-end p-3">
+            <span class="text-white font-display font-bold text-lg drop-shadow-md">The Highlands</span>
+          </div>
+        </a>
+        <a href="#gallery-traditions" class="masonry-item">
+          <!-- TODO: Replace with CTE / Weaving Image -->
+          <img src="https://images.unsplash.com/photo-1605814522430-e3496c1410f9?w=600&q=80" alt="Cultural Weaving" />
+          <div class="absolute inset-0 bg-black/30 flex items-end p-2">
+            <span class="text-white font-display font-bold text-sm drop-shadow-md">Traditions</span>
+          </div>
+        </a>
+        <a href="#gallery-tabo" class="masonry-item">
+          <!-- TODO: Replace with Tabo/Market Image -->
+          <img src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80" alt="Market" />
+          <div class="absolute inset-0 bg-black/30 flex items-end p-2">
+            <span class="text-white font-display font-bold text-sm drop-shadow-md">Tabo sa UCLM</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Cultural Text -->
+      <div class="px-5 py-6 bg-white shadow-sm mt-2">
+        <h2 class="text-2xl mb-3">Culture of Panay Bukidnon</h2>
+        <p class="text-smoke mb-6 text-sm leading-relaxed">
+          The Panay Bukidnon are the indigenous peoples of the mountainous regions of Panay Island. Known for their vibrant <em>Panubok</em> embroidery, epic chants (<em>Sugidanon</em>), and deep reverence for nature, their culture is a living testament to pre-colonial Philippine heritage.
+        </p>
+
+        <h3 class="text-lg mb-2">Theme of Tabo sa UCLM</h3>
+        <p class="text-smoke mb-6 text-sm leading-relaxed">
+          For this Buwan ng Wika, the CTE department proudly presents a culinary journey into the heart of the highlands. Every dish served here is a story of survival, animistic harmony, and the rich bounty of the mountains.
+        </p>
+
+        <h3 class="text-lg mb-2">Background & History</h3>
+        <p class="text-smoke text-sm leading-relaxed">
+          Long before the coastal trade flourished, the mountain rivers provided life. Our menu honors the traditional zero-waste cooking methods of the Bukidnon—using bamboo tubes, banana leaves, and natural highland fermentation.
+        </p>
+      </div>
+
+      <div class="px-5 py-6 text-center">
+        <a href="#menu" class="btn btn-primary btn-full btn-lg mb-4">View Online Menu</a>
+        <a href="#quest" class="btn btn-outline btn-full btn-lg">Take the Spirit Quest</a>
+      </div>
+    </section>
+
+
+    <!-- 2️⃣ INTERACTIVE QUEST VIEW (#quest) -->
+    <section id="view-quest" class="view-section">
+      <div id="quiz-screen" style="background-image: url('https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&q=80');">
+        <div id="quiz-content-wrapper">
+          <!-- Dynamically populated by quiz.js -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 3️⃣ ONLINE SHOPPING MENU VIEW (#menu) -->
+    <section id="view-menu" class="view-section">
+      <!-- Search Bar -->
+      <div class="search-bar-wrapper">
+        <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Search for a dish or ingredient..." />
+      </div>
+
+      <!-- Shopee-style Grid -->
+      <div id="menu-grid" class="shopee-grid">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+
+    <!-- 4️⃣ PRODUCT DETAIL VIEW (#product) -->
+    <section id="view-product" class="view-section">
+      <!-- Rendered by app.js -->
+    </section>
+
+
+    <!-- 5️⃣ CASHIER POS VIEW (#cashier) -->
+    <section id="view-cashier" class="view-section">
+      <!-- PIN Gate -->
+      <div id="pin-gate">
+        <div class="text-center text-white px-6">
+          <h2 class="text-white text-2xl mb-2">Staff Only</h2>
+          <p class="opacity-80 text-sm">Enter POS PIN to access</p>
+        </div>
+        <div class="pin-dots" id="pin-dots">
+          <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+        </div>
+        <div class="pin-keypad" id="pin-keypad">
+          <!-- Rendered by cashier.js -->
+        </div>
+      </div>
+
+      <!-- Main POS Interface -->
+      <div id="cashier-pos" class="hidden">
+        <!-- Left: Feed -->
+        <div class="flex-1 border-r border-gray-700 flex flex-col">
+          <div class="pos-header">
+            <h2 class="text-white text-lg">Live Orders</h2>
+            <button class="btn btn-sm btn-outline text-white border-gray-500" onclick="CashierPOS.refreshFeed()">↻ Refresh</button>
+          </div>
+          <div id="order-feed-container" class="flex-1 overflow-y-auto p-3"></div>
+        </div>
+
+        <!-- Right: Register -->
+        <div class="w-full lg:w-96 flex flex-col h-[60vh] lg:h-auto border-t lg:border-t-0 border-gray-700">
+          <div class="p-3 bg-gray-800">
+            <input type="number" id="quick-entry-input" class="form-input" placeholder="Enter Product ID (e.g. 101)" />
+          </div>
+          <div id="pos-bill-items" class="flex-1 overflow-y-auto p-3"></div>
+          <div class="p-4 bg-gray-900 border-t border-gray-700">
+            <div class="flex justify-between text-lg font-bold text-yellow-400 mb-3">
+              <span>TOTAL</span>
+              <span id="pos-grand-total">₱0</span>
+            </div>
+            <input type="number" id="pos-cash-input" class="form-input mb-3" placeholder="Cash Tendered (₱)" />
+            <div class="flex justify-between text-sm text-gray-300 mb-4">
+              <span>Change Due</span>
+              <span id="pos-change-display" class="font-bold text-white text-lg">₱0</span>
+            </div>
+            <div class="flex gap-2">
+              <button class="btn btn-full" style="background:#555;color:white;" onclick="CashierPOS.clearBill()">Clear</button>
+              <button class="btn btn-primary btn-full" onclick="CashierPOS.checkoutBill()">Done</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 6️⃣ DIGITAL RECEIPT VIEW (#receipt) -->
+    <section id="view-receipt" class="view-section">
+      <div class="min-h-screen flex items-center justify-center p-5 panubok-bg">
+        <div id="receipt-screen" class="w-full max-w-sm">
+          <!-- Rendered by checkout.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 7️⃣ CULTURAL GALLERY VIEW (#gallery) -->
+    <section id="view-gallery" class="view-section">
+      <div class="p-5 max-w-2xl mx-auto pb-32 pt-6">
+        <a href="#home" class="btn btn-outline mb-6">← Back to Home</a>
+        <h2 class="text-3xl font-display font-bold text-earth mb-4" id="gallery-title">Cultural Heritage</h2>
+        <div class="w-full aspect-video bg-gray-200 rounded-lg mb-6 overflow-hidden shadow-md">
+          <img id="gallery-image" src="" alt="Gallery Full" class="w-full h-full object-cover" />
+        </div>
+        <p id="gallery-text" class="text-smoke text-sm leading-relaxed mb-6">
+          This is a placeholder description for the cultural gallery image. You can update this text with actual historical context once the collage is ready!
+        </p>
+      </div>
+    </section>
+
+  </main> <!-- /app-container -->
+
+  <!-- ── Floating Cart Bar ── -->
+  <div id="cart-bar" class="hidden" onclick="Checkout.open()">
+    <span class="text-xl relative">🛒<div id="cart-count-badge">0</div></span>
+    <div class="flex-grow flex justify-between font-bold">
+      <span>View Cart</span>
+      <span id="cart-bar-total">₱0</span>
+    </div>
+  </div>
+
+  <!-- ── Checkout Sheet Modal ── -->
+  <div id="checkout-overlay" class="hidden" onclick="Checkout.close(event)">
+    <div id="checkout-sheet" onclick="event.stopPropagation()">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl">Your Order</h2>
+        <button onclick="Checkout.close()" type="button" class="text-smoke text-2xl" aria-label="Close">&times;</button>
+      </div>
+
+      <!-- Cart Items Rendered Here -->
+      <div id="checkout-items-container" class="mb-4"></div>
+
+      <!-- Discount Section -->
+      <div class="flex gap-2 mb-2">
+        <input type="text" id="voucher-input" class="form-input text-sm uppercase" placeholder="Enter Voucher Code" />
+        <button type="button" id="apply-voucher-btn" class="btn btn-outline" onclick="Checkout.applyVoucher()">Apply</button>
+      </div>
+      <div id="voucher-applied-badge" class="hidden mb-4"></div>
+
+      <div class="divider"></div>
+
+      <!-- Checkout Form -->
+      <div id="checkout-form-container">
+        <!-- Fulfillment Options -->
+        <h3 class="text-sm font-bold text-earth mb-2 uppercase tracking-wide">Fulfillment</h3>
+        <label class="radio-pill" data-fulfillment="pickup">
+          <input type="radio" name="fulfillment" value="pickup" checked /> 🏪 Booth Pickup
+        </label>
+        <label class="radio-pill" data-fulfillment="delivery">
+          <input type="radio" name="fulfillment" value="delivery" /> 🚚 Campus Delivery
+        </label>
+        
+        <div id="delivery-fields" class="hidden mt-3 mb-4 p-3 bg-gray-50 border border-gray-200 rounded-md">
+          <label class="form-label">Delivery Building & Room</label>
+          <input type="text" id="f-destination" class="form-input" placeholder="e.g. CTE Building, Rm 204" />
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Payment Setup -->
+        <h3 class="text-sm font-bold text-earth mb-3 uppercase tracking-wide">Payment Details (GCash)</h3>
+        
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4 text-center">
+          <p class="text-xs text-smoke mb-2">Scan or tap to pay via GCash: <strong id="gcash-display-number"></strong></p>
+          <!-- TODO: Add your GCash QR Image here -->
+          <img src="https://placehold.co/200x200/F4E8C9/6B4226?text=GCash+QR" alt="GCash QR" class="w-32 h-32 mx-auto rounded-md shadow-sm mb-3">
+          <!-- GCash deep link -->
+          <a id="gcash-pay-link" href="#" target="_blank" class="btn btn-primary w-full">
+            <span id="gcash-pay-label">Pay via GCash App</span>
+          </a>
+          <button id="copy-gcash-btn" type="button" class="btn btn-outline w-full mt-2" onclick="Checkout.copyGCashNumber()">Copy GCash Number</button>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="form-label">Your Name</label>
+            <input type="text" id="f-name" class="form-input" placeholder="e.g. Maria Clara" required />
+          </div>
+          <div>
+            <label class="form-label">GCash Name (Sender)</label>
+            <input type="text" id="f-gcash-name" class="form-input" placeholder="e.g. Juan D." required />
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <div class="flex justify-between items-end mb-4">
+            <span class="text-smoke font-semibold">Total to Pay</span>
+            <span id="checkout-grand-total" class="font-display font-bold text-3xl text-earth">₱0</span>
+          </div>
+          <button id="btn-submit-order" type="button" class="btn btn-gold btn-full btn-lg" onclick="Checkout.submitOrder()">
+            Submit Order
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Global Toast Container ── -->
+  <div id="toast-container"></div>
+
+  <!-- ── Script Imports ── -->
+  <script src="data.js"></script>
+  <script src="cart.js"></script>
+  <script src="checkout.js"></script>
+  <script src="cashier.js"></script>
+  <script src="quiz.js"></script>
+  <script src="router.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

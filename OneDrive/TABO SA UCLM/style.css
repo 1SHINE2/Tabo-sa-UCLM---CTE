@@ -1,0 +1,499 @@
+/**
+ * style.css â€” Tabo sa UCLM Custom Theme (V2)
+ * â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+ * Panay Bukidnon design system: color tokens, Panubok-inspired pattern,
+ * typography, and micro-animation keyframes.
+ * Includes V2 styles: Sidebar Navigation, Masonry Gallery, Full-Screen Quiz,
+ * and Shopee-like e-commerce grid.
+ * â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+ */
+
+/* â”€â”€ Google Fonts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* â”€â”€ Design Tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+:root {
+  /* Primary palette â€” Panay Bukidnon highlands */
+  --color-earth:       #6B4226;   /* deep terracotta â€” headings, borders */
+  --color-earth-light: #9B6B47;   /* lighter terracotta â€” secondary headings */
+  --color-leaf:        #4A7C59;   /* highland green â€” buttons, badges */
+  --color-leaf-dark:   #2E5B3F;   /* deep forest â€” button hover */
+  --color-leaf-light:  #6FAD82;   /* soft green â€” accents */
+  --color-gold:        #D4A017;   /* woven gold â€” vouchers, prices */
+  --color-gold-light:  #F0C84A;   /* light gold â€” hover accents */
+  --color-cream:       #FDF6E3;   /* warm parchment â€” page background */
+  --color-cream-dark:  #F4E8C9;   /* deeper parchment â€” card surfaces */
+  --color-smoke:       #8B6F5E;   /* forest mist â€” secondary text */
+  --color-smoke-light: #B89A8A;   /* soft smoke â€” dividers */
+  --color-dark:        #2C1A0E;   /* deep bark â€” primary text */
+
+  /* Semantic aliases */
+  --bg-page:         var(--color-cream);
+  --bg-card:         var(--color-cream-dark);
+  --bg-header:       var(--color-earth);
+  --text-primary:    var(--color-dark);
+  --text-secondary:  var(--color-smoke);
+  --text-on-dark:    #FDF6E3;
+  --accent-primary:  var(--color-leaf);
+  --accent-hover:    var(--color-leaf-dark);
+  --accent-gold:     var(--color-gold);
+  --border-default:  #D9C4A8;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  /* Spacing & radius */
+  --radius-sm:   0.375rem;
+  --radius-md:   0.75rem;
+  --radius-lg:   1.25rem;
+  --radius-xl:   2rem;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(44,26,14,0.08);
+  --shadow-md:  0 4px 16px rgba(44,26,14,0.12);
+  --shadow-lg:  0 8px 32px rgba(44,26,14,0.18);
+  --shadow-card: 0 2px 12px rgba(107,66,38,0.10);
+  
+  /* Header Height */
+  --header-height: 60px;
+}
+
+/* â”€â”€ Base Reset â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-top: var(--header-height); /* For fixed global header */
+}
+
+/* â”€â”€ Panubok-Inspired Geometric Background Pattern â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.panubok-bg {
+  background-color: var(--bg-page);
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 18px,
+      rgba(107,66,38,0.04) 18px,
+      rgba(107,66,38,0.04) 20px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 18px,
+      rgba(74,124,89,0.04) 18px,
+      rgba(74,124,89,0.04) 20px
+    );
+}
+
+.panubok-header {
+  background:
+    linear-gradient(
+      135deg,
+      var(--color-earth) 0%,
+      #4A2C0E 50%,
+      #2E1A08 100%
+    );
+  background-image:
+    linear-gradient(135deg, var(--color-earth) 0%, #2E1A08 100%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 12px,
+      rgba(212,160,23,0.08) 12px,
+      rgba(212,160,23,0.08) 13px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 12px,
+      rgba(212,160,23,0.06) 12px,
+      rgba(212,160,23,0.06) 13px
+    );
+  background-blend-mode: normal;
+}
+
+/* â”€â”€ Global Header & Sidebar Drawer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#global-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-height);
+  background: var(--color-earth);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  z-index: 1000;
+  box-shadow: var(--shadow-md);
+}
+
+.hamburger-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-right: 1rem;
+}
+
+#sidebar-drawer {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 280px;
+  background: var(--bg-page);
+  z-index: 1100;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+}
+#sidebar-drawer.open {
+  transform: translateX(0);
+}
+
+#sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1050;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+#sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  color: var(--color-earth);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-default);
+  transition: background 0.2s;
+}
+.sidebar-link:hover, .sidebar-link:active {
+  background: var(--color-cream-dark);
+}
+
+/* â”€â”€ Typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--color-earth);
+  line-height: 1.2;
+}
+h1 { font-size: clamp(1.8rem, 5vw, 3rem); }
+h2 { font-size: clamp(1.4rem, 4vw, 2.2rem); }
+h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
+.font-display { font-family: var(--font-display); }
+
+/* â”€â”€ Animations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUpSheet { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes pulseCart { 0% { transform: scale(1); } 40% { transform: scale(1.25); } 70% { transform: scale(0.95); } 100% { transform: scale(1); } }
+@keyframes toastIn { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes toastOut { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(100%); } }
+
+.animate-fade-in    { animation: fadeIn    0.35s ease-out forwards; }
+.animate-slide-up   { animation: slideUp   0.40s ease-out forwards; }
+.animate-slide-down { animation: slideDown 0.30s ease-out forwards; }
+.animate-pulse-cart { animation: pulseCart 0.45s ease-out; }
+
+/* â”€â”€ View System â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.view-section { display: none; }
+.view-section.active { display: block; animation: fadeIn 0.3s ease-out; }
+
+/* â”€â”€ Masonry Image Gallery (Homepage) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.masonry-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  padding: 1rem;
+}
+.masonry-item {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  display: block;
+}
+.masonry-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.masonry-item:hover img { transform: scale(1.05); }
+.masonry-item:nth-child(1) { grid-column: span 2; height: 200px; }
+.masonry-item:nth-child(2), .masonry-item:nth-child(3) { height: 160px; }
+
+/* â”€â”€ Shopee-Style Menu Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.shopee-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+@media (min-width: 768px) { .shopee-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 1rem; } }
+@media (min-width: 1024px) { .shopee-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.shopee-card {
+  background: white;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s;
+}
+.shopee-card:hover { box-shadow: var(--shadow-md); }
+.shopee-card img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.shopee-card-body { padding: 0.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+.shopee-title {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+}
+.shopee-price { font-size: 1rem; font-weight: 700; color: var(--color-earth); margin-bottom: 0.5rem; }
+.shopee-add-btn {
+  margin-top: auto;
+  background: var(--color-leaf);
+  color: white;
+  text-align: center;
+  padding: 0.4rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: none;
+  width: 100%;
+}
+
+/* â”€â”€ Buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+  font-family: var(--font-body); font-weight: 600; border: none; cursor: pointer;
+  border-radius: var(--radius-md); text-decoration: none;
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:active { transform: scale(0.96); }
+.btn-primary { background: var(--accent-primary); color: white; padding: 0.65rem 1.3rem; box-shadow: 0 2px 8px rgba(74,124,89,0.35); }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-gold { background: var(--accent-gold); color: var(--color-dark); padding: 0.65rem 1.3rem; }
+.btn-outline { background: transparent; border: 2px solid var(--accent-primary); color: var(--accent-primary); padding: 0.6rem 1.2rem; }
+.btn-lg { padding: 0.85rem 1.8rem; font-size: 1.05rem; border-radius: var(--radius-lg); }
+.btn-sm { padding: 0.4rem 0.85rem; font-size: 0.85rem; }
+.btn-full { width: 100%; }
+
+/* â”€â”€ V2 Stepper Buttons (Fixed for Mobile Touch & scrolling issues) â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: white;
+}
+.qty-stepper button {
+  background: var(--bg-card);
+  border: none;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--color-earth);
+  font-weight: 700;
+  /* Prevent touch-action from interfering with button taps */
+  touch-action: manipulation;
+}
+.qty-stepper button:active { background: var(--border-default); }
+.qty-stepper span {
+  width: 40px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* â”€â”€ Full-Screen Quiz View â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#quiz-screen {
+  position: relative;
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease;
+}
+/* Dark overlay for quiz screens */
+#quiz-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1;
+}
+#quiz-content-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  color: white;
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+.quiz-option:hover {
+  border-color: var(--color-gold);
+  background: rgba(212,160,23,0.2);
+  transform: translateX(3px);
+}
+
+.result-card {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  border: 2px solid var(--color-gold);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+/* â”€â”€ Badges & Tags â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.badge { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; text-transform: uppercase; }
+.badge-gold    { background: var(--accent-gold); color: var(--color-dark); }
+.badge-earth   { background: var(--color-earth); color: white; }
+.badge-voucher {
+  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-light));
+  color: var(--color-dark); font-size: 0.9rem; padding: 0.4rem 1rem; border-radius: var(--radius-md);
+  box-shadow: 0 2px 8px rgba(212,160,23,0.4); letter-spacing: 0.08em; font-family: monospace; font-weight: bold;
+}
+
+/* â”€â”€ Floating Cart Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#cart-bar {
+  position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
+  background: var(--color-earth); color: white; border-radius: var(--radius-xl);
+  padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+  box-shadow: var(--shadow-lg); z-index: 100; min-width: 280px; max-width: 90vw;
+  cursor: pointer; transition: background 0.2s ease;
+}
+#cart-bar.hidden { display: none; }
+#cart-bar.route-hidden { display: none !important; }
+#cart-count-badge {
+  position: absolute; top: -8px; right: -8px; background: var(--accent-gold);
+  color: var(--color-dark); border-radius: 999px; font-size: 0.7rem; font-weight: 800;
+  min-width: 1.3rem; height: 1.3rem; display: flex; align-items: center; justify-content: center;
+}
+
+/* â”€â”€ Checkout Sheet & Inputs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#checkout-overlay { position: fixed; inset: 0; background: rgba(44,26,14,0.55); z-index: 2000; display: flex; align-items: flex-end; justify-content: center; }
+#checkout-overlay.hidden { display: none; }
+#checkout-sheet { background: var(--bg-page); border-radius: var(--radius-xl) var(--radius-xl) 0 0; width: 100%; max-width: 540px; max-height: 92vh; overflow-y: auto; padding: 1.5rem; animation: slideUpSheet 0.38s cubic-bezier(0.32, 0.72, 0, 1); }
+
+.form-input { width: 100%; padding: 0.7rem 1rem; border: 1.5px solid var(--border-default); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 1rem; background: white; outline: none; }
+.form-input:focus { border-color: var(--accent-primary); box-shadow: 0 0 0 3px rgba(74,124,89,0.15); }
+.form-label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 0.4rem; color: var(--color-earth); }
+.search-bar-wrapper { position: sticky; top: var(--header-height); z-index: 10; background: var(--bg-page); padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-default); box-shadow: var(--shadow-sm); }
+
+/* Radio pills */
+.radio-pill { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1rem; border: 2px solid var(--border-default); border-radius: var(--radius-md); cursor: pointer; background: white; font-weight: 500; margin-bottom:0.5rem; }
+.radio-pill input[type="radio"] { display: none; }
+.radio-pill.selected { border-color: var(--accent-primary); background: rgba(74,124,89,0.08); color: var(--color-leaf-dark); }
+
+/* â”€â”€ Nutrition Grid & Chips â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.nutrition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.nutrition-cell { background: white; border: 1px solid var(--border-default); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; text-align: center; }
+.nutrition-cell .value { font-size: 1.2rem; font-weight: 700; color: var(--color-earth); }
+.nutrition-cell .label { font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; }
+.ingredient-chip { display: inline-block; background: white; border: 1px solid var(--border-default); border-radius: 999px; padding: 0.25rem 0.7rem; font-size: 0.8rem; color: var(--text-secondary); margin: 0.2rem; }
+.cultural-blockquote { border-left: 4px solid var(--color-gold); background: rgba(212,160,23,0.07); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1rem 1.2rem; font-style: italic; color: var(--color-earth); }
+
+/* â”€â”€ Toast & Misc â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#toast-container { position: fixed; top: calc(var(--header-height) + 1rem); right: 1rem; z-index: 5000; display: flex; flex-direction: column; gap: 0.5rem; max-width: 320px; }
+.toast { background: var(--color-dark); color: white; padding: 0.85rem 1rem; border-radius: var(--radius-md); font-size: 0.9rem; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease-out; border-left: 3px solid var(--accent-primary); }
+.toast-success { border-color: var(--color-leaf); }
+.toast-warning { border-color: var(--color-gold); }
+.toast-error   { border-color: #e05252; }
+.toast-exit    { animation: toastOut 0.3s ease-in forwards; }
+.divider { border: none; border-top: 1px solid var(--border-default); margin: 1rem 0; }
+.hidden { display: none !important; }
+
+/* â”€â”€ Cashier POS Specifics â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#pin-gate { min-height: calc(100vh - var(--header-height)); display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--color-earth); gap: 1.5rem; }
+.pin-dots { display: flex; gap: 1rem; }
+.pin-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(253,246,227,0.5); }
+.pin-dot.filled { background: var(--color-gold); border-color: var(--color-gold); }
+.pin-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; width: 280px; }
+.pin-key { aspect-ratio: 1; border: none; border-radius: var(--radius-md); background: rgba(253,246,227,0.12); color: white; font-size: 1.4rem; cursor: pointer; }
+#cashier-pos { min-height: calc(100vh - var(--header-height)); background: var(--color-dark); color: var(--text-on-dark); display: flex; flex-direction: column; }
+@media (min-width: 1024px) { #cashier-pos { flex-direction: row; } }
+.pos-header { background: var(--color-earth); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+.pos-bill-item { display: flex; align-items: center; justify-content: space-between; padding: 0.65rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.order-card { background: rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: 1rem; border-left: 3px solid var(--color-gold); margin-bottom: 0.75rem; }
+.order-card.fulfilled { opacity: 0.4; border-left-color: var(--accent-primary); }
+
+/* %% V3 Product Detail Page Styles %% */
+.product-hero { position: relative; width: 100%; min-height: 40vh; background-color: var(--color-earth); display: flex; align-items: flex-end; }
+.product-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.85)); z-index: 1; }
+.product-hero-content { position: relative; z-index: 2; padding: 2rem; width: 100%; }
+.fun-fact-list { list-style: none; padding: 0; margin-top: 0.5rem; }
+.fun-fact-list li { position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; font-size: 0.875rem; color: var(--color-smoke); }
+.fun-fact-list li::before { content: ''''; position: absolute; left: 0; top: 0; color: var(--color-leaf); font-size: 1rem; }
+.nutrition-highlight { display: inline-block; background: var(--color-leaf); color: white; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+.media-ingredients-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+@media (min-width: 768px) { .media-ingredients-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+.bottom-order-cta { position: sticky; bottom: 0; background: white; border-top: 1px solid var(--border-default); padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); z-index: 50; }
+
