@@ -1,7 +1,7 @@
 /**
- * data.js — Tabo sa UCLM Product Data (V3)
+ * data.js — Tabo sa UCLM Product Data (V3.1)
  * ─────────────────────────────────────────────────────────────────────────────
- * Complete layout structure overhaul (V3 Schema) for Panay Bukidnon booth.
+ * Added: sugar, fiber to nutrition; highlightDescription; ingredientDescriptions
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -32,13 +32,24 @@ const PRODUCTS = [
       "Banana leaf wrapper",
       "Highland salt & peppercorns"
     ],
+    ingredientDescriptions: {
+      "Native free-range chicken": "Raised in open highland farms — leaner, more flavorful, and richer in Omega-3 than commercial breeds.",
+      "Fresh lemongrass": "Aromatic highland stalk prized for its citrusy fragrance and natural antibacterial properties.",
+      "Wild ginger": "Foraged ginger (Luya-luya) with a sharper, more pungent flavor than cultivated varieties.",
+      "Onion leeks": "Mild, sweet allium used in highland cooking for depth of flavor without overpowering the chicken.",
+      "Banana leaf wrapper": "The natural cooking vessel — seals in steam and imparts a light herbal, earthy aroma to the meat.",
+      "Highland salt & peppercorns": "Unrefined mineral-rich salt paired with native cracked peppercorns for authentic seasoning."
+    },
     ingredientTheme: "Utilizing banana leaves as a natural steaming vessel preserves eco-friendly ancestral practices.",
     nutrition: {
       calories: 280,
       carbs: "8g",
       protein: "32g",
       fat: "12g",
-      highlight: "High Protein Core"
+      sugar: "1g",
+      fiber: "0g",
+      highlight: "High Protein Core",
+      highlightDescription: "Exceptional lean protein from native free-range chicken makes this dish an ideal post-activity recovery meal, supporting muscle repair and sustained energy."
     },
     image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800&q=80",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -69,13 +80,23 @@ const PRODUCTS = [
       "Highland sea salt",
       "Banana leaf wrap"
     ],
+    ingredientDescriptions: {
+      "Fresh river fish": "Caught from the Jalaur River — firm, clean flesh with a naturally mild, sweet flavor.",
+      "Wild ginger (Luya-luya)": "Smaller and more pungent than commercial ginger; neutralizes fishy odors and aids digestion.",
+      "Calamansi": "Philippine lime — squeezed for citric acid brightness that cuts through the richness of grilled fish.",
+      "Highland sea salt": "Mineral-rich, unprocessed salt that enhances without masking the fish's natural sweetness.",
+      "Banana leaf wrap": "Used as a grilling barrier to prevent the fish from sticking while adding a subtle herbal aroma."
+    },
     ingredientTheme: "Wild Luya-luya neutralizes any muddy taste while providing potent anti-inflammatory benefits.",
     nutrition: {
       calories: 210,
       carbs: "2g",
       protein: "28g",
       fat: "9g",
-      highlight: "Lean & Heart-Healthy"
+      sugar: "0g",
+      fiber: "0g",
+      highlight: "Lean & Heart-Healthy",
+      highlightDescription: "Low in saturated fat and rich in Omega-3 fatty acids from river fish, this dish actively supports cardiovascular health and keeps cholesterol levels balanced."
     },
     image: "https://images.unsplash.com/photo-1594041680534-e8c8cde561cb?w=800&q=80",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -104,13 +125,21 @@ const PRODUCTS = [
       "Katmon leaves",
       "Spring water"
     ],
+    ingredientDescriptions: {
+      "Heirloom highland red rice": "An ancient, unmodified rice variety with a nutty flavor, deep red bran, and a lower glycemic index than white rice.",
+      "Katmon leaves": "Indigenous leaves with natural antimicrobial properties, used to wrap and preserve rice during long highland journeys.",
+      "Spring water": "Pure mountain spring water, free of lowland chemicals, allowing the rice's natural sweetness to come through."
+    },
     ingredientTheme: "Katmon leaves are renowned in indigenous medicine for their antibacterial properties, extending the rice's shelf life naturally.",
     nutrition: {
       calories: 220,
       carbs: "45g",
       protein: "4g",
       fat: "1g",
-      highlight: "Rich in Complex Carbs"
+      sugar: "0g",
+      fiber: "3g",
+      highlight: "Rich in Complex Carbs",
+      highlightDescription: "Heirloom red rice provides slow-digesting complex carbohydrates that sustain energy for hours, making it the perfect fuel for highland farmers and active lifestyles."
     },
     image: "https://images.unsplash.com/photo-1621245842817-21a41ff77f3f?w=800&q=80",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -140,13 +169,22 @@ const PRODUCTS = [
       "Batwan fruit",
       "Sweet potato tops"
     ],
+    ingredientDescriptions: {
+      "Kadios (Pigeon peas)": "Drought-resistant highland legume packed with plant protein and fiber; the cornerstone of Ilonggo cuisine.",
+      "Smoked pork knuckle": "Slow-smoked over wood chips for hours, infusing the meat with a deep, savory-smoky richness.",
+      "Batwan fruit": "An endemic Visayan souring agent with a clean, refreshing tartness that defines the stew's character.",
+      "Sweet potato tops": "Tender highland leafy greens added at the end, providing iron, vitamins A and C."
+    },
     ingredientTheme: "Kadios represents agricultural resilience, surviving and yielding pods even during severe dry spells.",
     nutrition: {
       calories: 340,
       carbs: "24g",
       protein: "26g",
       fat: "16g",
-      highlight: "High Fiber & Protein"
+      sugar: "3g",
+      fiber: "8g",
+      highlight: "High Fiber & Protein",
+      highlightDescription: "Pigeon peas are among the richest plant-based protein and dietary fiber sources in Visayan cuisine, promoting healthy digestion and long-lasting satiety."
     },
     image: "https://images.unsplash.com/photo-1548943487-a2e4e43b4850?w=800&q=80",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -176,13 +214,22 @@ const PRODUCTS = [
       "Muscovado sugar",
       "Condensed milk"
     ],
+    ingredientDescriptions: {
+      "Highland taro (Gabi)": "Cool mountain taro yields an exceptionally creamy, starchy flesh — far silkier than lowland varieties.",
+      "Fresh coconut cream": "First-press coconut cream, thick and intensely rich, adding tropical fat and natural sweetness.",
+      "Muscovado sugar": "Unrefined, minimally processed cane sugar retaining molasses; earthy, complex, and less sweet than white sugar.",
+      "Condensed milk": "Added for a smooth, caramel-like creaminess that binds the taro and coconut together."
+    },
     ingredientTheme: "Coconut shells used for baking infuses a subtle woody, toasted aroma into the sweet taro.",
     nutrition: {
       calories: 310,
       carbs: "52g",
       protein: "3g",
       fat: "11g",
-      highlight: "Energy Dense Sweet"
+      sugar: "28g",
+      fiber: "2g",
+      highlight: "Energy Dense Sweet",
+      highlightDescription: "A concentrated source of natural carbohydrates and fats from taro and coconut cream, making this a beloved high-energy post-harvest celebration treat."
     },
     image: "https://images.unsplash.com/photo-1605333555298-500e57201389?w=800&q=80",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -213,13 +260,23 @@ const PRODUCTS = [
       "Purple yam (Ube)",
       "Tapioca pearls"
     ],
+    ingredientDescriptions: {
+      "Glutinous rice flour": "Ground sticky rice that forms the chewy, satisfying bilo-bilo dumplings at the heart of this soup.",
+      "Coconut milk": "Light, sweet coconut milk forms the fragrant broth base, distinctly gentler than coconut cream.",
+      "Ripe jackfruit (Langka)": "Naturally honey-sweet mountain jackfruit chunks that dissolve into the broth for fruity depth.",
+      "Purple yam (Ube)": "Vibrant purple highland yam — mildly sweet with an earthy, vanilla-like note and stunning color.",
+      "Tapioca pearls": "Translucent starchy pearls that add a bouncy, bubble-tea-like texture to the soup."
+    },
     ingredientTheme: "Purple yam (Ube) gives the soup its vibrant, royal hue, turning a simple dish into a celebratory visual feast.",
     nutrition: {
       calories: 290,
       carbs: "48g",
       protein: "3g",
       fat: "10g",
-      highlight: "Rich Comfort Bowl"
+      sugar: "22g",
+      fiber: "2g",
+      highlight: "Rich Comfort Bowl",
+      highlightDescription: "A warm, nourishing blend of complex carbohydrates and natural fruit sugars that provides both immediate comfort and sustained warmth — perfect for cool highland afternoons."
     },
     image: "https://images.unsplash.com/photo-1563805042-7684c8a9e9cb?w=800&q=80",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -249,13 +306,22 @@ const PRODUCTS = [
       "Native vinegar",
       "Garlic & lemongrass"
     ],
+    ingredientDescriptions: {
+      "Pork belly": "Skin-on pork belly sliced and skewered — the fat renders into the meat over charcoal for a crisp, juicy bite.",
+      "Annatto seed oil (Asuete)": "Vibrant orange-red oil extracted from annatto seeds; used for both color and a subtle earthy, peppery flavor.",
+      "Native vinegar": "Fermented sugarcane or coconut vinegar — the tenderizing marinade acid that balances the rich fatty pork.",
+      "Garlic & lemongrass": "Aromatics that perfume the meat during marination, leaving a fragrant, smoky undertone after grilling."
+    },
     ingredientTheme: "Asuete (Annatto) is deeply tied to Panay Bukidnon culture, used historically for both culinary flavor and vibrant textile dyeing.",
     nutrition: {
       calories: 410,
       carbs: "4g",
       protein: "22g",
       fat: "34g",
-      highlight: "High Fat Keto"
+      sugar: "2g",
+      fiber: "0g",
+      highlight: "High Fat Keto",
+      highlightDescription: "Pork belly's high natural fat content makes this dish perfect for low-carb and ketogenic diets — the body burns this fat efficiently as fuel during festival activities."
     },
     image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -270,7 +336,7 @@ const PRODUCTS = [
       origin: "Deep Panay Jungles",
       summary: "Mastered by indigenous peoples across Panay, bamboo cooking preserved moisture during long jungle expeditions. Lutlot is an ancient indigenous cooking method requiring no pots, relying solely on natural forest materials.",
       funFacts: [
-        "Green, freshly cut bamboo is essential—dry bamboo would simply burn instead of steaming the food.",
+        "Green, freshly cut bamboo is essential — dry bamboo would simply burn instead of steaming the food.",
         "The bamboo internode imparts a distinct, sweet, earthy flavor into the pork fat."
       ],
       impact: "Showcases the supreme resourcefulness of the Bukidnon, demonstrating culinary mastery over wild environments."
@@ -286,13 +352,23 @@ const PRODUCTS = [
       "Wild garlic",
       "Chili peppers"
     ],
+    ingredientDescriptions: {
+      "Pork belly cubes": "Thick-cut heritage pork belly marbled with fat — tenderizes beautifully inside the sealed bamboo chamber.",
+      "Fresh bamboo tube": "Freshly harvested green bamboo — the cooking vessel that slowly releases sweet, woody steam to flavor the pork.",
+      "Ginger & lemongrass": "Highland aromatics that neutralize gamey notes and infuse the sealed chamber with bright, warming fragrance.",
+      "Wild garlic": "Smaller, more intensely flavored than commercial garlic; foraged from shaded forest clearings.",
+      "Chili peppers": "Native highland chilies — mild enough to add warmth without overwhelming the bamboo-infused pork flavor."
+    },
     ingredientTheme: "Fresh bamboo not only acts as a pot but dynamically flavors the meat as its internal moisture turns to steam.",
     nutrition: {
       calories: 380,
       carbs: "3g",
       protein: "28g",
       fat: "29g",
-      highlight: "Rich Ancestral Protein"
+      sugar: "1g",
+      fiber: "0g",
+      highlight: "Rich Ancestral Protein",
+      highlightDescription: "A powerful combination of dense protein and natural fats cooked without additives or processed ingredients — exactly as highland ancestors intended for sustained physical endurance."
     },
     image: "https://images.unsplash.com/photo-1514326640560-7d063ef2aed5?w=800&q=80",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -323,13 +399,23 @@ const PRODUCTS = [
       "Eggplant",
       "Ginger broth"
     ],
+    ingredientDescriptions: {
+      "Squash": "Highland-grown kalabasa with dense, sweet orange flesh; a rich source of beta-carotene and vitamin A.",
+      "Taro leaves": "Tender young leaves harvested from taro plants — must be fully cooked to neutralize naturally occurring calcium oxalate.",
+      "Okra": "Pods that release a natural starch into the broth, giving it a slightly silky, thickened body.",
+      "Eggplant": "Locally grown talong that absorbs the ginger broth beautifully, becoming buttery soft when simmered.",
+      "Ginger broth": "The aromatic, warming base made by simmering fresh knobs of highland ginger in mountain spring water."
+    },
     ingredientTheme: "Taro leaves and roots demonstrate the indigenous philosophy of full-plant utilization.",
     nutrition: {
       calories: 140,
       carbs: "22g",
       protein: "4g",
       fat: "2g",
-      highlight: "Low Calorie Vegan"
+      sugar: "6g",
+      fiber: "5g",
+      highlight: "Low Calorie Vegan",
+      highlightDescription: "A guilt-free, plant-based powerhouse rich in dietary fiber and vitamins from a diverse mix of highland vegetables — ideal for mindful, sustainable eating."
     },
     image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&q=80",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -359,13 +445,22 @@ const PRODUCTS = [
       "Wild forest honey",
       "Mountain spring water"
     ],
+    ingredientDescriptions: {
+      "Wild lemongrass": "Foraged from highland clearings — more intensely fragrant and citrusy than farmed varieties; calms anxiety and aids digestion.",
+      "Fresh pandan leaves": "Knotted before boiling to release concentrated aromatic oils that give the tea its signature vanilla-green scent.",
+      "Wild forest honey": "Unprocessed raw honey gathered by indigenous honey-hunters from mountain hives; rich in enzymes and antioxidants.",
+      "Mountain spring water": "Pure, mineral-rich water sourced from highland springs — the clean base that lets the herbal flavors shine."
+    },
     ingredientTheme: "Wild forest honey embodies the untamed richness of the mountains, gathered sustainably by indigenous honey-hunters.",
     nutrition: {
       calories: 60,
       carbs: "15g",
       protein: "0g",
       fat: "0g",
-      highlight: "Light Hydration"
+      sugar: "14g",
+      fiber: "0g",
+      highlight: "Light Hydration",
+      highlightDescription: "A natural, zero-fat herbal infusion with just a touch of wild honey for gentle energy. The lemongrass and pandan are clinically recognized for reducing stress and aiding sleep."
     },
     image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=800&q=80",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",

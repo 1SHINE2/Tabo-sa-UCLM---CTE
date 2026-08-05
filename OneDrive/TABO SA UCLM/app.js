@@ -107,8 +107,18 @@ const App = (() => {
 
     const currentQty = window.Cart.getQty(productId);
     
-    // Build ingredient chips
-    const ingChips = (product.ingredients || []).map(i => `<span class="ingredient-chip">${i}</span>`).join('');
+    // Build tappable ingredient chips with descriptions
+    const ingChips = (product.ingredients || []).map((ing, idx) => {
+      const desc = product.ingredientDescriptions?.[ing] || '';
+      const chipId = `ing-chip-${productId}-${idx}`;
+      const descId = `ing-desc-${productId}-${idx}`;
+      return `
+        <span class="ingredient-chip tappable-chip" onclick="toggleChipDesc('${descId}', this)" id="${chipId}">
+          ${ing} <span class="chip-arrow">▾</span>
+        </span>
+        <span class="ingredient-chip-desc" id="${descId}" style="display:none;">${desc}</span>
+      `;
+    }).join('');
     
     // Fun facts
     const funFactsHtml = (product.history?.funFacts || []).map(fact => `<li>${fact}</li>`).join('');
@@ -193,14 +203,23 @@ const App = (() => {
         <!-- 5. Nutrition Highlights (CENTERED) -->
         <div class="text-center mb-8">
           <h3 class="text-3xl font-display font-bold text-earth mb-4 inline-block border-b-2 border-gold pb-1">Nutrition Facts</h3>
-          <div class="mb-4">
-            ${product.nutrition?.highlight ? `<div class="nutrition-highlight scale-110 shadow-sm">${product.nutrition.highlight}</div>` : ''}
+          <div class="mb-5">
+            ${product.nutrition?.highlight ? `
+              <button class="nutrition-highlight scale-110 shadow-sm tappable-badge" onclick="toggleNutritionDesc('nutr-desc-${product.id}', this)" style="cursor:pointer; border:none;">
+                ${product.nutrition.highlight} <span style="font-size:0.65rem; opacity:0.8;">▾ tap for info</span>
+              </button>
+              <div id="nutr-desc-${product.id}" class="nutrition-desc-box" style="display:none; max-width:480px; margin: 0.75rem auto 0; background: rgba(74,124,89,0.08); border-left: 3px solid var(--color-leaf); border-radius: 0 12px 12px 0; padding: 0.85rem 1rem; text-align: left; font-size: 0.82rem; color: var(--color-smoke); line-height: 1.6; font-style: italic;">
+                ${product.nutrition.highlightDescription || ''}
+              </div>
+            ` : ''}
           </div>
           <div class="nutrition-grid text-left max-w-lg mx-auto">
             <div class="nutrition-cell shadow-sm"><div class="value">${product.nutrition?.calories || '-'}</div><div class="label">Calories</div></div>
             <div class="nutrition-cell shadow-sm"><div class="value">${product.nutrition?.protein || '-'}</div><div class="label">Protein</div></div>
             <div class="nutrition-cell shadow-sm"><div class="value">${product.nutrition?.carbs || '-'}</div><div class="label">Carbs</div></div>
             <div class="nutrition-cell shadow-sm"><div class="value">${product.nutrition?.fat || '-'}</div><div class="label">Fat</div></div>
+            <div class="nutrition-cell shadow-sm"><div class="value">${product.nutrition?.sugar || '-'}</div><div class="label">Sugar</div></div>
+            <div class="nutrition-cell shadow-sm"><div class="value">${product.nutrition?.fiber || '-'}</div><div class="label">Fiber</div></div>
           </div>
         </div>
       </div>
@@ -220,6 +239,31 @@ const App = (() => {
   }
   // Expose globally
   window.renderProductView = renderProductView;
+
+  // ── Ingredient chip & nutrition badge toggle ─────────────────────────────
+  window.toggleChipDesc = function(descId, chipEl) {
+    const desc = document.getElementById(descId);
+    if (!desc) return;
+    const open = desc.style.display !== 'none';
+    // Close all other open chip descs in this view
+    document.querySelectorAll('.ingredient-chip-desc').forEach(d => {
+      d.style.display = 'none';
+    });
+    document.querySelectorAll('.tappable-chip').forEach(c => c.classList.remove('chip-active'));
+    if (!open) {
+      desc.style.display = 'inline';
+      chipEl.classList.add('chip-active');
+    }
+  };
+
+  window.toggleNutritionDesc = function(descId, badgeEl) {
+    const desc = document.getElementById(descId);
+    if (!desc) return;
+    const open = desc.style.display !== 'none';
+    desc.style.display = open ? 'none' : 'block';
+    const arrow = badgeEl.querySelector('span');
+    if (arrow) arrow.textContent = open ? '▾ tap for info' : '▴ close';
+  };
 
   // ── Global Toast System ─────────────────────────────────────────────────────
   let toastCount = 0;
