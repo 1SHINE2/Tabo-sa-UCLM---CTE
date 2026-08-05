@@ -151,54 +151,7 @@
 
     <!-- 5️⃣ CASHIER POS VIEW (#cashier) -->
     <section id="view-cashier" class="view-section">
-      <!-- PIN Gate -->
-      <div id="pin-gate">
-        <div class="text-center text-white px-6">
-          <h2 class="text-white text-2xl mb-2">Staff Only</h2>
-          <p class="opacity-80 text-sm">Enter POS PIN to access</p>
-        </div>
-        <div class="pin-dots" id="pin-dots">
-          <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
-        </div>
-        <div class="pin-keypad" id="pin-keypad">
-          <!-- Rendered by cashier.js -->
-        </div>
-      </div>
-
-      <!-- Main POS Interface -->
-      <div id="cashier-pos" class="hidden">
-        <!-- Left: Feed -->
-        <div class="flex-1 border-r border-gray-700 flex flex-col">
-          <div class="pos-header">
-            <h2 class="text-white text-lg">Live Orders</h2>
-            <button class="btn btn-sm btn-outline text-white border-gray-500" onclick="CashierPOS.refreshFeed()">↻ Refresh</button>
-          </div>
-          <div id="order-feed-container" class="flex-1 overflow-y-auto p-3"></div>
-        </div>
-
-        <!-- Right: Register -->
-        <div class="w-full lg:w-96 flex flex-col h-[60vh] lg:h-auto border-t lg:border-t-0 border-gray-700">
-          <div class="p-3 bg-gray-800">
-            <input type="number" id="quick-entry-input" class="form-input" placeholder="Enter Product ID (e.g. 101)" />
-          </div>
-          <div id="pos-bill-items" class="flex-1 overflow-y-auto p-3"></div>
-          <div class="p-4 bg-gray-900 border-t border-gray-700">
-            <div class="flex justify-between text-lg font-bold text-yellow-400 mb-3">
-              <span>TOTAL</span>
-              <span id="pos-grand-total">₱0</span>
-            </div>
-            <input type="number" id="pos-cash-input" class="form-input mb-3" placeholder="Cash Tendered (₱)" />
-            <div class="flex justify-between text-sm text-gray-300 mb-4">
-              <span>Change Due</span>
-              <span id="pos-change-display" class="font-bold text-white text-lg">₱0</span>
-            </div>
-            <div class="flex gap-2">
-              <button class="btn btn-full" style="background:#555;color:white;" onclick="CashierPOS.clearBill()">Clear</button>
-              <button class="btn btn-primary btn-full" onclick="CashierPOS.checkoutBill()">Done</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- Rendered dynamically by cashier.js -->
     </section>
 
 

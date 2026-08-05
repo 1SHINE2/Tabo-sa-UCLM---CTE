@@ -236,7 +236,7 @@ const App = (() => {
           <span>${currentQty}</span>
           <button type="button" onclick="Cart.changeQty('${product.id}', 1); window.renderProductView('${product.id}')">+</button>
         </div>
-        <button class="btn btn-primary flex-grow text-lg shadow-md" onclick="if(${currentQty} === 0) Cart.changeQty('${product.id}', 1); window.showToast('Added to cart!', 'success'); window.location.hash = '#menu';">
+        <button class="btn btn-primary flex-grow text-lg shadow-md" onclick="if(${currentQty} === 0) Cart.changeQty('${product.id}', 1); window.showToast('Redirecting to menu...', 'success'); window.location.hash = '#menu';">
           ${currentQty === 0 ? `Add to Cart ₱${product.price}` : `Added ₱${product.price * currentQty} - View Menu`}
         </button>
       </div>

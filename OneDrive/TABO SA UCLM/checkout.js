@@ -72,10 +72,8 @@ const Checkout = (() => {
     const overlay = document.getElementById('checkout-overlay');
     if (overlay) overlay.classList.remove('hidden');
 
-   // Initialize functionality once DOM is loaded
-  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize toggles synchronously since DOM is already loaded when this opens
     _initToggles();
-  });
 
     Cart.renderCheckoutItemsList();
     _renderGCashPanel();
