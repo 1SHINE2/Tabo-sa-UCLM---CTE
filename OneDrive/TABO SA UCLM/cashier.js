@@ -535,7 +535,7 @@ const CashierPOS = (() => {
       status: "Completed"
     };
 
-    const webhookUrl = window.GOOGLE_SHEETS_WEBHOOK_URL || "YOUR_WEBHOOK_URL_HERE";
+    const webhookUrl = window.GOOGLE_SHEETS_WEBHOOK_URL || "https://script.google.com/macros/s/AKfycbxciyXHG7fXiw6xSbA74wg6cYDCuiXX2SEwZt1B1Ko9cGTMQNFluD-lv1arXI1RmmVN/exec";
     let success = false;
 
     if (webhookUrl !== "YOUR_WEBHOOK_URL_HERE") {
@@ -629,7 +629,7 @@ const CashierPOS = (() => {
     }
 
     // Send update to Google Sheets
-    const webhookUrl = window.GOOGLE_SHEETS_WEBHOOK_URL || "YOUR_WEBHOOK_URL_HERE";
+    const webhookUrl = window.GOOGLE_SHEETS_WEBHOOK_URL || "https://script.google.com/macros/s/AKfycbxciyXHG7fXiw6xSbA74wg6cYDCuiXX2SEwZt1B1Ko9cGTMQNFluD-lv1arXI1RmmVN/exec";
     if (webhookUrl !== "YOUR_WEBHOOK_URL_HERE") {
       const payload = {
         action: "UPDATE_STATUS",

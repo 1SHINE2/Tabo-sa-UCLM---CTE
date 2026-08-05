@@ -34,7 +34,7 @@
 
 // ── ⚠️ PLACEHOLDERS — CHANGE BEFORE GO-LIVE ──────────────────────────────────
 const GCASH_NUMBER              = "09123456789";           // TODO: Replace with your real GCash number
-const GOOGLE_SHEETS_WEBHOOK_URL = "YOUR_WEBHOOK_URL_HERE"; // Changed back to bypass fetch() errors on Vercel
+const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxciyXHG7fXiw6xSbA74wg6cYDCuiXX2SEwZt1B1Ko9cGTMQNFluD-lv1arXI1RmmVN/exec"; // Updated to real webhook
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── XSS Guard — escapeHTML ────────────────────────────────────────────────────
@@ -306,7 +306,7 @@ const Checkout = (() => {
     // ── Attempt webhook submission ────────────────────────────────────────────
     // Note: Uses 'no-cors' so response body is opaque — we assume success if no network error.
     // The Google Apps Script must return JSON with MIME type application/json (not text/html).
-    if (GOOGLE_SHEETS_WEBHOOK_URL !== "YOUR_WEBHOOK_URL_HERE") {
+    if (GOOGLE_SHEETS_WEBHOOK_URL !== "YOUR_WEBHOOK_URL_HERE" && GOOGLE_SHEETS_WEBHOOK_URL !== "") {
       try {
         const controller = new AbortController();
         const timeoutId  = setTimeout(() => controller.abort(), 8000); // 8s timeout
