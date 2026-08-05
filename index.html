@@ -278,6 +278,11 @@
             <label class="form-label">GCash Name (Sender)</label>
             <input type="text" id="f-gcash-name" class="form-input" placeholder="e.g. Juan D." required />
           </div>
+          <div class="mt-3">
+            <label class="form-label">GCash Reference No. <span class="text-red-500">*</span></label>
+            <input type="text" id="f-gcash-ref" class="form-input font-mono tracking-widest" placeholder="13 digits (e.g. 1000123456789)" maxlength="13" required />
+            <p class="text-xs text-smoke mt-1">Enter the 13-digit reference number from your receipt to verify payment.</p>
+          </div>
         </div>
         
         <div id="payment-cash-fields" class="hidden bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4 text-center">

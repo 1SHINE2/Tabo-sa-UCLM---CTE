@@ -239,8 +239,22 @@ const CashierPOS = (() => {
               <button class="text-xs text-gray-500 mt-3 hover:text-gray-300 underline" onclick="CashierPOS.clearBill()">Clear Bill</button>
             </div>
 
-            <!-- Cash Calculator -->
-            <div class="p-6 border-b border-white/10 flex-1 bg-black/20">
+            <!-- Walk-in Payment Toggle -->
+            <div class="p-4 border-b border-white/10 bg-black/20">
+              <div class="text-xs text-white/70 uppercase tracking-widest mb-2">Walk-in Payment Method</div>
+              <div class="flex gap-2">
+                <button id="walkin-pay-cash" class="flex-1 py-2 rounded-lg text-sm font-bold border-2 border-gold bg-gold/10 text-gold" onclick="CashierPOS.setWalkinPayment('cash')">💵 Cash</button>
+                <button id="walkin-pay-gcash" class="flex-1 py-2 rounded-lg text-sm font-bold border-2 border-white/20 text-white/60" onclick="CashierPOS.setWalkinPayment('gcash')">📱 GCash</button>
+              </div>
+              <!-- GCash Ref field for walk-in GCash -->
+              <div id="walkin-gcash-ref-row" class="hidden mt-3">
+                <label class="text-xs text-white/70 block mb-1 uppercase tracking-wide">GCash Reference No.</label>
+                <input id="walkin-gcash-ref" type="text" maxlength="13" class="form-input font-mono tracking-widest text-white border-white/20 w-full" style="background:rgba(0,0,0,0.3);" placeholder="13 digits" />
+              </div>
+            </div>
+
+            <!-- Cash Calculator (hidden for GCash walk-in) -->
+            <div class="p-6 border-b border-white/10 flex-1 bg-black/20" id="walkin-cash-calc">
               <h3 class="font-display text-lg text-white mb-4">💵 Cash Calculator</h3>
               <input id="calc-total" type="hidden">
               <div class="mb-4">
@@ -490,6 +504,30 @@ const CashierPOS = (() => {
     }
   }
 
+  // ── Walk-in Payment Toggle ─────────────────────────────────────────────────
+
+  let walkinPaymentMode = 'cash'; // 'cash' | 'gcash'
+
+  function setWalkinPayment(mode) {
+    walkinPaymentMode = mode;
+    const cashBtn      = document.getElementById('walkin-pay-cash');
+    const gcashBtn     = document.getElementById('walkin-pay-gcash');
+    const cashCalc     = document.getElementById('walkin-cash-calc');
+    const gcashRefRow  = document.getElementById('walkin-gcash-ref-row');
+
+    if (mode === 'cash') {
+      if (cashBtn)  { cashBtn.classList.add('border-gold','bg-gold/10','text-gold');     cashBtn.classList.remove('border-white/20','text-white/60'); }
+      if (gcashBtn) { gcashBtn.classList.remove('border-gold','bg-gold/10','text-gold'); gcashBtn.classList.add('border-white/20','text-white/60'); }
+      if (cashCalc)    cashCalc.classList.remove('hidden');
+      if (gcashRefRow) gcashRefRow.classList.add('hidden');
+    } else {
+      if (gcashBtn) { gcashBtn.classList.add('border-gold','bg-gold/10','text-gold');    gcashBtn.classList.remove('border-white/20','text-white/60'); }
+      if (cashBtn)  { cashBtn.classList.remove('border-gold','bg-gold/10','text-gold');  cashBtn.classList.add('border-white/20','text-white/60'); }
+      if (cashCalc)    cashCalc.classList.add('hidden');
+      if (gcashRefRow) gcashRefRow.classList.remove('hidden');
+    }
+  }
+
   // ═══════════════════════════════════════════════════════════════════════════
   // CASH SALE LOGIC (Walk-in)
   // ═══════════════════════════════════════════════════════════════════════════
@@ -498,6 +536,17 @@ const CashierPOS = (() => {
     if (bill.size === 0) {
       window.showToast("Bill is empty!", "error");
       return;
+    }
+
+    // Walk-in GCash validation
+    let walkinGcashRef = 'N/A';
+    if (walkinPaymentMode === 'gcash') {
+      const refInput = document.getElementById('walkin-gcash-ref');
+      walkinGcashRef = refInput?.value?.trim() || '';
+      if (!walkinGcashRef || walkinGcashRef.length !== 13 || isNaN(Number(walkinGcashRef))) {
+        window.showToast('Please enter a valid 13-digit GCash Reference Number.', 'error');
+        return;
+      }
     }
 
     const btn = document.getElementById('btn-complete-sale');
@@ -512,77 +561,83 @@ const CashierPOS = (() => {
     bill.forEach((qty, id) => {
       const p = (window.PRODUCTS || []).find(pr => pr.id === id);
       if (p) {
-        items.push(`${p.name} ×${qty}`);
+        items.push(`${p.name} x${qty}`);
         subtotal += p.price * qty;
       }
     });
     const itemsSummary = items.join(', ');
 
+    // Read tendered amount for cash
+    const tenderedInput = document.getElementById('calc-tendered');
+    const amountTendered = walkinPaymentMode === 'cash' ? (parseFloat(tenderedInput?.value) || 0) : 'N/A';
+    const changeGiven    = walkinPaymentMode === 'cash' ? Math.max(0, (parseFloat(tenderedInput?.value) || 0) - subtotal) : 0;
+
     // Generate transaction ID
-    const timestamp = new Date().getTime();
-    const txnId = `TXN-${timestamp}`;
-    const timeStr = new Date().toLocaleString('en-PH');
+    const txnId  = `WLK-${Date.now().toString().slice(-6)}`;
+    const timeStr = new Date().toISOString();
+
+    const WEBHOOK = "https://script.google.com/macros/s/AKfycbwR2c9jCTCmU-qMVrSlnKi4DzDgIumQLqi_En1doE5rYG1QaUWgCyJZSq0djnPWGjKg/exec";
 
     const payload = {
-      action: "CREATE_TRANSACTION",
-      transactionId: txnId,
-      timestamp: timeStr,
-      orderType: "Walk-in",
-      fulfillment: "Over the counter",
-      customerName: "N/A",
-      itemsSummary: itemsSummary,
-      subtotal: subtotal,
-      deliveryFee: 0,
-      grandTotal: subtotal,
-      paymentMethod: "Cash",
-      status: "Completed"
+      action:          "CREATE_TRANSACTION",
+      timestamp:       timeStr,
+      transactionId:   txnId,
+      orderType:       "Walk-in",
+      fulfillment:     "Over-the-Counter",
+      paymentMethod:   walkinPaymentMode === 'cash' ? "Cash" : "GCash",
+      customerName:    "Walk-in Customer",
+      contactInfo:     "N/A",
+      itemsSummary:    itemsSummary,
+      subtotal:        subtotal,
+      voucherApplied:  "NONE",
+      discountAmount:  0,
+      grandTotal:      subtotal,
+      amountTendered:  amountTendered,
+      changeGiven:     changeGiven,
+      gcashRef:        walkinGcashRef,
+      status:          "Completed"
     };
 
-    const webhookUrl = window.GOOGLE_SHEETS_WEBHOOK_URL || "https://script.google.com/macros/s/AKfycbxciyXHG7fXiw6xSbA74wg6cYDCuiXX2SEwZt1B1Ko9cGTMQNFluD-lv1arXI1RmmVN/exec";
     let success = false;
-
-    if (webhookUrl !== "YOUR_WEBHOOK_URL_HERE") {
-      try {
-        const resp = await fetch(webhookUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        // no-cors is opaque, assume success if no error thrown
-        success = true;
-      } catch (err) {
-        console.error("Walk-in POST failed:", err);
-      }
+    try {
+      await fetch(WEBHOOK, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      success = true;
+    } catch (err) {
+      console.error("Walk-in POST failed:", err);
     }
 
     // Offline fallback
     if (!success) {
       let pending = [];
-      try {
-        pending = JSON.parse(localStorage.getItem('pending_walkin_sales')) || [];
-      } catch(e){}
+      try { pending = JSON.parse(localStorage.getItem('pending_walkin_sales')) || []; } catch(e){}
       pending.push(payload);
       localStorage.setItem('pending_walkin_sales', JSON.stringify(pending));
-      console.log("Walk-in sale saved to offline localStorage.");
     }
 
-    // Get change due before clearing
-    const valueEl = document.getElementById('calc-change-value');
-    const changeStr = valueEl && valueEl.textContent !== '—' ? valueEl.textContent : '₱0.00';
+    // Get change display before clearing
+    const valueEl  = document.getElementById('calc-change-value');
+    const changeStr = walkinPaymentMode === 'cash'
+      ? (valueEl && valueEl.textContent !== '—' ? valueEl.textContent : '₱0.00')
+      : 'GCash – No change needed';
 
     // Clear UI
     clearBill();
-    const tenderedInput = document.getElementById('calc-tendered');
     if (tenderedInput) tenderedInput.value = '';
+    const gcashRefInput = document.getElementById('walkin-gcash-ref');
+    if (gcashRefInput) gcashRefInput.value = '';
     calcChange();
 
     if (btn) {
       btn.disabled = false;
-      btn.textContent = "✅ COMPLETE CASH SALE";
+      btn.textContent = "✅ COMPLETE SALE";
     }
 
-    window.showToast(`Sale complete! Change: ${changeStr}`, 'success');
+    window.showToast(`Sale complete! ${walkinPaymentMode === 'cash' ? 'Change: ' + changeStr : 'GCash payment recorded.'}`, 'success');
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -608,44 +663,57 @@ const CashierPOS = (() => {
     _renderOrderFeed();
   }
 
-  function markDoneAndDispatch(timestamp) {
-    const card = document.querySelector(`[data-order-ts="${timestamp}"]`);
+  function markDoneAndDispatch(orderId) {
+    const card = document.getElementById(`feed-card-${CSS.escape(orderId)}`);
     if (card) {
       card.classList.add('fulfilled');
       const btn = card.querySelector('.fulfill-btn');
       if (btn) { btn.textContent = '✅ Done'; btn.disabled = true; }
     }
 
-    // Update in localStorage
+    // Read cashier-entered tendered amount (for Cash online orders)
+    const tenderedEl = document.getElementById(`cash-collect-${CSS.escape(orderId)}`);
+    const amountTendered = tenderedEl ? (parseFloat(tenderedEl.value) || 0) : 'N/A';
+
+    // Update in localStorage and compute change
+    let changeGiven = 0;
     try {
       const raw = localStorage.getItem('tabo_orders');
       if (raw) {
         let parsed = JSON.parse(raw);
-        const idx = parsed.findIndex(o => String(o.timestamp) === String(timestamp));
+        const idx = parsed.findIndex(o => o.transactionId === orderId || String(o.timestamp) === String(orderId));
         if (idx !== -1) {
           parsed[idx].status = "Completed";
+          if (amountTendered !== 'N/A') {
+            changeGiven = Math.max(0, amountTendered - (parsed[idx].grandTotal || 0));
+            parsed[idx].amountTendered = amountTendered;
+            parsed[idx].changeGiven    = changeGiven;
+          }
           localStorage.setItem('tabo_orders', JSON.stringify(parsed));
+          if (changeGiven > 0) window.showToast(`Change due: ₱${changeGiven.toFixed(2)}`, 'success');
         }
       }
     } catch (e) {
       console.warn("Failed to update status in localStorage:", e);
     }
 
-    // Send update to Google Sheets
-    const webhookUrl = window.GOOGLE_SHEETS_WEBHOOK_URL || "https://script.google.com/macros/s/AKfycbxciyXHG7fXiw6xSbA74wg6cYDCuiXX2SEwZt1B1Ko9cGTMQNFluD-lv1arXI1RmmVN/exec";
-    if (webhookUrl !== "YOUR_WEBHOOK_URL_HERE") {
-      const payload = {
-        action: "UPDATE_STATUS",
-        transactionId: `TXN-${timestamp}`,
-        status: "Completed"
-      };
-      fetch(webhookUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).catch(err => console.error("Update status failed:", err));
-    }
+    // Send UPDATE_TRANSACTION to Google Sheets
+    const WEBHOOK = "https://script.google.com/macros/s/AKfycbwR2c9jCTCmU-qMVrSlnKi4DzDgIumQLqi_En1doE5rYG1QaUWgCyJZSq0djnPWGjKg/exec";
+    const updatePayload = {
+      action:          "UPDATE_TRANSACTION",
+      transactionId:   orderId,
+      status:          "Completed",
+      amountTendered:  amountTendered,
+      changeGiven:     changeGiven,
+    };
+    fetch(WEBHOOK, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(updatePayload)
+    }).catch(err => console.error("Update transaction failed:", err));
+
+    window.showToast('Order marked as done!', 'success');
   }
 
   function _renderOrderFeed() {
@@ -654,7 +722,7 @@ const CashierPOS = (() => {
 
     if (orderFeed.length === 0) {
       container.innerHTML = `
-        <p class="text-gray-500 text-sm text-center py-4">
+        <p class="text-white/50 text-sm text-center py-8">
           No incoming orders yet.<br>
           <span class="text-xs">Orders from buyers will appear here.</span>
         </p>
@@ -662,46 +730,74 @@ const CashierPOS = (() => {
       return;
     }
 
-    // ⚠️ XSS: all buyer-supplied strings are escaped before innerHTML injection.
     container.innerHTML = orderFeed.map(order => {
-      const time  = new Date(order.timestamp).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' });
-      const safeCustomerName = escapeHTML(order.customerName);
-      const safeGcashName    = escapeHTML(order.gcashName);
-      const safeDestination  = escapeHTML(order.destination);
-      const safeTimestamp    = escapeHTML(order.timestamp);
+      const orderId         = escapeHTML(order.transactionId || order.timestamp);
+      const time            = new Date(order.timestamp).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' });
+      const safeCustomer    = escapeHTML(order.customerName);
+      const safePayment     = escapeHTML(order.paymentMethod || (order.payment === 'cash' ? 'Cash' : 'GCash'));
+      const safeGcashRef    = escapeHTML(order.gcashRef || 'N/A');
+      const safeDestination = escapeHTML(order.destination || order.contactInfo || '');
 
-      const isDelivery = order.fulfillment === 'delivery';
+      const isCash      = (order.payment === 'cash' || order.paymentMethod === 'Cash');
+      const isGcash     = !isCash;
+      const isDelivery  = order.fulfillment === 'delivery' || order.fulfillment === 'Campus Delivery';
+      const isCompleted = order.status === 'Completed';
+
       const fulfillLabel = isDelivery
-        ? `🚚 ${safeDestination} (+₱5 Fee)`
-        : '🏪 Pickup';
+        ? `🚚 Campus Delivery — ${safeDestination}`
+        : '🏪 Booth Pickup';
 
-      // Item names come from PRODUCTS data (not user input), but we still escape
-      // them for defense-in-depth.
-      const itemsSummary = (order.items || []).map(i => `${escapeHTML(i.name)} ×${Number(i.qty)}`).join(', ');
+      const itemsSummary = (order.items || []).length > 0
+        ? (order.items || []).map(i => `${escapeHTML(i.name)} ×${Number(i.qty)}`).join(', ')
+        : escapeHTML(order.itemsSummary || '');
 
-      let displayTotal = Number(order.total);
-      if (isDelivery) {
-        displayTotal += 5; // Add delivery fee for visual display
-      }
+      const displayTotal = Number(order.grandTotal || order.total || 0);
 
-      const isCompleted = order.status === "Completed";
-      const btnState = isCompleted ? 'disabled' : '';
-      const btnText = isCompleted ? '✅ Done' : 'Mark as Done / Dispatch';
+      // For Cash online orders: show a tendered-amount input the cashier fills in
+      const cashCollectRow = isCash && !isCompleted ? `
+        <div class="mt-3 p-3 bg-black/30 rounded-lg border border-white/10">
+          <div class="text-xs text-white/60 uppercase tracking-widest mb-2">💵 Collect Cash</div>
+          <div class="flex gap-2 items-center">
+            <input
+              id="cash-collect-${orderId}"
+              type="number"
+              placeholder="Amount Tendered"
+              class="form-input text-white text-sm border-white/20 flex-1"
+              style="background:rgba(0,0,0,0.3);"
+            />
+            <span class="text-white/50 text-xs">Total: ₱${displayTotal}</span>
+          </div>
+        </div>
+      ` : '';
+
+      // For GCash orders: show the ref number prominently
+      const gcashRefRow = isGcash ? `
+        <div class="flex justify-between items-center mt-2 pt-2 border-t border-white/10 text-xs">
+          <span class="text-white/60 uppercase tracking-widest">GCash Ref No.</span>
+          <span class="font-mono font-bold text-gold tracking-widest">${safeGcashRef}</span>
+        </div>
+      ` : '';
+
+      const cardBorder = isCompleted ? 'border-white/5 opacity-60' : (isCash ? 'border-gold/40' : 'border-green-400/40');
+      const btnState   = isCompleted ? 'disabled' : '';
+      const btnText    = isCompleted ? '✅ Done' : 'Mark as Done / Dispatch';
 
       return `
-        <div class="bg-black/40 border border-white/10 p-4 rounded-lg shadow-sm flex flex-col relative" id="feed-card-${orderId}" data-order-ts="${safeTimestamp}">
-        <div class="flex justify-between items-start mb-2">
-          <div>
-            <h4 class="font-bold text-white text-lg">${safeCustomerName}</h4>
-            <div class="text-xs text-white/70">GCash: ${safeGcashName} · ${escapeHTML(time)}</div>
+        <div class="bg-black/40 border ${cardBorder} p-4 rounded-xl shadow flex flex-col gap-2" id="feed-card-${orderId}">
+          <div class="flex justify-between items-start">
+            <div>
+              <div class="font-bold text-white text-base">${safeCustomer}</div>
+              <div class="text-xs text-white/60">${isCash ? '💵' : '📱'} ${safePayment} · ${escapeHTML(time)}</div>
+            </div>
+            <div class="font-bold text-gold text-xl">₱${displayTotal}</div>
           </div>
-          <div class="font-bold text-gold text-lg">₱${displayTotal}</div>
-        </div>
-          <div class="text-xs text-gray-300 mb-2">${itemsSummary}</div>
-          <div class="text-xs text-gray-400 mb-3">${fulfillLabel}</div>
+          <div class="text-xs text-white/70 leading-relaxed">${itemsSummary}</div>
+          <div class="text-xs text-white/50">${fulfillLabel}</div>
+          ${gcashRefRow}
+          ${cashCollectRow}
           <button
-            class="fulfill-btn btn btn-sm btn-primary"
-            onclick="CashierPOS.markDoneAndDispatch('${safeTimestamp}')"
+            class="fulfill-btn btn btn-sm btn-primary mt-1 w-full"
+            onclick="CashierPOS.markDoneAndDispatch('${orderId}')"
             ${btnState}
           >${btnText}</button>
         </div>
@@ -730,6 +826,7 @@ const CashierPOS = (() => {
     completeCashSale,
     switchPosTab,
     lockPOS,
+    setWalkinPayment,
   };
 })();
 

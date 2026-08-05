@@ -34,7 +34,7 @@
 
 // ── ⚠️ PLACEHOLDERS — CHANGE BEFORE GO-LIVE ──────────────────────────────────
 const GCASH_NUMBER              = "09123456789";           // TODO: Replace with your real GCash number
-const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxciyXHG7fXiw6xSbA74wg6cYDCuiXX2SEwZt1B1Ko9cGTMQNFluD-lv1arXI1RmmVN/exec"; // Updated to real webhook
+const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwR2c9jCTCmU-qMVrSlnKi4DzDgIumQLqi_En1doE5rYG1QaUWgCyJZSq0djnPWGjKg/exec";
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── XSS Guard — escapeHTML ────────────────────────────────────────────────────
@@ -240,16 +240,22 @@ const Checkout = (() => {
     const payment     = document.querySelector('input[name="payment_method"]:checked')?.value;
     const building    = document.getElementById('f-destination')?.value?.trim();
     const gcashName   = payment === 'gcash' ? document.getElementById('f-gcash-name')?.value?.trim() : 'CASH';
+    const gcashRef    = payment === 'gcash' ? document.getElementById('f-gcash-ref')?.value?.trim() : 'N/A';
 
     if (!name)        { window.showToast('Please enter your name.', 'error');              return null; }
-    if (payment === 'gcash' && !gcashName) { window.showToast('Please enter your GCash account name.', 'error'); return null; }
+    if (payment === 'gcash') {
+      if (!gcashName) { window.showToast('Please enter your GCash account name.', 'error'); return null; }
+      if (!gcashRef || gcashRef.length !== 13 || isNaN(Number(gcashRef))) {
+        window.showToast('Please enter a valid 13-digit GCash Reference Number.', 'error'); return null; 
+      }
+    }
     if (!fulfillment) { window.showToast('Please choose pickup or delivery.', 'error'); return null; }
     if (fulfillment === 'delivery' && !building) {
       window.showToast('Please enter your delivery building & room.', 'error');
       return null;
     }
 
-    return { name, mobile: 'N/A', gcashName, payment, fulfillment, building: building || '' };
+    return { name, mobile: 'N/A', gcashName, gcashRef, payment, fulfillment, building: building || '' };
   }
 
   // ── Complete Order ──────────────────────────────────────────────────────────
@@ -264,13 +270,34 @@ const Checkout = (() => {
       return;
     }
 
+    const itemsSummaryStr = snapshot.items.map(l => `${l.name} x${l.qty}`).join(', ');
+    const transactionId = `ONL-${Date.now().toString().slice(-6)}`;
+    const contactLoc = formData.mobile + (formData.building ? ` / ${formData.building}` : '');
+
     const payload = {
+      // 1. Google Sheets Webhook Schema (16 fields)
+      action:       "CREATE_TRANSACTION",
       timestamp:    new Date().toISOString(),
+      transactionId: transactionId,
+      orderType:    "Online",
+      fulfillment:  formData.fulfillment === 'delivery' ? 'Campus Delivery' : 'Booth Pickup',
+      paymentMethod: formData.payment === 'cash' ? 'Cash' : 'GCash',
       customerName: formData.name,
+      contactInfo:  contactLoc,
+      itemsSummary: itemsSummaryStr,
+      subtotal:     snapshot.subtotal,
+      voucherApplied: snapshot.discountCode || 'NONE',
+      discountAmount: snapshot.discount,
+      grandTotal:   snapshot.total,
+      amountTendered: formData.payment === 'cash' ? 0 : "N/A", // Updated later by Cashier for Cash
+      changeGiven:  0,
+      gcashRef:     formData.gcashRef,
+      status:       "Pending",
+      
+      // 2. Receipt Rendering Fields (Preserved for UI)
       mobile:       formData.mobile,
       gcashName:    formData.gcashName,
       payment:      formData.payment,
-      fulfillment:  formData.fulfillment,    // "pickup" | "delivery"
       destination:  formData.building,
       items: snapshot.items.map(l => ({
         id:        l.id,
@@ -279,7 +306,6 @@ const Checkout = (() => {
         qty:       l.qty,
         lineTotal: l.lineTotal,
       })),
-      subtotal:    snapshot.subtotal,
       discount:    snapshot.discount,
       voucherUsed: snapshot.discountCode || 'none',
       total:       snapshot.total,
@@ -432,6 +458,12 @@ const Checkout = (() => {
             <span class="text-smoke text-[10px] font-bold uppercase tracking-widest">Fulfillment</span>
             <span class="font-semibold text-sm text-earth text-right max-w-[60%] leading-tight">${fulfillmentLabel}</span>
           </div>
+          ${payload.payment === 'gcash' ? `
+          <div class="flex justify-between items-center mt-2 pt-2 border-t border-gray-50">
+            <span class="text-smoke text-[10px] font-bold uppercase tracking-widest">GCash Ref No.</span>
+            <span class="font-mono font-bold text-sm text-earth tracking-widest">${escapeHTML(payload.gcashRef)}</span>
+          </div>
+          ` : ''}
         </div>
         
         <div class="divider border-t-2 border-dashed border-gray-200 my-4"></div>
