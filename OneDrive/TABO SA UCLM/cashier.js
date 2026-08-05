@@ -2,7 +2,7 @@
  * cashier.js — Cashier POS Mode
  * ─────────────────────────────────────────────────────────────────────────────
  * ⚠️ CHANGE CASHIER PIN BEFORE GO-LIVE:
- *    Edit the CASHIER_PIN constant below to a 4-digit code your team will remember.
+ *    Edit the CASHIER_PIN constant below to a 6-digit code your team will remember.
  *
  * Features:
  *   - PIN gate (prevents customers accessing POS)
@@ -326,23 +326,26 @@ const CashierPOS = (() => {
     const input = document.getElementById('quick-entry-input');
     if (!input || !input.value.toString().trim()) return;
 
-    const val     = input.value.toString().trim();
-    // Pad to 3 digits (e.g. "1" → "001") then build the product ID
-    const digits   = val.padStart(3, '0');
-    const productId = `prod-${digits}`;
+    const rawVal = input.value.toString().trim();
 
-    // 🟡 Validate that this ID actually matches a product before proceeding.
-    // Silently padding to prod-001 for a short entry that doesn't exist would
-    // cause a confusing "not found" error — this makes the failure explicit.
-    const matchedProduct = (window.PRODUCTS || []).find(p => p.id === productId);
+    // Strip any leading "prod-" prefix in case user pastes a full ID,
+    // then zero-pad to 3 digits so "1" → "001", "101" → "101"
+    const numericPart = rawVal.replace(/^prod-?/i, '').padStart(3, '0');
+    const targetId    = `prod-${numericPart}`;
+
+    // Flexible lookup: match exact constructed ID, exact raw input, or ID ending with the numeric part
+    const matchedProduct = (window.PRODUCTS || []).find(
+      p => p.id === targetId || p.id === rawVal || p.id.endsWith(numericPart)
+    );
+
     if (!matchedProduct) {
-      window.showToast(`❌ No product found for ID: ${escapeHTML(productId)}`, 'error');
+      window.showToast(`❌ No product found for: ${escapeHTML(rawVal)}`, 'error');
       input.value = '';
       input.focus();
       return;
     }
 
-    addToBill(productId);
+    addToBill(matchedProduct.id);
     input.value = '';
     input.focus();
   }
