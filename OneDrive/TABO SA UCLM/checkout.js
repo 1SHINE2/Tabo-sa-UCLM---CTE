@@ -34,7 +34,7 @@
 
 // ── ⚠️ PLACEHOLDERS — CHANGE BEFORE GO-LIVE ──────────────────────────────────
 const GCASH_NUMBER              = "09123456789";           // TODO: Replace with your real GCash number
-const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxjs0kWfjHm-ldsHn3JARIlTUPI-JDSdsvhFJweWhXOn5xfNXMNFpZgzt-gzK4IQ2PWLg/exec";
+const GOOGLE_SHEETS_WEBHOOK_URL = "YOUR_WEBHOOK_URL_HERE"; // Changed back to bypass fetch() errors on Vercel
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── XSS Guard — escapeHTML ────────────────────────────────────────────────────
