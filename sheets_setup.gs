@@ -22,9 +22,10 @@ function setupSheets() {
     txSheet = ss.insertSheet("All_Transactions");
   }
   const headers = [
-    "Transaction ID", "Timestamp", "Order Type", "Fulfillment", 
-    "Customer Name / Room", "Items Summary", "Subtotal", 
-    "Delivery Fee", "Grand Total", "Payment Method", "Status"
+    "Timestamp", "Order ID", "Order Type", "Fulfillment Type", "Payment Method",
+    "Customer Name", "Contact Info / Location", "Items Purchased", "Subtotal Amount",
+    "Voucher Applied", "Discount Amount", "Final Total Amount", "Amount Tendered",
+    "Change Given", "GCash Reference Number", "Order Status"
   ];
   txSheet.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold");
   txSheet.setFrozenRows(1);
@@ -34,8 +35,8 @@ function setupSheets() {
   if (!dqSheet) {
     dqSheet = ss.insertSheet("Delivery_Queue");
   }
-  dqSheet.getRange("A1").setFormula(`=QUERY(All_Transactions!A:K, "SELECT A, E, F, I, J, K WHERE D = 'Campus Delivery' AND K = 'Pending'", 1)`);
-  // Add headers for clarity if query doesn't pull them perfectly, but QUERY with ', 1' takes the header row.
+  // Order Status is column P (16th column), Fulfillment is D
+  dqSheet.getRange("A1").setFormula(`=QUERY(All_Transactions!A:P, "SELECT A, B, F, G, H, L, P WHERE D = 'Campus Delivery' AND P = 'Pending'", 1)`);
 
   // 3. Financial_Summary Tab
   let fsSheet = ss.getSheetByName("Financial_Summary");
@@ -44,14 +45,17 @@ function setupSheets() {
   }
   
   fsSheet.getRange("A1:B1").setValues([["TABO SA UCLM", "REVENUE TRACKER"]]).setFontWeight("bold").setBackground("#d9ead3");
-  fsSheet.getRange("A2:B2").setValues([["Live / Walk-in Cash Sales", '=SUMIF(All_Transactions!C:C, "Walk-in", All_Transactions!I:I)']]);
-  fsSheet.getRange("A3:B3").setValues([["Online GCash Sales", '=SUMIF(All_Transactions!C:C, "Online", All_Transactions!I:I)']]);
-  fsSheet.getRange("A4:B4").setValues([["Total Delivery Fees Collected", '=SUM(All_Transactions!H:H)']]);
+  // Final Total is column L, Order Type is column C
+  fsSheet.getRange("A2:B2").setValues([["Live / Walk-in Cash Sales", '=SUMIF(All_Transactions!C:C, "Walk-in", All_Transactions!L:L)']]);
+  fsSheet.getRange("A3:B3").setValues([["Online GCash Sales", '=SUMIF(All_Transactions!C:C, "Online", All_Transactions!L:L)']]);
+  // Note: Delivery fees are no longer tracked as a separate column in the 16-field schema.
+  // Assuming delivery fee is baked into Final Total, we can remove or change it.
+  fsSheet.getRange("A4:B4").setValues([["Total Online Cash Sales", '=SUMIFS(All_Transactions!L:L, All_Transactions!C:C, "Online", All_Transactions!E:E, "Cash")']]);
   fsSheet.getRange("A5:B5").setValues([["TOTAL EARNINGS OVERALL", '=SUM(B2:B4)']]).setFontWeight("bold").setBackground("#fff2cc");
   
   fsSheet.setColumnWidth(1, 250);
   
-  SpreadsheetApp.getUi().alert("Setup complete! Your 3 tabs are ready.");
+  SpreadsheetApp.getUi().alert("Setup complete! Your 3 tabs are ready. (Make sure to deploy as a New Web App)");
 }
 
 function doPost(e) {
@@ -63,41 +67,48 @@ function doPost(e) {
 
     if (action === "CREATE_TRANSACTION") {
       sheet.appendRow([
-        data.transactionId,
         data.timestamp,
+        data.transactionId,
         data.orderType,
         data.fulfillment,
+        data.paymentMethod,
         data.customerName,
+        data.contactInfo,
         data.itemsSummary,
         data.subtotal,
-        data.deliveryFee,
+        data.voucherApplied,
+        data.discountAmount,
         data.grandTotal,
-        data.paymentMethod,
+        data.amountTendered,
+        data.changeGiven,
+        data.gcashRef,
         data.status
       ]);
       return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "Row appended" }))
         .setMimeType(ContentService.MimeType.JSON);
         
-    } else if (action === "UPDATE_STATUS") {
-      // Find row by Transaction ID
+    } else if (action === "UPDATE_TRANSACTION") {
+      // Enhanced to update Status, Tendered, and Change
       const dataRange = sheet.getDataRange();
       const values = dataRange.getValues();
       const txnIdToFind = data.transactionId;
-      const newStatus = data.status;
       
       let rowIndex = -1;
-      // loop skipping header
       for (let i = 1; i < values.length; i++) {
-        if (values[i][0] === txnIdToFind) { // Column A is index 0
-          rowIndex = i + 1; // +1 because array is 0-indexed but sheet is 1-indexed
+        if (values[i][1] === txnIdToFind) { // Column B is Order ID (index 1)
+          rowIndex = i + 1; 
           break;
         }
       }
       
       if (rowIndex > -1) {
-        // Status is Column K (11th column)
-        sheet.getRange(rowIndex, 11).setValue(newStatus);
-        return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "Status updated" }))
+        // Status is Column P (16), Tendered is M (13), Change is N (14), GCash Ref is O (15)
+        if (data.status) sheet.getRange(rowIndex, 16).setValue(data.status);
+        if (data.amountTendered !== undefined) sheet.getRange(rowIndex, 13).setValue(data.amountTendered);
+        if (data.changeGiven !== undefined) sheet.getRange(rowIndex, 14).setValue(data.changeGiven);
+        if (data.gcashRef !== undefined) sheet.getRange(rowIndex, 15).setValue(data.gcashRef);
+        
+        return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "Transaction updated" }))
           .setMimeType(ContentService.MimeType.JSON);
       } else {
         return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "Transaction ID not found" }))
