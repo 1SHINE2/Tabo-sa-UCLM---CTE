@@ -227,7 +227,21 @@ const Quiz = (() => {
     `;
   }
 
-  return { init, nextStep, answer };
+  function resetQuest() {
+    if (confirm('Reset the Spirit Quest? This clears YOUR saved result so you can retake it. Share this option with others so they can reset on their own device before Friday.')) {
+      localStorage.removeItem('quiz_completed_dish');
+      localStorage.removeItem('active_voucher');
+      currentStep = 0;
+      userTags = [];
+      window.showToast && window.showToast('Quest reset! You can now retake the journey.', 'success');
+      // Close sidebar and navigate to quest
+      document.getElementById('sidebar-drawer')?.classList.remove('open');
+      document.getElementById('sidebar-overlay')?.classList.remove('open');
+      window.Router.navigate('#quest');
+    }
+  }
+
+  return { init, nextStep, answer, resetQuest };
 })();
 
 window.Quiz = Quiz;

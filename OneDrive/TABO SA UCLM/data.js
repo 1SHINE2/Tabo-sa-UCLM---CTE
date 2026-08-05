@@ -475,66 +475,74 @@ const GALLERY_DATA = [
   {
     id: "gallery-tradition",
     title: "Tradition",
-    subtitle: "Panubok Embroidery & Sugidanon Chants",
-    image: "https://images.unsplash.com/photo-1605814522430-e3496c1410f9?w=800&q=80",
-    description: "The Panay Bukidnon are renowned for their intricate traditional embroidery called 'Panubok', characterized by geometric patterns inspired by nature, and the epic chants known as 'Sugidanon', which narrate the exploits of mythological heroes.",
-    impact: "These traditions form the cultural backbone of the community, serving as oral history and a visual marker of identity that binds the highland tribes together across generations.",
-    significance: "Preserving these art forms is critical for the Philippines to maintain a living connection to its pre-colonial identity. Supporting indigenous crafts empowers local artisans economically while safeguarding irreplaceable heritage."
+    subtitle: "Panubok Embroidery & the Sugidanon Epic",
+    image: "50a19d46-e237-4b5c-958a-8454f060f70d.jpg",
+    photoCredit: "Photo via community documentation, UCLM CTE",
+    description: "The Panay Bukidnon are renowned for their intricate embroidery called 'Panubok', characterized by geometric and mythological motifs stitched by hand onto fabric. The 'Bagsang' — a serpentine spirit — is among the most revered motifs, symbolizing protection and connection to the ancestral world.",
+    impact: "These traditions form the cultural backbone of the community, serving as oral and visual history that binds the highland tribes across generations. Every pattern tells a story that words alone cannot fully express.",
+    significance: "Preserving these art forms is critical for the Philippines to maintain a living connection to its pre-colonial identity. Supporting indigenous crafts empowers local artisans economically while safeguarding irreplaceable cultural memory."
   },
   {
     id: "gallery-history",
     title: "History",
-    subtitle: "Ancestral Domain & Archival Roots",
-    image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
-    description: "Historically inhabiting the central highlands of Panay Island, the Panay Bukidnon retreated to the mountains during the Spanish colonization, effectively preserving their indigenous way of life free from heavy foreign influence.",
-    impact: "Their geographical isolation allowed them to retain an animistic worldview and socio-political structures that give deep insight into early Philippine society.",
-    significance: "Understanding their history teaches modern Filipinos about resilience and the deep, unyielding roots of our national ancestry prior to centuries of Western occupation."
+    subtitle: "Ancestral Domain & Mountain Resilience",
+    image: "c3749917-6e05-4b82-86a6-79ee251240ae.jpg",
+    photoCredit: "Photo via Panay Bukidnon IP documentation",
+    description: "The Panay Bukidnon have inhabited the central highlands of Panay Island for centuries. When Spanish colonization reached the lowlands, they retreated deeper into the mountains — not out of defeat, but to fiercely protect their language, rituals, and way of life.",
+    impact: "Their geographical isolation preserved an animistic worldview and indigenous governance structures that give extraordinary insight into early Philippine society before colonial contact.",
+    significance: "Understanding their history teaches modern Filipinos about resilience and the unyielding roots of our national ancestry. Their story is not one of primitivity, but of deliberate, dignified preservation."
   },
   {
     id: "gallery-culture",
     title: "Culture",
-    subtitle: "Tultugan & Binanog Dance",
-    image: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=800&q=80",
-    description: "Music and movement are central to their culture, highlighted by the 'Binanog' dance—which mimics the flight of the hawk—and the 'Tultugan', rhythmic bamboo instruments that harmonize with the forest.",
-    impact: "These performances are not merely for entertainment; they are sacred rituals for courtship, community bonding, and paying respect to the spirits of nature.",
-    significance: "Patronizing these cultural expressions on a national level promotes diversity and enriches the Philippine tapestry of performing arts, reminding us of our deep connection to the natural world."
+    subtitle: "Binanog Dance & the Tultugan",
+    image: "7fc84c48-b93b-4a9f-9141-d2c70ebdaadb.jpg",
+    photoCredit: "Photo via UCLM CTE Buwan ng Wika 2026",
+    description: "Music and movement are central to Panay Bukidnon culture. The 'Binanog' dance — which mimics the graceful flight of the hawk — is performed in full traditional regalia adorned with beads, coins, and Panubok patterns. The 'Tultugan', a rhythmic bamboo instrument, provides the heartbeat of their ceremonies.",
+    impact: "These performances are sacred rituals for courtship, community bonding, and paying reverence to the spirits of nature. The costume itself is a wearable archive of the community's identity.",
+    significance: "Patronizing these cultural expressions on a national level promotes diversity and enriches the Philippine tapestry of performing arts, reminding us of our profound connection to the natural world."
   },
   {
     id: "gallery-people",
     title: "People",
-    subtitle: "Elders, Weavers & The Youth",
-    image: "https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&q=80",
-    description: "The community is anchored by the wisdom of its elders—the culture bearers—and energized by the youth who are learning to balance modern education with their ancestral duties.",
-    impact: "The passing of knowledge from a 'Lola' (grandmother) weaver to her grandchild ensures that the Panay Bukidnon identity does not vanish in the face of modern globalization.",
-    significance: "By recognizing and supporting the people themselves—not just their products—we advocate for indigenous rights, ancestral lands, and inclusive societal progress."
+    subtitle: "Elders, Weavers & the Living Heritage",
+    image: "c3749917-6e05-4b82-86a6-79ee251240ae.jpg",
+    photoCredit: "Photo via Panay Bukidnon IP documentation",
+    description: "The Panay Bukidnon community is anchored by the wisdom of its elders — the culture bearers — who carry the songs, stories, and techniques that define who they are. Their smiles carry generations of shared memory.",
+    impact: "The warmth and strength in these portraits reflect a community that has survived centuries of change while maintaining their spirit intact. Seeing them is a reminder that culture lives in people, not just artifacts.",
+    significance: "By recognizing and supporting the people themselves — not just their products — we advocate for indigenous rights, ancestral land recognition, and inclusive national progress."
   },
   {
     id: "gallery-cuisine",
     title: "Cuisine",
-    subtitle: "Highland Delicacies & Survival Cooking",
-    image: "https://images.unsplash.com/photo-1505934333218-8fe21ff88f0c?w=800&q=80",
-    description: "Dishes like KBL (Kadyos, Baboy, Langka) and Lau-ya represent the community's resourcefulness, relying on foraging, root crops, and ancient preservation techniques like smoking and fermentation.",
-    impact: "This culinary tradition reflects a zero-waste, sustainable lifestyle that respects the limits of the mountain's bounty, ensuring food security for the tribe.",
-    significance: "Indigenous cuisine offers sustainable, healthy, and culturally rich alternatives to commercial food. Promoting it helps local agriculture thrive and introduces unique flavor profiles to the global culinary scene."
+    subtitle: "Highland Delicacies & Zero-Waste Cooking",
+    image: "be12f643-361f-4ad9-9cbc-c89416a5dba5.jpg",
+    photoCredit: "Photo via Tabo sa UCLM, CTE",
+    description: "Dishes like Tinuom na Manok (steamed native chicken in banana leaves) and golden Tamales represent the community's resourcefulness. They relied on foraging, root crops, and ancient preservation techniques — bamboo steaming, natural fermentation — long before modern kitchens existed.",
+    impact: "This culinary tradition reflects a zero-waste, sustainable lifestyle that respects the finite bounty of the mountain, ensuring food security for the tribe across seasons and generations.",
+    significance: "Indigenous cuisine offers sustainable, culturally rich alternatives. Promoting it helps local agriculture, introduces unique flavor profiles globally, and teaches the world that some of the finest cooking needs no industrial kitchen."
   },
   {
     id: "gallery-impact",
     title: "Impact to Society",
-    subtitle: "Community Gathering & Exchange",
-    image: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80",
-    description: "Through community markets, cultural exchanges, and educational integration (like Tabo sa UCLM), the Panay Bukidnon are stepping into the national consciousness, sharing their wisdom with lowlanders.",
-    impact: "This exchange breaks down prejudices, fosters mutual respect, and provides the indigenous community with alternative livelihoods that don't require abandoning their homes.",
-    significance: "A society that embraces its indigenous communities is stronger, more compassionate, and culturally wealthy. It builds a nation grounded in mutual respect."
+    subtitle: "Community Exchange & Educational Integration",
+    image: "3a6ead90-5e66-42be-ac14-186f14b470aa.jpg",
+    photoCredit: "College of Teacher Education, UCLM",
+    description: "Through community markets, cultural exchanges, and educational events like Tabo sa UCLM, the Panay Bukidnon are stepping into the national consciousness — sharing their wisdom with lowlanders and students who may never have set foot in the highlands.",
+    impact: "This exchange breaks down prejudices, fosters mutual respect, and provides the indigenous community with alternative livelihoods and a platform for visibility that does not require abandoning their homeland.",
+    significance: "A nation that embraces its indigenous communities is stronger, more compassionate, and culturally wealthy. Tabo sa UCLM is a small but powerful act of that embrace."
   },
   {
     id: "gallery-conservation",
     title: "Conservation",
     subtitle: "Passing Down the Heritage",
-    image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
-    description: "Schools of Living Traditions (SLT) have been established to teach the youth the arts of Panubok, Sugidanon, and traditional ecological knowledge to counter the threat of cultural erasure.",
-    impact: "Conservation efforts ensure that the youth feel pride in their heritage, empowering them to become future leaders who can navigate the modern world without losing their soul.",
-    significance: "Cultural conservation is as vital as environmental conservation. Patronizing these efforts ensures that the vibrant spirit of the Panay Bukidnon will thrive for generations to come."
+    image: "fc075faf-172b-4ce9-8559-143ca84f5c26.jpg",
+    photoCredit: "Photo via community documentation, UCLM CTE",
+    description: "This elder weaver represents thousands of hours of mastery — patterns memorized not from books, but from watching hands move across fabric since childhood. Schools of Living Traditions (SLT) have been established to pass this knowledge to the next generation.",
+    impact: "Conservation efforts ensure that the youth feel pride in their heritage, empowering them to become future leaders who navigate the modern world without losing their soul or their name.",
+    significance: "Cultural conservation is as vital as environmental conservation. Every pattern saved, every song remembered, every recipe passed down is an act of resistance against cultural erasure — and a gift to all of humanity."
   }
 ];
 
 window.GALLERY_DATA = GALLERY_DATA;
+

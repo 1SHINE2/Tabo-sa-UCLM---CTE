@@ -519,164 +519,192 @@ h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
   --color-dark:        #1A0F0A;   
 }
 
-/* ── HOMEPAGE GALLERY (3-COLUMN DESKTOP / HORIZONTAL MOBILE) ── */
+/* ── HOMEPAGE EDITORIAL GALLERY (FIXED-HEIGHT, REFERENCE-EXACT) ── */
 .editorial-home {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
   min-height: calc(100vh - var(--header-height));
   background-color: var(--color-earth);
   position: relative;
   overflow: hidden;
 }
+/* Panubok textile background overlay — matches reference photo */
 .editorial-home::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1605814522430-e3496c1410f9?w=1200&q=80');
+  background-image: url('50a19d46-e237-4b5c-958a-8454f060f70d.jpg');
   background-size: cover;
   background-position: center;
-  opacity: 0.15;
-  mix-blend-mode: multiply;
+  opacity: 0.18;
   pointer-events: none;
+  z-index: 0;
 }
+
+/* Mobile: center title first, then horizontal scroll gallery */
 .home-center-title {
+  order: 1;
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 3rem 1.5rem 1.5rem;
   z-index: 10;
   color: white;
+  position: relative;
 }
 .home-center-title h1 {
   font-family: var(--font-display);
-  font-size: 3.5rem;
-  line-height: 1.1;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  margin-bottom: 0.5rem;
+  font-style: italic;
+  font-size: 4rem;
+  line-height: 1.0;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+  margin-bottom: 0.75rem;
 }
 .home-center-title p {
   font-family: var(--font-body);
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  font-size: 0.8rem;
-  color: var(--color-gold);
+  font-size: 0.75rem;
+  color: white;
+  opacity: 0.85;
+  margin-bottom: 0;
 }
 .home-actions {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
   align-items: center;
 }
 .home-actions .btn {
   width: 100%;
-  max-width: 300px;
-}
-@media (min-width: 768px) {
-  .home-center-title h1 { font-size: 5rem; }
-  .home-actions { flex-direction: row; justify-content: center; }
-  .home-actions .btn { width: auto; min-width: 200px; }
+  max-width: 260px;
 }
 
-.gallery-layout {
+/* Mobile gallery: horizontal scroll row */
+.home-side-col {
+  order: 2;
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  gap: 1rem;
+  gap: 0.75rem;
   padding: 1rem;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   z-index: 10;
-}
-.gallery-column {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-}
-.gallery-item {
   position: relative;
-  width: 250px;
-  height: 350px;
-  flex-shrink: 0;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  cursor: pointer;
-  scroll-snap-align: center;
-  transition: transform 0.3s ease;
-  background: var(--color-dark);
 }
-.gallery-item:hover { transform: scale(1.02); }
-.gallery-item img {
+.home-side-col:last-child {
+  order: 3;
+}
+
+/* Gallery tiles */
+.gallery-tile {
+  position: relative;
+  width: 180px;
+  height: 240px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: transform 0.25s ease;
+  background: #1A0F0A;
+}
+.gallery-tile:hover { transform: scale(1.03); }
+.gallery-tile img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+  opacity: 0.85;
+  transition: opacity 0.3s;
 }
-.gallery-item:hover img {
-  opacity: 1;
-}
-.gallery-item-overlay {
+.gallery-tile:hover img { opacity: 1; }
+.gallery-tile-caption {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 60%);
-  display: flex;
-  align-items: flex-end;
-  padding: 1.5rem;
-}
-.gallery-item-overlay h3 {
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%);
+  padding: 1rem 0.75rem 0.75rem;
   color: white;
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }
+
+/* ── DESKTOP: true 3-column fixed-height layout ── */
 @media (min-width: 768px) {
   .editorial-home {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 260px 1fr 260px;
+    grid-template-rows: calc(100vh - var(--header-height));
     align-items: stretch;
-    justify-content: space-between;
-  }
-  .home-center-title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    pointer-events: none;
-  }
-  .home-actions {
-    pointer-events: auto;
-  }
-  .gallery-layout {
     overflow: hidden;
-    padding: 0;
-    gap: 2rem;
-    justify-content: space-between;
-    width: 100%;
   }
-  .gallery-column {
+
+  /* Left column */
+  .home-side-col {
+    grid-column: 1;
+    grid-row: 1;
     flex-direction: column;
-    width: 280px;
-    padding-top: 100vh;
-    animation: scroll-vertical 40s linear infinite;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 1.5rem 1rem 1.5rem 1.5rem;
+    gap: 1rem;
+    order: unset;
+    scrollbar-width: none;
   }
-  .gallery-column.down {
-    animation: scroll-vertical-down 40s linear infinite;
+  .home-side-col:last-child {
+    grid-column: 3;
+    grid-row: 1;
+    order: unset;
+    padding: 1.5rem 1.5rem 1.5rem 1rem;
   }
-  .gallery-item {
+  .home-side-col::-webkit-scrollbar { display: none; }
+
+  /* Center title */
+  .home-center-title {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    position: relative;
+    order: unset;
+  }
+
+  .home-center-title h1 {
+    font-size: 5.5rem;
+  }
+
+  .home-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .home-actions .btn {
+    width: auto;
+    min-width: 180px;
+  }
+
+  /* Desktop gallery tiles — taller */
+  .gallery-tile {
     width: 100%;
-    height: 400px;
-    pointer-events: auto;
+    height: 220px;
+    flex-shrink: 0;
   }
 }
-@keyframes scroll-vertical {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
-}
-@keyframes scroll-vertical-down {
-  0% { transform: translateY(-50%); }
-  100% { transform: translateY(0); }
-}
+
+/* Old classes — keep for backward compat but neutralize */
+.gallery-layout { display: none !important; }
+.gallery-column { display: none !important; }
+.gallery-item { display: none !important; }
+
 
 /* ── QUEST JOURNEY MAP ── */
 .quest-map-container {

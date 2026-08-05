@@ -288,33 +288,37 @@ const App = (() => {
   // Expose globally
   window.showToast = showToast;
 
-  // ── Homepage Gallery & Detail Logic ────────────────────────────────────────
+  // ── Homepage Gallery & Detail Logic ─────────────────────────────────────────
   function _renderHomepageGallery() {
     const leftCol = document.getElementById('home-gallery-left');
     const rightCol = document.getElementById('home-gallery-right');
     if (!leftCol || !rightCol) return;
 
-    let leftHtml = '';
-    let rightHtml = '';
-    
-    // We duplicate the items to create an infinite scroll illusion
-    const items = [...window.GALLERY_DATA, ...window.GALLERY_DATA];
+    // Left column: food + people portraits (local images)
+    const leftItems = [
+      { img: 'be12f643-361f-4ad9-9cbc-c89416a5dba5.jpg', caption: 'Tinuom na Manok, a highland delicacy', galleryId: 'gallery-cuisine' },
+      { img: 'e1e5a388-ace2-4e6a-a6db-2db4181c5450.jpg', caption: 'Tamales, wrapped in corn husks', galleryId: 'gallery-cuisine' },
+      { img: 'c3749917-6e05-4b82-86a6-79ee251240ae.jpg', caption: 'Elders in traditional Bukidnon attire', galleryId: 'gallery-people' },
+    ];
 
-    items.forEach((item, idx) => {
-      const html = `
-        <div class="gallery-item" onclick="viewGalleryDetail('${item.id}')">
-          <img src="${item.image}" alt="${item.title}" loading="lazy" />
-          <div class="gallery-item-overlay">
-            <h3>${item.title}</h3>
-          </div>
+    // Right column: fashion + craft + elder (local images)
+    const rightItems = [
+      { img: 'fc075faf-172b-4ce9-8559-143ca84f5c26.jpg', caption: 'A Panubok weaver, keeper of the craft', galleryId: 'gallery-conservation' },
+      { img: '7fc84c48-b93b-4a9f-9141-d2c70ebdaadb.jpg', caption: 'Panay Bukidnon traditional dress', galleryId: 'gallery-culture' },
+      { img: '50a19d46-e237-4b5c-958a-8454f060f70d.jpg', caption: 'Bagsang — an embroidered spirit motif', galleryId: 'gallery-tradition' },
+    ];
+
+    function makeTile(item) {
+      return `
+        <div class="gallery-tile" onclick="viewGalleryDetail('${item.galleryId}')">
+          <img src="${item.img}" alt="${item.caption}" loading="lazy" />
+          <div class="gallery-tile-caption">${item.caption}</div>
         </div>
       `;
-      if (idx % 2 === 0) leftHtml += html;
-      else rightHtml += html;
-    });
+    }
 
-    leftCol.innerHTML = leftHtml;
-    rightCol.innerHTML = rightHtml;
+    leftCol.innerHTML = leftItems.map(makeTile).join('');
+    rightCol.innerHTML = rightItems.map(makeTile).join('');
   }
 
   window.viewGalleryDetail = function(id) {
@@ -327,6 +331,8 @@ const App = (() => {
     document.getElementById('gallery-detail-desc').textContent = item.description;
     document.getElementById('gallery-detail-impact').textContent = item.impact;
     document.getElementById('gallery-detail-significance').textContent = item.significance;
+    const creditEl = document.getElementById('gallery-detail-credit');
+    if (creditEl) creditEl.textContent = item.photoCredit || '';
 
     // Navigate to the detail view
     window.Router.navigate('#gallery');
