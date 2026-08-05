@@ -297,7 +297,7 @@ const App = (() => {
     // Left column (5 images) — uses new local files
     const leftItems = [
       { img: 'the evening fire.jpg', caption: 'Tinuom na Manok, a highland delicacy', galleryId: 'gallery-cuisine' },
-      { img: 'A weaver\\'s hut.webp', caption: 'Tamales, wrapped in corn husks', galleryId: 'gallery-cuisine' },
+      { img: "A weaver's hut.webp", caption: 'Tamales, wrapped in corn husks', galleryId: 'gallery-cuisine' },
       { img: 'Sugidanon - Song.jpg', caption: 'Elders in traditional Bukidnon attire', galleryId: 'gallery-people' },
       { img: 'Madjaas.jpg', caption: 'Mount Madja-as, the sacred peak of Panay', galleryId: 'gallery-history' },
       { img: 'weaving.jpg', caption: 'The meticulous art of Panubok weaving', galleryId: 'gallery-conservation' },
@@ -305,7 +305,7 @@ const App = (() => {
 
     // Right column (5 images) — uses new local files
     const rightItems = [
-      { img: 'A weaver\\'s hut.webp', caption: 'A Panubok weaver, keeper of the craft', galleryId: 'gallery-conservation' },
+      { img: "A weaver's hut.webp", caption: 'A Panubok weaver, keeper of the craft', galleryId: 'gallery-conservation' },
       { img: 'Binanog - dance.jpg', caption: 'Panay Bukidnon traditional dress', galleryId: 'gallery-culture' },
       { img: 'Sugidanon - Song.jpg', caption: 'Sugidanon — the epic song of the highlands', galleryId: 'gallery-tradition' },
       { img: 'Binanog - dance.jpg', caption: 'Binanog — the dance of the hawk', galleryId: 'gallery-culture' },
