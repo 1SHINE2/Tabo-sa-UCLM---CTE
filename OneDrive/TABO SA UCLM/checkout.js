@@ -75,6 +75,15 @@ const Checkout = (() => {
     Cart.renderCheckoutItemsList();
     _renderGCashPanel();
     _initFulfillmentToggle();
+
+    // ── Auto-apply Spirit Quest voucher from localStorage ──
+    const savedVoucher = localStorage.getItem('active_voucher');
+    if (savedVoucher && !Cart.appliedCode) {
+      const input = document.getElementById('voucher-input');
+      if (input) input.value = savedVoucher;
+      // Slight delay so the DOM is ready
+      setTimeout(() => Checkout.applyVoucher(), 50);
+    }
   }
 
   function close() {

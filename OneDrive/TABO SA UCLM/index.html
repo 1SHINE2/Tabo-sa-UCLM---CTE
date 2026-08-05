@@ -53,52 +53,32 @@
     
     <!-- 1️⃣ HOMEPAGE VIEW (#home) -->
     <section id="view-home" class="view-section active">
-      <!-- Masonry Gallery -->
-      <div class="masonry-gallery">
-        <a href="#gallery-highlands" class="masonry-item">
-          <!-- TODO: Replace with beautiful Panay Bukidnon / Cultural Image -->
-          <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80" alt="Mountain Highlands" />
-          <div class="absolute inset-0 bg-black/30 flex items-end p-3">
-            <span class="text-white font-display font-bold text-lg drop-shadow-md">The Highlands</span>
+      <div class="editorial-home">
+        
+        <!-- Left Scrolling Column -->
+        <div class="gallery-layout">
+          <div class="gallery-column" id="home-gallery-left">
+            <!-- Populated by JS -->
           </div>
-        </a>
-        <a href="#gallery-traditions" class="masonry-item">
-          <!-- TODO: Replace with CTE / Weaving Image -->
-          <img src="https://images.unsplash.com/photo-1605814522430-e3496c1410f9?w=600&q=80" alt="Cultural Weaving" />
-          <div class="absolute inset-0 bg-black/30 flex items-end p-2">
-            <span class="text-white font-display font-bold text-sm drop-shadow-md">Traditions</span>
+        </div>
+
+        <!-- Center Title Block -->
+        <div class="home-center-title">
+          <h1>Panay Bukidnon</h1>
+          <p>Ating Kilalanin at Isapuso</p>
+          <div class="home-actions">
+            <button class="btn btn-gold btn-lg shadow-lg" onclick="Router.navigate('#menu')">View Online Menu</button>
+            <button class="btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-earth shadow-lg" onclick="Router.navigate('#quest')">Take the Spirit Quest</button>
           </div>
-        </a>
-        <a href="#gallery-tabo" class="masonry-item">
-          <!-- TODO: Replace with Tabo/Market Image -->
-          <img src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80" alt="Market" />
-          <div class="absolute inset-0 bg-black/30 flex items-end p-2">
-            <span class="text-white font-display font-bold text-sm drop-shadow-md">Tabo sa UCLM</span>
+        </div>
+
+        <!-- Right Scrolling Column -->
+        <div class="gallery-layout hidden md:flex">
+          <div class="gallery-column down" id="home-gallery-right">
+            <!-- Populated by JS -->
           </div>
-        </a>
-      </div>
+        </div>
 
-      <!-- Cultural Text -->
-      <div class="px-5 py-6 bg-white shadow-sm mt-2">
-        <h2 class="text-2xl mb-3">Culture of Panay Bukidnon</h2>
-        <p class="text-smoke mb-6 text-sm leading-relaxed">
-          The Panay Bukidnon are the indigenous peoples of the mountainous regions of Panay Island. Known for their vibrant <em>Panubok</em> embroidery, epic chants (<em>Sugidanon</em>), and deep reverence for nature, their culture is a living testament to pre-colonial Philippine heritage.
-        </p>
-
-        <h3 class="text-lg mb-2">Theme of Tabo sa UCLM</h3>
-        <p class="text-smoke mb-6 text-sm leading-relaxed">
-          For this Buwan ng Wika, the CTE department proudly presents a culinary journey into the heart of the highlands. Every dish served here is a story of survival, animistic harmony, and the rich bounty of the mountains.
-        </p>
-
-        <h3 class="text-lg mb-2">Background & History</h3>
-        <p class="text-smoke text-sm leading-relaxed">
-          Long before the coastal trade flourished, the mountain rivers provided life. Our menu honors the traditional zero-waste cooking methods of the Bukidnon—using bamboo tubes, banana leaves, and natural highland fermentation.
-        </p>
-      </div>
-
-      <div class="px-5 py-6 text-center">
-        <a href="#menu" class="btn btn-primary btn-full btn-lg mb-4">View Online Menu</a>
-        <a href="#quest" class="btn btn-outline btn-full btn-lg">Take the Spirit Quest</a>
       </div>
     </section>
 
@@ -195,17 +175,38 @@
       </div>
     </section>
 
-    <!-- 7️⃣ CULTURAL GALLERY VIEW (#gallery) -->
+    <!-- 7️⃣ CULTURAL GALLERY DETAIL VIEW (#gallery-detail) -->
     <section id="view-gallery" class="view-section">
-      <div class="p-5 max-w-2xl mx-auto pb-32 pt-6">
+      <div class="p-5 max-w-3xl mx-auto pb-32 pt-6">
         <a href="#home" class="btn btn-outline mb-6">← Back to Home</a>
-        <h2 class="text-3xl font-display font-bold text-earth mb-4" id="gallery-title">Cultural Heritage</h2>
-        <div class="w-full aspect-video bg-gray-200 rounded-lg mb-6 overflow-hidden shadow-md">
-          <img id="gallery-image" src="" alt="Gallery Full" class="w-full h-full object-cover" />
+        
+        <h2 id="gallery-detail-title" class="text-4xl md:text-5xl font-display font-bold text-earth mb-2 uppercase tracking-widest leading-tight">Theme Title</h2>
+        <p id="gallery-detail-subtitle" class="text-gold font-bold uppercase tracking-widest text-sm mb-6">Subtitle</p>
+        
+        <div class="w-full aspect-video bg-gray-200 rounded-xl mb-8 overflow-hidden shadow-lg border-2 border-gold/30">
+          <img id="gallery-detail-image" src="" alt="Gallery Image" class="w-full h-full object-cover" />
         </div>
-        <p id="gallery-text" class="text-smoke text-sm leading-relaxed mb-6">
-          This is a placeholder description for the cultural gallery image. You can update this text with actual historical context once the collage is ready!
-        </p>
+        
+        <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100 relative">
+          <!-- Big Quote Decoration -->
+          <div class="absolute -top-6 -left-4 text-earth/10 text-9xl font-display">&ldquo;</div>
+          
+          <h3 class="text-2xl font-display font-bold text-earth mb-3">Description</h3>
+          <p id="gallery-detail-desc" class="text-smoke text-base leading-relaxed mb-8 relative z-10">Description text goes here.</p>
+          
+          <div class="divider"></div>
+          
+          <h3 class="text-2xl font-display font-bold text-earth mb-3">Culture, Tradition & Impact</h3>
+          <p id="gallery-detail-impact" class="text-smoke text-base leading-relaxed mb-8">Impact text goes here.</p>
+          
+          <div class="divider"></div>
+          
+          <div class="bg-earth/5 p-5 rounded-lg border-l-4 border-earth">
+            <h3 class="text-xl font-display font-bold text-earth mb-2">Significance to the Country</h3>
+            <p id="gallery-detail-significance" class="text-smoke text-sm leading-relaxed">Significance text goes here.</p>
+          </div>
+        </div>
+        
       </div>
     </section>
 

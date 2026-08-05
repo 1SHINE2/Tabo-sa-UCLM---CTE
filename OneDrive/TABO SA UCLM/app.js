@@ -12,6 +12,11 @@ const App = (() => {
   function init() {
     // Render initial product grid
     _renderMenuGrid(window.PRODUCTS);
+    
+    // Render the new Homepage Gallery
+    if (window.GALLERY_DATA) {
+      _renderHomepageGallery();
+    }
 
     // Initialize Sidebar toggle
     const menuBtn = document.getElementById('menu-toggle');
@@ -282,6 +287,50 @@ const App = (() => {
   }
   // Expose globally
   window.showToast = showToast;
+
+  // ── Homepage Gallery & Detail Logic ────────────────────────────────────────
+  function _renderHomepageGallery() {
+    const leftCol = document.getElementById('home-gallery-left');
+    const rightCol = document.getElementById('home-gallery-right');
+    if (!leftCol || !rightCol) return;
+
+    let leftHtml = '';
+    let rightHtml = '';
+    
+    // We duplicate the items to create an infinite scroll illusion
+    const items = [...window.GALLERY_DATA, ...window.GALLERY_DATA];
+
+    items.forEach((item, idx) => {
+      const html = `
+        <div class="gallery-item" onclick="viewGalleryDetail('${item.id}')">
+          <img src="${item.image}" alt="${item.title}" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h3>${item.title}</h3>
+          </div>
+        </div>
+      `;
+      if (idx % 2 === 0) leftHtml += html;
+      else rightHtml += html;
+    });
+
+    leftCol.innerHTML = leftHtml;
+    rightCol.innerHTML = rightHtml;
+  }
+
+  window.viewGalleryDetail = function(id) {
+    const item = window.GALLERY_DATA.find(i => i.id === id);
+    if (!item) return;
+
+    document.getElementById('gallery-detail-title').textContent = item.title;
+    document.getElementById('gallery-detail-subtitle').textContent = item.subtitle;
+    document.getElementById('gallery-detail-image').src = item.image;
+    document.getElementById('gallery-detail-desc').textContent = item.description;
+    document.getElementById('gallery-detail-impact').textContent = item.impact;
+    document.getElementById('gallery-detail-significance').textContent = item.significance;
+
+    // Navigate to the detail view
+    window.Router.navigate('#gallery');
+  };
 
   return { init };
 })();

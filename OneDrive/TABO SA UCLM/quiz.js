@@ -1,14 +1,13 @@
 /**
- * quiz.js — Interactive Personality Quest (V2)
+ * quiz.js — Interactive Personality Quest (V3 - Journey Map)
  * ─────────────────────────────────────────────────────────────────────────────
- * Multi-screen flow (Intro -> Q1 -> Q2 -> Q3 -> Result).
- * Saves result to localStorage to prevent abuse.
+ * 5-question journey map. Saves result to localStorage.
+ * Prevents farming by locking out after completion.
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
 const Quiz = (() => {
 
-  // Scoring matrix: which tags point to which dishes
   const QUIZ_MATRIX = {
     "chill": ["prod-101", "prod-103", "prod-105", "prod-106"],
     "hyped": ["prod-102", "prod-107", "prod-110"],
@@ -18,51 +17,85 @@ const Quiz = (() => {
     "smoky": ["prod-102", "prod-108"],
     "peak": ["prod-103", "prod-104", "prod-107"],
     "river": ["prod-102", "prod-106", "prod-108", "prod-109"],
-    "mist": ["prod-101", "prod-105", "prod-110"]
+    "mist": ["prod-101", "prod-105", "prod-110"],
+    "weave": ["prod-101", "prod-103", "prod-106"],
+    "hunt": ["prod-102", "prod-108", "prod-110"]
   };
 
   const QUESTIONS = [
     {
-      title: "The Mountain's Call",
+      title: "The Basecamp",
+      nodeClass: "node-forest",
       bg: "https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&q=80",
-      text: "How do you approach a steep, misty trail?",
+      text: "You arrive at the edge of the Panay forest. How do you prepare?",
       options: [
-        { label: "Take it slow, absorb the calm.", tags: ["chill"] },
-        { label: "Run up! I thrive on the energy.", tags: ["hyped"] },
-        { label: "I take the hardest, unpaved path.", tags: ["hardcore"] }
+        { label: "Observe the wildlife silently.", tags: ["chill", "mist"] },
+        { label: "Charge ahead to clear the trail.", tags: ["hyped", "hardcore"] },
+        { label: "Forage for sweet berries.", tags: ["sweet"] }
       ]
     },
     {
-      title: "The Bountiful Harvest",
-      bg: "https://images.unsplash.com/photo-1505934333218-8fe21ff88f0c?w=800&q=80",
-      text: "After a long day in the rice terraces, what do you crave?",
-      options: [
-        { label: "Something sugary to reward myself.", tags: ["sweet"] },
-        { label: "A heavy, meaty, comforting meal.", tags: ["savory"] },
-        { label: "Fire-roasted flavors, bold and sharp.", tags: ["smoky"] }
-      ]
-    },
-    {
-      title: "The Ancestral Domain",
+      title: "The River Crossing",
+      nodeClass: "node-river",
       bg: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
-      text: "Where does your spirit feel most at peace?",
+      text: "A cold mountain river blocks your path. What's your move?",
       options: [
-        { label: "At the very peak, touching the sky.", tags: ["peak"] },
-        { label: "By the rushing, cold river waters.", tags: ["river"] },
-        { label: "Wrapped in the thick morning mist.", tags: ["mist"] }
+        { label: "Find a calm, shallow spot to wade.", tags: ["river", "chill"] },
+        { label: "Dive in and swim against the current.", tags: ["hardcore", "hunt"] },
+        { label: "Rest by the bank and cook a savory meal.", tags: ["savory", "river"] }
+      ]
+    },
+    {
+      title: "The Weaver's Hut",
+      nodeClass: "node-mountain",
+      bg: "https://images.unsplash.com/photo-1605814522430-e3496c1410f9?w=800&q=80",
+      text: "You meet an elder weaving Panubok. She offers you a gift.",
+      options: [
+        { label: "A brightly colored, sweet-smelling cloth.", tags: ["sweet", "weave"] },
+        { label: "A sturdy, earthy-toned hunting sash.", tags: ["savory", "hunt"] },
+        { label: "A soft, misty-grey blanket for the cold.", tags: ["mist", "chill"] }
+      ]
+    },
+    {
+      title: "The Evening Fire",
+      nodeClass: "node-fire",
+      bg: "https://images.unsplash.com/photo-1505934333218-8fe21ff88f0c?w=800&q=80",
+      text: "Night falls. What do you throw into the communal fire?",
+      options: [
+        { label: "Dry bamboo for a massive, roaring blaze.", tags: ["hyped", "smoky"] },
+        { label: "Slow-burning mahogany for a long, smoky heat.", tags: ["smoky", "chill"] },
+        { label: "Sugarcane husks for a sweet, crackling aroma.", tags: ["sweet", "savory"] }
+      ]
+    },
+    {
+      title: "The Summit",
+      nodeClass: "node-mountain",
+      bg: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80",
+      text: "You reach the peak at dawn. What calls to your spirit?",
+      options: [
+        { label: "The roaring wind and endless sky.", tags: ["peak", "hardcore"] },
+        { label: "The quiet mist settling in the valleys.", tags: ["mist", "chill"] },
+        { label: "The promise of a grand feast upon returning.", tags: ["savory", "hunt"] }
       ]
     }
   ];
 
-  let currentStep = 0; // 0 = Intro, 1-3 = Qs, 4 = Result
+  let currentStep = 0; // 0 = Intro, 1-5 = Qs, 6 = Result
   let userTags = [];
 
   function init() {
+    // Anti-Farm Check: if already completed, skip straight to result
+    if (localStorage.getItem('quiz_completed_dish')) {
+      currentStep = 6;
+      userTags = [];
+      _renderStep();
+      return;
+    }
+
     currentStep = 0;
     userTags = [];
     _renderStep();
   }
-  // Expose globally for router
   window.initQuiz = init;
 
   function _renderStep() {
@@ -71,11 +104,13 @@ const Quiz = (() => {
     if (!wrapper || !screen) return;
 
     if (currentStep === 0) {
-      screen.style.backgroundImage = "url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80')";
+      screen.style.backgroundImage = "url('https://images.unsplash.com/photo-1605814522430-e3496c1410f9?w=1200&q=80')";
       wrapper.innerHTML = `
-        <h2 class="text-4xl font-display font-bold mb-4 drop-shadow-lg">The Spirit Quest</h2>
-        <p class="text-lg opacity-90 mb-8 px-4 text-shadow-sm">Do you want to know which Panay Bukidnon spirit dwells within your appetite? Take the quest to discover your soul dish and unlock a special blessing.</p>
-        <button class="btn btn-gold btn-lg shadow-lg" onclick="Quiz.nextStep()">Begin the Quest</button>
+        <div class="quest-node node-forest">
+          <h2 class="drop-shadow-lg">The Spirit Quest</h2>
+          <p class="text-lg opacity-90 mb-8 text-shadow-sm">Do you want to know which Panay Bukidnon spirit dwells within your appetite? Embark on this 5-stop journey to discover your soul dish and unlock a special blessing.</p>
+          <button class="btn btn-gold btn-lg shadow-lg w-full" onclick="Quiz.nextStep()">Begin the Journey</button>
+        </div>
       `;
     } 
     else if (currentStep > 0 && currentStep <= QUESTIONS.length) {
@@ -83,18 +118,22 @@ const Quiz = (() => {
       screen.style.backgroundImage = `url('${q.bg}')`;
       
       const optionsHtml = q.options.map((opt, idx) => `
-        <button class="quiz-option" onclick="Quiz.answer(${idx})">
-          <span class="text-xl opacity-70">✦</span>
-          <span>${opt.label}</span>
+        <button class="quest-option" onclick="Quiz.answer(${idx})">
+          ${opt.label}
         </button>
       `).join('');
 
       wrapper.innerHTML = `
-        <div class="text-gold text-sm font-bold tracking-widest uppercase mb-2">Question ${currentStep} of ${QUESTIONS.length}</div>
-        <h2 class="text-3xl font-display font-bold mb-2 text-white drop-shadow-xl" style="text-shadow: 0 2px 12px rgba(0,0,0,0.8)">${q.title}</h2>
-        <p class="text-md opacity-90 mb-8 px-4" style="text-shadow: 0 1px 6px rgba(0,0,0,0.7)">${q.text}</p>
-        <div class="flex flex-col gap-3">
-          ${optionsHtml}
+        <div class="quest-map-container" style="background: transparent; min-height: auto;">
+          <div class="quest-path"></div>
+          <div class="quest-node ${q.nodeClass}">
+            <div class="text-gold text-sm font-bold tracking-widest uppercase mb-2">Waypoint ${currentStep} / ${QUESTIONS.length}</div>
+            <h2>${q.title}</h2>
+            <p class="text-md opacity-90 mb-6">${q.text}</p>
+            <div class="flex flex-col gap-3 relative z-10">
+              ${optionsHtml}
+            </div>
+          </div>
         </div>
       `;
     }
@@ -118,11 +157,11 @@ const Quiz = (() => {
     const wrapper = document.getElementById('quiz-content-wrapper');
     const screen = document.getElementById('quiz-screen');
     
-    // Lock logic: Check if user already completed the quiz before
     let matchedDishId = localStorage.getItem('quiz_completed_dish');
+    let isAlreadyTaken = true;
     
     if (!matchedDishId) {
-      // Calculate scores
+      isAlreadyTaken = false;
       const scores = {};
       window.PRODUCTS.forEach(p => scores[p.id] = 0);
 
@@ -139,45 +178,49 @@ const Quiz = (() => {
         else if (score === topScore) { topIds.push(pid); }
       }
 
-      // Tie breaker
       matchedDishId = topIds[Math.floor(Math.random() * topIds.length)];
-      
-      // Save lock
       localStorage.setItem('quiz_completed_dish', matchedDishId);
     }
 
     const dish = window.PRODUCTS.find(p => p.id === matchedDishId);
-    if (!dish) return; // safety
+    if (!dish) return;
 
     const voucherCode = `SPIRIT-${matchedDishId.replace('prod-', '')}`;
+    localStorage.setItem('active_voucher', voucherCode); // Save for auto-apply
 
     screen.style.backgroundImage = `url('${dish.image}')`;
+    
+    let takenBanner = '';
+    if (isAlreadyTaken) {
+      takenBanner = `<div class="bg-earth/80 text-white p-2 rounded text-xs text-center mb-3 font-bold uppercase tracking-wider border border-white/20">You have already completed the quest!</div>`;
+    }
+
     wrapper.innerHTML = `
-      <div class="result-card animate-slide-up">
-        <p class="text-earth text-xs font-bold uppercase tracking-widest mb-1">Your Spirit Dish Is</p>
-        <h2 class="text-3xl font-display font-bold text-earth mb-3">${dish.name}</h2>
+      <div class="quest-node node-fire" style="background: rgba(0,0,0,0.8);">
+        ${takenBanner}
+        <p class="text-gold text-xs font-bold uppercase tracking-widest mb-1">Your Spirit Dish Is</p>
+        <h2 class="text-3xl font-display font-bold text-white mb-3">${dish.name}</h2>
         
-        <img src="${dish.image}" alt="${dish.name}" style="width:100%; height:160px; object-fit:cover; border-radius:12px; margin-bottom:12px; box-shadow: 0 4px 16px rgba(0,0,0,0.15);" />
+        <img src="${dish.image}" alt="${dish.name}" style="width:100%; height:160px; object-fit:cover; border-radius:12px; margin-bottom:12px; border: 2px solid var(--color-gold);" />
         
-        <p class="text-sm text-smoke mb-3 italic font-display">"${dish.quote || dish.description || ''}"
-        </p>
+        <p class="text-sm text-gray-300 mb-3 italic font-display">"${dish.quote || dish.description || ''}"</p>
 
-        <div class="text-left bg-earth/5 p-3 rounded-lg mb-4 border-l-3 border-earth" style="border-left: 3px solid var(--color-earth);">
-          <p class="text-xs font-bold text-earth uppercase tracking-wide mb-1">Why this dish?</p>
-          <p class="text-xs text-smoke leading-relaxed">${dish.culturalTie?.themeConnection || dish.culturalNote || ''}</p>
+        <div class="text-left bg-white/10 p-3 rounded-lg mb-4 border-l-4 border-gold">
+          <p class="text-xs font-bold text-gold uppercase tracking-wide mb-1">Why this dish?</p>
+          <p class="text-xs text-gray-200 leading-relaxed">${dish.culturalTie?.themeConnection || dish.culturalNote || ''}</p>
         </div>
 
-        <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg mb-6">
-          <p class="text-xs text-smoke uppercase font-bold mb-2">Your Unique Blessing</p>
-          <div class="badge-voucher mb-2">${voucherCode}</div>
-          <p class="text-xs text-smoke">Use this code at checkout to get ₱10 off <b>${dish.name}</b>!</p>
-          <p class="text-[10px] text-gray-400 mt-1">* Bound to your device. Cannot be transferred.</p>
+        <div class="bg-black/50 border border-gold/30 p-4 rounded-lg mb-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-gold text-dark text-[10px] px-2 py-1 font-bold rounded-bl-lg">AUTO-APPLIED</div>
+          <p class="text-xs text-gold uppercase font-bold mb-2">Your Unique Blessing</p>
+          <div class="text-xl font-bold tracking-widest text-white mb-1 border-b border-dashed border-gray-600 pb-2">${voucherCode}</div>
+          <p class="text-xs text-gray-300 mt-2">This ₱10 discount has been securely saved to your browser and will be automatically applied at checkout!</p>
         </div>
 
-        <button class="btn btn-primary btn-full mb-3" onclick="Cart.changeQty('${dish.id}', 1); Router.navigate('#menu'); showToast('Added to cart!', 'success');">
-          Claim &amp; View Menu
+        <button class="btn btn-gold w-full mb-3 shadow-lg" onclick="Router.navigate('#menu')">
+          View Online Menu
         </button>
-        <button class="btn btn-outline btn-full" onclick="Router.navigate('#home')">
+        <button class="btn btn-outline border-gray-500 text-gray-300 w-full hover:bg-gray-800" onclick="Router.navigate('#home')">
           Return Home
         </button>
       </div>
