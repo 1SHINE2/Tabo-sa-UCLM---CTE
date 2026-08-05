@@ -43,10 +43,10 @@ const Cart = (() => {
     return Object.values(items).reduce((a, b) => a + b, 0);
   }
 
-  function applyDiscount() {
+  function applyDiscount(codeOverride) {
     const input = document.getElementById('voucher-input');
-    if (!input) return;
-    const code = input.value.trim().toUpperCase();
+    const rawCode = codeOverride || (input ? input.value : '');
+    const code = String(rawCode).trim().toUpperCase();
 
     // Reset current discount first
     currentDiscount = 0;
@@ -54,7 +54,7 @@ const Cart = (() => {
 
     if (!code) {
       _render();
-      return;
+      return { success: false, message: 'Please enter a voucher code.' };
     }
 
     // Check if it's a SPIRIT-xxx code
@@ -64,26 +64,28 @@ const Cart = (() => {
 
       if (lockedDish !== requiredId) {
         window.showToast('Invalid voucher for this device.', 'error');
-        input.value = '';
+        if (input) input.value = '';
         _render();
-        return;
+        return { success: false, message: 'Invalid voucher for this device.' };
       }
 
       if (!items[requiredId]) {
         window.showToast('Your Spirit Dish must be in the cart to use this!', 'error');
         _render();
-        return;
+        return { success: false, message: 'Your Spirit Dish must be in the cart to use this!' };
       }
 
       // Valid!
       currentDiscount = DISCOUNT_AMOUNT;
       activeVoucher = code;
       window.showToast('Blessing applied! ₱10 off.', 'success');
-    } else {
-      window.showToast('Invalid voucher code.', 'error');
+      _render();
+      return { success: true, amount: DISCOUNT_AMOUNT, code, message: 'Blessing applied! ₱10 off.' };
     }
 
+    window.showToast('Invalid voucher code.', 'error');
     _render();
+    return { success: false, message: 'Invalid voucher code.' };
   }
 
   function getOrderPayload() {

@@ -77,11 +77,11 @@ const Checkout = (() => {
 
     Cart.renderCheckoutItemsList();
     _renderGCashPanel();
-    _initToggles();
 
     // ── Auto-apply Spirit Quest voucher from localStorage ──
     const savedVoucher = localStorage.getItem('active_voucher');
-    if (savedVoucher && !Cart.appliedCode) {
+    const alreadyApplied = Cart.getSnapshot().voucherUsed !== 'NONE';
+    if (savedVoucher && !alreadyApplied) {
       const input = document.getElementById('voucher-input');
       if (input) input.value = savedVoucher;
       // Slight delay so the DOM is ready
@@ -133,7 +133,7 @@ const Checkout = (() => {
       if (appliedEl) {
         appliedEl.innerHTML = `
           <div class="voucher-applied animate-slide-down">
-            ✅ <span>${Cart.appliedCode}</span>
+            ✅ <span>${result.code}</span>
             <span class="ml-auto text-leaf font-bold">−₱${result.amount}</span>
           </div>
         `;
@@ -272,11 +272,11 @@ const Checkout = (() => {
       payment:      formData.payment,
       fulfillment:  formData.fulfillment,    // "pickup" | "delivery"
       destination:  formData.building,
-      items:        snapshot.items.map(l => ({
-        id:    l.product.id,
-        name:  l.product.name,
-        price: l.product.price,
-        qty:   l.qty,
+      items: snapshot.items.map(l => ({
+        id:        l.id,
+        name:      l.name,
+        price:     l.price,
+        qty:       l.qty,
         lineTotal: l.lineTotal,
       })),
       subtotal:    snapshot.subtotal,
