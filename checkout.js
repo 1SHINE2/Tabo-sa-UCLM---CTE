@@ -340,19 +340,20 @@ const Checkout = (() => {
 
   // ── Online Confirmation Screen ──────────────────────────────────────────────
 
-  function _showOnlineConfirmation(payload) {
+  function _showSuccessReceipt(payload) {
     Router.showView('view-receipt');
     const screen = document.getElementById('receipt-screen');
     if (!screen) return;
 
     screen.innerHTML = `
-      <div class="receipt-header" style="background: var(--color-leaf)">
-        <div class="text-4xl mb-2">🎉</div>
-        <h2 class="font-display text-white text-2xl">Order Received!</h2>
-        <p class="text-white opacity-80 text-sm mt-1">Thank you, ${escapeHTML(payload.customerName)}!</p>
+      <div class="bg-earth p-6 text-center rounded-t-xl relative overflow-hidden" style="background-color: var(--color-earth);">
+        <div class="absolute -top-4 -right-4 text-7xl opacity-10 font-display">🛒</div>
+        <div class="text-5xl mb-3 relative z-10">🎉</div>
+        <h2 class="font-display text-white text-3xl font-bold leading-tight relative z-10">Order Received!</h2>
+        <p class="text-white/90 text-sm mt-1 relative z-10">Thank you, ${escapeHTML(payload.customerName)}!</p>
       </div>
       ${_buildReceiptBody(payload, false)}
-      <button class="btn btn-primary btn-full mt-4" onclick="Router.navigate('#home')">
+      <button class="btn btn-primary btn-full mt-4 shadow-lg text-lg py-3" onclick="Router.navigate('#home')">
         🏠 Back to Menu
       </button>
     `;
@@ -368,20 +369,20 @@ const Checkout = (() => {
     if (!screen) return;
 
     screen.innerHTML = `
-      <div class="receipt-header" style="background: var(--color-earth)">
+      <div class="bg-earth p-6 text-center rounded-t-xl" style="background-color: var(--color-earth);">
         <div class="text-4xl mb-2">📱</div>
-        <h2 class="font-display text-white text-2xl">Digital Receipt</h2>
-        <p class="text-white opacity-80 text-sm mt-1">Show this screen to the cashier at the booth</p>
+        <h2 class="font-display text-white text-2xl font-bold">Digital Receipt</h2>
+        <p class="text-white/80 text-sm mt-1">Show this screen to the cashier at the booth</p>
       </div>
 
-      <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-3 mb-4 text-sm text-yellow-800 flex gap-2">
-        <span>⚠️</span>
-        <span>Couldn't connect to our system right now. Please <strong>show this receipt</strong> to our cashier — your order is safe!</span>
+      <div class="bg-yellow-50 border-x border-t border-yellow-300 p-4 text-sm text-yellow-800 flex gap-3 items-start">
+        <span class="text-lg">⚠️</span>
+        <span class="leading-relaxed">Couldn't connect to our system right now. Please <strong>show this receipt</strong> to our cashier — your order is safe!</span>
       </div>
 
       ${_buildReceiptBody(payload, true)}
 
-      <div class="text-center text-xs text-smoke mt-4 mb-2">
+      <div class="text-center text-xs text-smoke mt-4 mb-2 font-medium">
         📍 Proceed to the Tabo sa UCLM booth and show this screen.
       </div>
 
@@ -403,43 +404,50 @@ const Checkout = (() => {
       : '🏪 Booth Pickup';
 
     const itemRows = payload.items.map(item => `
-      <div class="receipt-row">
-        <span>${escapeHTML(item.name)} × ${Number(item.qty)}</span>
-        <span class="font-semibold">₱${Number(item.lineTotal)}</span>
+      <div class="flex justify-between items-start py-2 border-b border-gray-100 last:border-0">
+        <span class="text-smoke pr-4">${escapeHTML(item.name)} <span class="text-xs text-gray-400 ml-1">× ${Number(item.qty)}</span></span>
+        <span class="font-semibold text-earth">₱${Number(item.lineTotal)}</span>
       </div>
     `).join('');
 
     const discountRow = payload.discount > 0 ? `
-      <div class="receipt-row text-leaf">
+      <div class="flex justify-between items-center py-2 text-leaf border-b border-gray-100">
         <span>🎟️ Voucher (${safeVoucher})</span>
-        <span>−₱${Number(payload.discount)}</span>
+        <span class="font-bold">−₱${Number(payload.discount)}</span>
       </div>
     ` : '';
 
     return `
-      <div class="receipt-body">
-        <div class="receipt-row">
-          <span class="text-smoke text-xs font-semibold uppercase tracking-wide">Customer</span>
-          <span class="font-semibold">${safeName}</span>
+      <div class="bg-white p-6 rounded-b-xl shadow-lg border border-gray-100">
+        <div class="space-y-3 mb-5">
+          <div class="flex justify-between items-center">
+            <span class="text-smoke text-[10px] font-bold uppercase tracking-widest">Customer</span>
+            <span class="font-semibold text-sm text-earth">${safeName}</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-smoke text-[10px] font-bold uppercase tracking-widest">Payment</span>
+            <span class="font-semibold text-sm text-earth">${payload.payment === 'cash' ? '💵 Cash' : '📱 GCash (' + safeGcashName + ')'}</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-smoke text-[10px] font-bold uppercase tracking-widest">Fulfillment</span>
+            <span class="font-semibold text-sm text-earth text-right max-w-[60%] leading-tight">${fulfillmentLabel}</span>
+          </div>
         </div>
-        <div class="receipt-row">
-          <span class="text-smoke text-xs font-semibold uppercase tracking-wide">Payment Mode</span>
-          <span class="font-semibold">${payload.payment === 'cash' ? '💵 Cash' : '📱 GCash (' + safeGcashName + ')'}</span>
+        
+        <div class="divider border-t-2 border-dashed border-gray-200 my-4"></div>
+        
+        <div class="mb-4 text-sm">
+          ${itemRows}
+          ${discountRow}
         </div>
-        <div class="receipt-row">
-          <span class="text-smoke text-xs font-semibold uppercase tracking-wide">Fulfillment</span>
-          <span class="font-semibold">${fulfillmentLabel}</span>
+        
+        <div class="flex justify-between items-end pt-3 border-t-2 border-earth">
+          <span class="text-sm font-bold text-smoke tracking-wider uppercase">Total</span>
+          <span class="font-display font-bold text-3xl text-earth">₱${Number(payload.total)}</span>
         </div>
-        <hr class="divider my-1">
-        ${itemRows}
-        ${discountRow}
-        <div class="receipt-row receipt-total">
-          <span>TOTAL</span>
-          <span>₱${Number(payload.total)}</span>
-        </div>
-        <div class="receipt-row text-xs text-smoke">
-          <span>Order Time</span>
-          <span>${new Date(escapeHTML(payload.timestamp)).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' })}</span>
+        
+        <div class="text-center text-[10px] text-gray-400 mt-6 uppercase tracking-widest">
+          Order Time: ${new Date(escapeHTML(payload.timestamp)).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' })}
         </div>
       </div>
     `;

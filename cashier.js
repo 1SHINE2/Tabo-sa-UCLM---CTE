@@ -170,13 +170,13 @@ const CashierPOS = (() => {
     if (!container) return;
 
     container.innerHTML = `
-      <div id="cashier-pos" class="min-h-screen bg-gray-900 text-white flex flex-col">
+      <div id="cashier-pos" class="min-h-screen panubok-bg text-white flex flex-col">
 
         <!-- Header & Tabs -->
-        <div class="pos-header flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-gray-800 border-b border-white/10">
+        <div class="pos-header flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-black/40 border-b border-white/10">
           <div>
-            <h1 class="font-display text-xl text-white">🍽️ Tabo sa UCLM POS</h1>
-            <p class="text-xs opacity-60" id="pos-timestamp"></p>
+            <h1 class="font-display text-xl text-gold">🍽️ Tabo sa UCLM POS</h1>
+            <p class="text-xs opacity-80" id="pos-timestamp"></p>
           </div>
           <button
             class="btn btn-sm mt-2 sm:mt-0"
@@ -196,16 +196,16 @@ const CashierPOS = (() => {
           <!-- LEFT PANEL: Bill & Entry -->
           <div class="flex flex-col flex-1 overflow-hidden border-r border-white/10" style="min-height:50vh">
             <!-- Quick Entry Bar -->
-            <div class="p-4 border-b border-white/10 bg-gray-800">
-              <label class="text-xs text-gray-400 mb-2 block uppercase tracking-wide">Quick Item Entry (type 3-digit ID)</label>
+            <div class="p-4 border-b border-white/10 bg-black/20">
+              <label class="text-xs text-white/70 mb-2 block uppercase tracking-wide">Quick Item Entry (type 3-digit ID)</label>
               <div class="flex gap-2">
                 <input
                   id="quick-entry-input"
                   type="number"
                   min="101" max="110"
                   placeholder="e.g. 101 = Tinuom na Manok"
-                  class="form-input flex-1 bg-gray-700 text-white border-gray-600 placeholder-gray-500"
-                  style="background:#374151; color:white; border-color:#4B5563"
+                  class="form-input flex-1 text-white border-white/20 placeholder-white/40"
+                  style="background:rgba(0,0,0,0.3);"
                   onkeydown="if(event.key==='Enter') CashierPOS.quickEntry()"
                   autocomplete="off"
                 >
@@ -214,7 +214,7 @@ const CashierPOS = (() => {
               <div class="flex flex-wrap gap-1 mt-2">
                 ${(window.PRODUCTS || []).map(p => `
                   <button
-                    class="text-xs px-2 py-1 rounded-full border border-gray-600 text-gray-300 hover:bg-gray-600 transition-colors"
+                    class="text-xs px-2 py-1 rounded-full border border-white/30 text-white/80 hover:bg-white/10 transition-colors"
                     onclick="CashierPOS.addToBill('${p.id}')"
                     title="${p.name} — ₱${p.price}"
                   >${p.id.slice(-3)} ${p.name.split(' ')[0]}</button>
@@ -233,23 +233,23 @@ const CashierPOS = (() => {
           <!-- RIGHT PANEL: Calculator & Complete Sale -->
           <div class="lg:w-96 flex flex-col bg-gray-800">
             <!-- Bill Total -->
-            <div class="p-6 border-b border-white/10 bg-gray-900 text-center">
-              <div class="text-gray-400 text-sm uppercase tracking-wider mb-1">Total Due</div>
+            <div class="p-6 border-b border-white/10 bg-black/40 text-center">
+              <div class="text-white/70 text-sm uppercase tracking-wider mb-1">Total Due</div>
               <div id="pos-bill-total" class="text-yellow-400 text-5xl font-bold">₱0</div>
               <button class="text-xs text-gray-500 mt-3 hover:text-gray-300 underline" onclick="CashierPOS.clearBill()">Clear Bill</button>
             </div>
 
             <!-- Cash Calculator -->
-            <div class="p-6 border-b border-white/10 flex-1">
+            <div class="p-6 border-b border-white/10 flex-1 bg-black/20">
               <h3 class="font-display text-lg text-white mb-4">💵 Cash Calculator</h3>
               <input id="calc-total" type="hidden">
               <div class="mb-4">
-                <label class="form-label text-gray-400 text-xs">Amount Tendered (₱)</label>
+                <label class="form-label text-white/70 text-xs">Amount Tendered (₱)</label>
                 <input
                   id="calc-tendered"
                   type="number"
-                  class="form-input text-xl py-3"
-                  style="background:#374151; color:white; border-color:#4B5563"
+                  class="form-input text-xl py-3 text-white border-white/20"
+                  style="background:rgba(0,0,0,0.3);"
                   placeholder="0"
                   oninput="CashierPOS.calcChange()"
                 >
@@ -274,13 +274,13 @@ const CashierPOS = (() => {
         </div>
 
         <!-- ── TAB B: ONLINE ORDERS FEED ── -->
-        <div class="pos-panel flex-1 overflow-y-auto bg-gray-900 p-6" id="tab-online">
+        <div class="pos-panel flex-1 overflow-y-auto bg-black/20 p-6" id="tab-online">
           <div class="flex items-center justify-between mb-6 max-w-4xl mx-auto">
             <div>
-              <h3 class="font-display text-2xl text-green-400">📲 Online Orders Queue</h3>
-              <p class="text-sm text-gray-400 mt-1">Orders paid via GCash or Booth Pickup</p>
+              <h3 class="font-display text-2xl text-gold">📲 Online Orders Queue</h3>
+              <p class="text-sm text-white/70 mt-1">Orders paid via GCash or Booth Pickup</p>
             </div>
-            <button class="btn btn-outline border-gray-600 text-gray-300" onclick="CashierPOS.refreshFeed()">
+            <button class="btn btn-outline border-white/30 text-white/90 hover:bg-white/10" onclick="CashierPOS.refreshFeed()">
               ↻ Refresh Queue
             </button>
           </div>
@@ -689,14 +689,14 @@ const CashierPOS = (() => {
       const btnText = isCompleted ? '✅ Done' : 'Mark as Done / Dispatch';
 
       return `
-        <div class="order-card ${isCompleted ? 'fulfilled' : ''}" data-order-ts="${safeTimestamp}">
-          <div class="flex justify-between items-start mb-2">
-            <div>
-              <div class="font-bold text-sm">${safeCustomerName}</div>
-              <div class="text-xs text-gray-400">GCash: ${safeGcashName} · ${escapeHTML(time)}</div>
-            </div>
-            <div class="text-yellow-400 font-bold">₱${displayTotal}</div>
+        <div class="bg-black/40 border border-white/10 p-4 rounded-lg shadow-sm flex flex-col relative" id="feed-card-${orderId}" data-order-ts="${safeTimestamp}">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h4 class="font-bold text-white text-lg">${safeCustomerName}</h4>
+            <div class="text-xs text-white/70">GCash: ${safeGcashName} · ${escapeHTML(time)}</div>
           </div>
+          <div class="font-bold text-gold text-lg">₱${displayTotal}</div>
+        </div>
           <div class="text-xs text-gray-300 mb-2">${itemsSummary}</div>
           <div class="text-xs text-gray-400 mb-3">${fulfillLabel}</div>
           <button

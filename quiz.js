@@ -26,7 +26,7 @@ const Quiz = (() => {
     {
       title: "The Basecamp",
       nodeClass: "node-forest",
-      bg: "https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&q=80",
+      bg: "Madjaas.jpg",
       text: "You arrive at the edge of the Panay forest. How do you prepare?",
       options: [
         { label: "Observe the wildlife silently.", tags: ["chill", "mist"] },
@@ -37,7 +37,7 @@ const Quiz = (() => {
     {
       title: "The River Crossing",
       nodeClass: "node-river",
-      bg: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
+      bg: "Binanog - dance.jpg",
       text: "A cold mountain river blocks your path. What's your move?",
       options: [
         { label: "Find a calm, shallow spot to wade.", tags: ["river", "chill"] },
@@ -48,7 +48,7 @@ const Quiz = (() => {
     {
       title: "The Weaver's Hut",
       nodeClass: "node-mountain",
-      bg: "A weaver's hut.webp",
+      bg: "weaving.jpg",
       text: "You meet an elder weaving Panubok. She offers you a gift.",
       options: [
         { label: "A brightly colored, sweet-smelling cloth.", tags: ["sweet", "weave"] },
@@ -70,7 +70,7 @@ const Quiz = (() => {
     {
       title: "The Summit",
       nodeClass: "node-mountain",
-      bg: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80",
+      bg: "Madjaas.jpg",
       text: "You reach the peak at dawn. What calls to your spirit?",
       options: [
         { label: "The roaring wind and endless sky.", tags: ["peak", "hardcore"] },
@@ -104,7 +104,7 @@ const Quiz = (() => {
     if (!wrapper || !screen) return;
 
     if (currentStep === 0) {
-      screen.style.backgroundImage = "url('https://images.unsplash.com/photo-1605814522430-e3496c1410f9?w=1200&q=80')";
+      screen.style.backgroundImage = "url('Madjaas.jpg')";
       wrapper.innerHTML = `
         <div class="quest-node node-forest">
           <h2 class="drop-shadow-lg">The Spirit Quest</h2>
