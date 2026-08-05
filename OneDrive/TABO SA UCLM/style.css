@@ -618,22 +618,28 @@ h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
   height: 240px;
   flex-shrink: 0;
   border-radius: 14px;
-  overflow: hidden;
+  overflow: hidden;        /* prevents scale bleed outside border-radius */
   box-shadow: 0 6px 24px rgba(0,0,0,0.5);
   cursor: pointer;
   scroll-snap-align: start;
-  transition: transform 0.25s ease;
+  transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s ease;
   background: #1A0F0A;
 }
-.gallery-tile:hover { transform: scale(1.03); }
+.gallery-tile:hover {
+  transform: scale(1.04);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.7);
+}
 .gallery-tile img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.85;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, transform 0.4s ease;
 }
-.gallery-tile:hover img { opacity: 1; }
+.gallery-tile:hover img {
+  opacity: 1;
+  transform: scale(1.06);
+}
 .gallery-tile-caption {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -645,6 +651,57 @@ h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
   font-weight: 600;
   line-height: 1.3;
   text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  transition: opacity 0.3s;
+}
+/* "Explore →" overlay — fades in on hover */
+.gallery-tile-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(106, 32, 39, 0.72);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.gallery-tile-hint span {
+  display: inline-block;
+  transition: transform 0.25s ease;
+  margin-left: 0.3em;
+}
+.gallery-tile:hover .gallery-tile-hint {
+  opacity: 1;
+}
+.gallery-tile:hover .gallery-tile-hint span {
+  transform: translateX(4px);
+}
+/* Corner ↗ arrow — always visible */
+.gallery-tile-corner {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: rgba(212,160,23,0.85);
+  color: #1A0F0A;
+  font-size: 0.7rem;
+  font-weight: 900;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.gallery-tile:hover .gallery-tile-corner {
+  background: white;
+  transform: scale(1.15);
 }
 
 /* ── DESKTOP: true 3-column fixed-height layout ── */
@@ -795,4 +852,123 @@ h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
   background: var(--color-gold);
   color: var(--color-dark);
   border-color: var(--color-gold);
+}
+
+/* ── HOMEPAGE FOOTER ─────────────────────────────────────────────────────── */
+.home-footer {
+  background: linear-gradient(135deg, #6B2027 0%, #2E1A08 100%);
+  border-top: 2px solid rgba(212,160,23,0.3);
+  padding: 2rem 1.5rem 1.25rem;
+}
+.home-footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.home-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.home-footer-logo {
+  font-size: 2rem;
+  line-height: 1;
+}
+.home-footer-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+.home-footer-sub {
+  font-size: 0.7rem;
+  color: var(--color-gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 0.15rem;
+}
+.home-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.home-footer-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.home-footer-link:hover { color: var(--color-gold); }
+.home-footer-link span { text-decoration: underline; text-underline-offset: 2px; }
+a.home-footer-link span { cursor: pointer; }
+.home-footer-copy {
+  text-align: center;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.35);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem;
+  letter-spacing: 0.04em;
+}
+
+/* ── POS REDESIGN (Walk-in vs Online Tabs) ───────────────────────────────── */
+.pos-tabs {
+  display: flex;
+  background: #111827;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.pos-tab-btn {
+  flex: 1;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: #9CA3AF;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pos-tab-btn:hover { color: white; background: rgba(255,255,255,0.05); }
+.pos-tab-btn.active {
+  color: var(--color-gold);
+  border-bottom-color: var(--color-gold);
+  background: rgba(212,160,23,0.1);
+}
+.pos-panel {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+}
+.pos-panel.active { display: flex; }
+.btn-complete-sale {
+  background: #10B981;
+  color: white;
+  width: 100%;
+  padding: 1.25rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+  transition: all 0.2s;
+}
+.btn-complete-sale:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-2px);
+}
+.btn-complete-sale:disabled {
+  background: #4B5563;
+  opacity: 0.7;
+  cursor: not-allowed;
+  box-shadow: none;
 }

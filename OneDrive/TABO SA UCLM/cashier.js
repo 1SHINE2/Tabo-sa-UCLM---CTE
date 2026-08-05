@@ -19,8 +19,8 @@
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-// ⚠️ CHANGE THIS BEFORE FRIDAY — Use a 4-digit code your team can remember
-const CASHIER_PIN = "1234";
+// ⚠️ CHANGE THIS BEFORE FRIDAY — Use a 6-digit code your team can remember
+const CASHIER_PIN = "129845";
 
 const CashierPOS = (() => {
 
@@ -83,6 +83,8 @@ const CashierPOS = (() => {
             <div class="pin-dot" id="dot-1"></div>
             <div class="pin-dot" id="dot-2"></div>
             <div class="pin-dot" id="dot-3"></div>
+            <div class="pin-dot" id="dot-4"></div>
+            <div class="pin-dot" id="dot-5"></div>
           </div>
 
           <!-- Error message -->
@@ -117,18 +119,18 @@ const CashierPOS = (() => {
 
     if (key === '⌫') {
       pinBuffer = pinBuffer.slice(0, -1);
-    } else if (pinBuffer.length < 4) {
+    } else if (pinBuffer.length < 6) {
       pinBuffer += key;
     }
 
     // Update dot indicators
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
       const dot = document.getElementById(`dot-${i}`);
       if (dot) dot.classList.toggle('filled', i < pinBuffer.length);
     }
 
-    // Auto-check when 4 digits entered
-    if (pinBuffer.length === 4) {
+    // Auto-check when 6 digits entered
+    if (pinBuffer.length === 6) {
       setTimeout(_checkPIN, 200);
     }
   }
@@ -151,7 +153,7 @@ const CashierPOS = (() => {
       }
 
       // Reset dots
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 6; i++) {
         const dot = document.getElementById(`dot-${i}`);
         if (dot) dot.classList.remove('filled');
       }
@@ -168,145 +170,142 @@ const CashierPOS = (() => {
     if (!container) return;
 
     container.innerHTML = `
-      <div id="cashier-pos" class="min-h-screen bg-gray-900 text-white flex flex-col lg:flex-row">
+      <div id="cashier-pos" class="min-h-screen bg-gray-900 text-white flex flex-col">
 
-        <!-- LEFT PANEL: Bill & Entry -->
-        <div class="flex flex-col flex-1 overflow-hidden" style="min-height:100vh">
-
-          <!-- Header -->
-          <div class="pos-header">
-            <div>
-              <h1 class="font-display text-xl text-white">🍽️ Tabo sa UCLM POS</h1>
-              <p class="text-xs opacity-60" id="pos-timestamp"></p>
-            </div>
-            <button
-              class="btn btn-sm"
-              style="background:rgba(255,255,255,0.15); color:white"
-              onclick="CashierPOS.lockPOS()"
-            >🔒 Lock</button>
+        <!-- Header & Tabs -->
+        <div class="pos-header flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-gray-800 border-b border-white/10">
+          <div>
+            <h1 class="font-display text-xl text-white">🍽️ Tabo sa UCLM POS</h1>
+            <p class="text-xs opacity-60" id="pos-timestamp"></p>
           </div>
-
-          <!-- Quick Entry Bar -->
-          <div class="p-4 border-b border-white/10 bg-gray-800">
-            <label class="text-xs text-gray-400 mb-2 block uppercase tracking-wide">Quick Item Entry (type 3-digit ID)</label>
-            <div class="flex gap-2">
-              <input
-                id="quick-entry-input"
-                type="number"
-                min="101" max="110"
-                placeholder="e.g. 101 = Tinuom na Manok"
-                class="form-input flex-1 bg-gray-700 text-white border-gray-600 placeholder-gray-500"
-                style="background:#374151; color:white; border-color:#4B5563"
-                onkeydown="if(event.key==='Enter') CashierPOS.quickEntry()"
-                autocomplete="off"
-              >
-              <button
-                class="btn btn-gold"
-                onclick="CashierPOS.quickEntry()"
-              >+ Add</button>
-            </div>
-
-            <!-- Product quick-select chips -->
-            <div class="flex flex-wrap gap-1 mt-2">
-              ${(window.PRODUCTS || []).map(p => `
-                <button
-                  class="text-xs px-2 py-1 rounded-full border border-gray-600 text-gray-300 hover:bg-gray-600 transition-colors"
-                  onclick="CashierPOS.addToBill('${p.id}')"
-                  title="${p.name} — ₱${p.price}"
-                >${p.id.slice(-3)} ${p.name.split(' ')[0]}</button>
-              `).join('')}
-            </div>
-          </div>
-
-          <!-- Bill -->
-          <div class="flex-1 overflow-y-auto p-4" id="pos-bill-list">
-            <p class="text-gray-500 text-center py-8 text-sm" id="pos-bill-empty">
-              No items yet. Use the entry bar above to add items.
-            </p>
-          </div>
-
-          <!-- Bill Total -->
-          <div class="p-4 border-t border-white/10 bg-gray-800">
-            <div class="flex justify-between text-lg font-bold mb-4">
-              <span>TOTAL</span>
-              <span id="pos-bill-total" class="text-yellow-400">₱0</span>
-            </div>
-            <button class="btn btn-sm btn-outline text-gray-400 border-gray-600" onclick="CashierPOS.clearBill()">
-              🗑️ Clear Bill
-            </button>
-          </div>
+          <button
+            class="btn btn-sm mt-2 sm:mt-0"
+            style="background:rgba(255,255,255,0.15); color:white"
+            onclick="CashierPOS.lockPOS()"
+          >🔒 Lock</button>
         </div>
 
-        <!-- RIGHT PANEL: Cash Calculator + Order Feed -->
-        <div class="lg:w-80 flex flex-col border-t lg:border-t-0 lg:border-l border-white/10">
+        <div class="pos-tabs">
+          <button class="pos-tab-btn active" onclick="CashierPOS.switchPosTab('walkin')" id="tab-btn-walkin">🍽️ Walk-in / Cash</button>
+          <button class="pos-tab-btn" onclick="CashierPOS.switchPosTab('online')" id="tab-btn-online">📲 Online Orders Feed</button>
+        </div>
 
-          <!-- Cash Calculator -->
-          <div class="p-4 border-b border-white/10">
-            <h3 class="font-display text-lg text-yellow-400 mb-3">💵 Cash Calculator</h3>
-
-            <div class="mb-3">
-              <label class="form-label text-gray-400 text-xs">Total Amount (₱)</label>
-              <input
-                id="calc-total"
-                type="number"
-                class="form-input"
-                style="background:#374151; color:white; border-color:#4B5563"
-                placeholder="0"
-                oninput="CashierPOS.calcChange()"
-              >
+        <!-- ── TAB A: WALK-IN / CASH ── -->
+        <div class="pos-panel active flex flex-col lg:flex-row flex-1 overflow-hidden" id="tab-walkin">
+          
+          <!-- LEFT PANEL: Bill & Entry -->
+          <div class="flex flex-col flex-1 overflow-hidden border-r border-white/10" style="min-height:50vh">
+            <!-- Quick Entry Bar -->
+            <div class="p-4 border-b border-white/10 bg-gray-800">
+              <label class="text-xs text-gray-400 mb-2 block uppercase tracking-wide">Quick Item Entry (type 3-digit ID)</label>
+              <div class="flex gap-2">
+                <input
+                  id="quick-entry-input"
+                  type="number"
+                  min="101" max="110"
+                  placeholder="e.g. 101 = Tinuom na Manok"
+                  class="form-input flex-1 bg-gray-700 text-white border-gray-600 placeholder-gray-500"
+                  style="background:#374151; color:white; border-color:#4B5563"
+                  onkeydown="if(event.key==='Enter') CashierPOS.quickEntry()"
+                  autocomplete="off"
+                >
+                <button class="btn btn-gold" onclick="CashierPOS.quickEntry()">+ Add</button>
+              </div>
+              <div class="flex flex-wrap gap-1 mt-2">
+                ${(window.PRODUCTS || []).map(p => `
+                  <button
+                    class="text-xs px-2 py-1 rounded-full border border-gray-600 text-gray-300 hover:bg-gray-600 transition-colors"
+                    onclick="CashierPOS.addToBill('${p.id}')"
+                    title="${p.name} — ₱${p.price}"
+                  >${p.id.slice(-3)} ${p.name.split(' ')[0]}</button>
+                `).join('')}
+              </div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label text-gray-400 text-xs">Amount Tendered (₱)</label>
-              <input
-                id="calc-tendered"
-                type="number"
-                class="form-input"
-                style="background:#374151; color:white; border-color:#4B5563"
-                placeholder="0"
-                oninput="CashierPOS.calcChange()"
-              >
-            </div>
-
-            <div
-              id="calc-change-display"
-              class="rounded-lg p-3 text-center font-bold text-2xl"
-              style="background: rgba(255,255,255,0.05)"
-            >
-              <div class="text-xs text-gray-400 mb-1 font-normal uppercase tracking-wide">Change Due</div>
-              <div id="calc-change-value" class="text-gray-400">—</div>
-            </div>
-          </div>
-
-          <!-- Incoming Order Feed -->
-          <div class="flex-1 overflow-y-auto p-4">
-            <div class="flex items-center justify-between mb-3">
-              <h3 class="font-display text-lg text-green-400">📲 Order Feed</h3>
-              <button
-                class="text-xs text-gray-500 hover:text-gray-300"
-                onclick="CashierPOS.refreshFeed()"
-              >↻ Refresh</button>
-            </div>
-            <div id="order-feed-container">
-              <p class="text-gray-500 text-sm text-center py-4">
-                No incoming orders yet.<br>
-                <span class="text-xs">Orders from buyers will appear here.</span>
+            <!-- Bill -->
+            <div class="flex-1 overflow-y-auto p-4" id="pos-bill-list">
+              <p class="text-gray-500 text-center py-8 text-sm" id="pos-bill-empty">
+                No items yet. Use the entry bar above to add items.
               </p>
             </div>
           </div>
+
+          <!-- RIGHT PANEL: Calculator & Complete Sale -->
+          <div class="lg:w-96 flex flex-col bg-gray-800">
+            <!-- Bill Total -->
+            <div class="p-6 border-b border-white/10 bg-gray-900 text-center">
+              <div class="text-gray-400 text-sm uppercase tracking-wider mb-1">Total Due</div>
+              <div id="pos-bill-total" class="text-yellow-400 text-5xl font-bold">₱0</div>
+              <button class="text-xs text-gray-500 mt-3 hover:text-gray-300 underline" onclick="CashierPOS.clearBill()">Clear Bill</button>
+            </div>
+
+            <!-- Cash Calculator -->
+            <div class="p-6 border-b border-white/10 flex-1">
+              <h3 class="font-display text-lg text-white mb-4">💵 Cash Calculator</h3>
+              <input id="calc-total" type="hidden">
+              <div class="mb-4">
+                <label class="form-label text-gray-400 text-xs">Amount Tendered (₱)</label>
+                <input
+                  id="calc-tendered"
+                  type="number"
+                  class="form-input text-xl py-3"
+                  style="background:#374151; color:white; border-color:#4B5563"
+                  placeholder="0"
+                  oninput="CashierPOS.calcChange()"
+                >
+              </div>
+              <div
+                id="calc-change-display"
+                class="rounded-lg p-4 text-center font-bold text-3xl"
+                style="background: rgba(255,255,255,0.05)"
+              >
+                <div class="text-xs text-gray-400 mb-1 font-normal uppercase tracking-wide">Change Due</div>
+                <div id="calc-change-value" class="text-gray-400">—</div>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="p-6">
+              <button class="btn-complete-sale" id="btn-complete-sale" onclick="CashierPOS.completeCashSale()">
+                ✅ COMPLETE CASH SALE
+              </button>
+            </div>
+          </div>
         </div>
+
+        <!-- ── TAB B: ONLINE ORDERS FEED ── -->
+        <div class="pos-panel flex-1 overflow-y-auto bg-gray-900 p-6" id="tab-online">
+          <div class="flex items-center justify-between mb-6 max-w-4xl mx-auto">
+            <div>
+              <h3 class="font-display text-2xl text-green-400">📲 Online Orders Queue</h3>
+              <p class="text-sm text-gray-400 mt-1">Orders paid via GCash or Booth Pickup</p>
+            </div>
+            <button class="btn btn-outline border-gray-600 text-gray-300" onclick="CashierPOS.refreshFeed()">
+              ↻ Refresh Queue
+            </button>
+          </div>
+          <div id="order-feed-container" class="max-w-4xl mx-auto grid gap-4 grid-cols-1 md:grid-cols-2">
+            <p class="text-gray-500 text-sm text-center py-8 col-span-full">
+              No incoming orders yet.
+            </p>
+          </div>
+        </div>
+
       </div>
     `;
 
-    // Set live timestamp
     _updateTimestamp();
     setInterval(_updateTimestamp, 60000);
-
-    // Restore bill if any
     _renderBill();
-
-    // Load order feed
     refreshFeed();
+  }
+
+  function switchPosTab(tabId) {
+    document.querySelectorAll('.pos-tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.pos-panel').forEach(panel => panel.classList.remove('active'));
+    
+    document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+    document.getElementById(`tab-${tabId}`).classList.add('active');
   }
 
   function _updateTimestamp() {
@@ -489,6 +488,101 @@ const CashierPOS = (() => {
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
+  // CASH SALE LOGIC (Walk-in)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  async function completeCashSale() {
+    if (bill.size === 0) {
+      window.showToast("Bill is empty!", "error");
+      return;
+    }
+
+    const btn = document.getElementById('btn-complete-sale');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "⏳ Processing...";
+    }
+
+    // Build items summary
+    const items = [];
+    let subtotal = 0;
+    bill.forEach((qty, id) => {
+      const p = (window.PRODUCTS || []).find(pr => pr.id === id);
+      if (p) {
+        items.push(`${p.name} ×${qty}`);
+        subtotal += p.price * qty;
+      }
+    });
+    const itemsSummary = items.join(', ');
+
+    // Generate transaction ID
+    const timestamp = new Date().getTime();
+    const txnId = `TXN-${timestamp}`;
+    const timeStr = new Date().toLocaleString('en-PH');
+
+    const payload = {
+      action: "CREATE_TRANSACTION",
+      transactionId: txnId,
+      timestamp: timeStr,
+      orderType: "Walk-in",
+      fulfillment: "Over the counter",
+      customerName: "N/A",
+      itemsSummary: itemsSummary,
+      subtotal: subtotal,
+      deliveryFee: 0,
+      grandTotal: subtotal,
+      paymentMethod: "Cash",
+      status: "Completed"
+    };
+
+    const webhookUrl = window.GOOGLE_SHEETS_WEBHOOK_URL || "YOUR_WEBHOOK_URL_HERE";
+    let success = false;
+
+    if (webhookUrl !== "YOUR_WEBHOOK_URL_HERE") {
+      try {
+        const resp = await fetch(webhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        // no-cors is opaque, assume success if no error thrown
+        success = true;
+      } catch (err) {
+        console.error("Walk-in POST failed:", err);
+      }
+    }
+
+    // Offline fallback
+    if (!success) {
+      let pending = [];
+      try {
+        pending = JSON.parse(localStorage.getItem('pending_walkin_sales')) || [];
+      } catch(e){}
+      pending.push(payload);
+      localStorage.setItem('pending_walkin_sales', JSON.stringify(pending));
+      console.log("Walk-in sale saved to offline localStorage.");
+    }
+
+    // Get change due before clearing
+    const valueEl = document.getElementById('calc-change-value');
+    const changeStr = valueEl && valueEl.textContent !== '—' ? valueEl.textContent : '₱0.00';
+
+    // Clear UI
+    clearBill();
+    const tenderedInput = document.getElementById('calc-tendered');
+    if (tenderedInput) tenderedInput.value = '';
+    calcChange();
+
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "✅ COMPLETE CASH SALE";
+    }
+
+    window.showToast(`Sale complete! Change: ${changeStr}`, 'success');
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
   // INCOMING ORDER FEED
   // ═══════════════════════════════════════════════════════════════════════════
 
@@ -511,12 +605,43 @@ const CashierPOS = (() => {
     _renderOrderFeed();
   }
 
-  function markFulfilled(timestamp) {
+  function markDoneAndDispatch(timestamp) {
     const card = document.querySelector(`[data-order-ts="${timestamp}"]`);
     if (card) {
       card.classList.add('fulfilled');
       const btn = card.querySelector('.fulfill-btn');
-      if (btn) { btn.textContent = '✅ Fulfilled'; btn.disabled = true; }
+      if (btn) { btn.textContent = '✅ Done'; btn.disabled = true; }
+    }
+
+    // Update in localStorage
+    try {
+      const raw = localStorage.getItem('tabo_orders');
+      if (raw) {
+        let parsed = JSON.parse(raw);
+        const idx = parsed.findIndex(o => String(o.timestamp) === String(timestamp));
+        if (idx !== -1) {
+          parsed[idx].status = "Completed";
+          localStorage.setItem('tabo_orders', JSON.stringify(parsed));
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to update status in localStorage:", e);
+    }
+
+    // Send update to Google Sheets
+    const webhookUrl = window.GOOGLE_SHEETS_WEBHOOK_URL || "YOUR_WEBHOOK_URL_HERE";
+    if (webhookUrl !== "YOUR_WEBHOOK_URL_HERE") {
+      const payload = {
+        action: "UPDATE_STATUS",
+        transactionId: `TXN-${timestamp}`,
+        status: "Completed"
+      };
+      fetch(webhookUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(err => console.error("Update status failed:", err));
     }
   }
 
@@ -542,29 +667,40 @@ const CashierPOS = (() => {
       const safeDestination  = escapeHTML(order.destination);
       const safeTimestamp    = escapeHTML(order.timestamp);
 
-      const fulfillLabel = order.fulfillment === 'delivery'
-        ? `🚚 ${safeDestination}`
+      const isDelivery = order.fulfillment === 'delivery';
+      const fulfillLabel = isDelivery
+        ? `🚚 ${safeDestination} (+₱5 Fee)`
         : '🏪 Pickup';
 
       // Item names come from PRODUCTS data (not user input), but we still escape
       // them for defense-in-depth.
       const itemsSummary = (order.items || []).map(i => `${escapeHTML(i.name)} ×${Number(i.qty)}`).join(', ');
 
+      let displayTotal = Number(order.total);
+      if (isDelivery) {
+        displayTotal += 5; // Add delivery fee for visual display
+      }
+
+      const isCompleted = order.status === "Completed";
+      const btnState = isCompleted ? 'disabled' : '';
+      const btnText = isCompleted ? '✅ Done' : 'Mark as Done / Dispatch';
+
       return `
-        <div class="order-card" data-order-ts="${safeTimestamp}">
+        <div class="order-card ${isCompleted ? 'fulfilled' : ''}" data-order-ts="${safeTimestamp}">
           <div class="flex justify-between items-start mb-2">
             <div>
               <div class="font-bold text-sm">${safeCustomerName}</div>
               <div class="text-xs text-gray-400">GCash: ${safeGcashName} · ${escapeHTML(time)}</div>
             </div>
-            <div class="text-yellow-400 font-bold">₱${Number(order.total)}</div>
+            <div class="text-yellow-400 font-bold">₱${displayTotal}</div>
           </div>
           <div class="text-xs text-gray-300 mb-2">${itemsSummary}</div>
           <div class="text-xs text-gray-400 mb-3">${fulfillLabel}</div>
           <button
             class="fulfill-btn btn btn-sm btn-primary"
-            onclick="CashierPOS.markFulfilled('${safeTimestamp}')"
-          >Mark Fulfilled</button>
+            onclick="CashierPOS.markDoneAndDispatch('${safeTimestamp}')"
+            ${btnState}
+          >${btnText}</button>
         </div>
       `;
     }).join('');
@@ -587,7 +723,9 @@ const CashierPOS = (() => {
     clearBill,
     calcChange,
     refreshFeed,
-    markFulfilled,
+    markDoneAndDispatch,
+    completeCashSale,
+    switchPosTab,
     lockPOS,
   };
 })();

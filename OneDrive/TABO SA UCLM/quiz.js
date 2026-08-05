@@ -48,7 +48,7 @@ const Quiz = (() => {
     {
       title: "The Weaver's Hut",
       nodeClass: "node-mountain",
-      bg: "https://images.unsplash.com/photo-1605814522430-e3496c1410f9?w=800&q=80",
+      bg: "A weaver's hut.webp",
       text: "You meet an elder weaving Panubok. She offers you a gift.",
       options: [
         { label: "A brightly colored, sweet-smelling cloth.", tags: ["sweet", "weave"] },
@@ -59,7 +59,7 @@ const Quiz = (() => {
     {
       title: "The Evening Fire",
       nodeClass: "node-fire",
-      bg: "https://images.unsplash.com/photo-1505934333218-8fe21ff88f0c?w=800&q=80",
+      bg: "the evening fire.jpg",
       text: "Night falls. What do you throw into the communal fire?",
       options: [
         { label: "Dry bamboo for a massive, roaring blaze.", tags: ["hyped", "smoky"] },
