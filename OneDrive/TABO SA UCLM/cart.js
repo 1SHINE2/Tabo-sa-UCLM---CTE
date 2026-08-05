@@ -95,7 +95,7 @@ const Cart = (() => {
       if (p) {
         const lineTotal = p.price * qty;
         subtotal += lineTotal;
-        lines.push({ id, name: p.name, qty, price: p.price, lineTotal });
+        lines.push({ id, name: p.name, qty, price: p.price, lineTotal, image: p.image });
       }
     }
 
@@ -155,12 +155,16 @@ const Cart = (() => {
         container.innerHTML = `<p class="text-smoke text-center py-6">Your cart is empty.</p>`;
       } else {
         container.innerHTML = payload.items.map(item => `
-          <div class="flex justify-between items-center mb-3 p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
-            <div class="flex-1">
+          <div class="flex items-center mb-3 p-2 bg-white border border-gray-100 rounded-lg shadow-sm overflow-hidden relative">
+            <div class="w-16 h-16 rounded-md overflow-hidden relative flex-shrink-0 mr-3">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover relative z-0">
+            </div>
+            <div class="flex-1 z-10">
               <div class="font-bold text-sm text-earth">${item.name}</div>
               <div class="text-xs text-smoke">₱${item.price} each</div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 z-10 ml-2">
               <div class="font-bold text-earth">₱${item.lineTotal}</div>
               <div class="qty-stepper scale-90 origin-right">
                 <button type="button" onclick="Cart.changeQty('${item.id}', -1)">−</button>
