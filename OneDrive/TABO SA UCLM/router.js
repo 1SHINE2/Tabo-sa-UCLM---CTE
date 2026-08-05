@@ -46,10 +46,10 @@ const Router = (() => {
       window.closeSidebar();
     }
 
-    // Toggle Cart Bar visibility (only show on Online Menu and Product pages)
+    // Toggle Cart Bar visibility (only show on Online Menu)
     const cartBar = document.getElementById('cart-bar');
     if (cartBar) {
-      if (viewId === 'view-menu' || viewId === 'view-product') {
+      if (viewId === 'view-menu') {
         cartBar.classList.remove('route-hidden');
       } else {
         cartBar.classList.add('route-hidden');
