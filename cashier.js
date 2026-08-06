@@ -148,23 +148,24 @@ const CashierPOS = (() => {
           
           <!-- LEFT: Quick Entry & Bill -->
           <div class="flex flex-col flex-1 overflow-hidden border-r border-white/10" style="min-height:50vh">
-            <div class="p-4 border-b border-white/10 bg-black/20 flex justify-between items-center">
-              <div>
-                <label class="text-xs text-white/70 uppercase tracking-wide block mb-1">Quick Item Entry (Type 3-digit ID)</label>
-                <div class="flex gap-2 mb-2">
-                  <input id="quick-entry-input" type="number" min="101" placeholder="e.g. 101" class="form-input w-40 text-white border-white/20 bg-black/30 placeholder-white/30" onkeydown="if(event.key==='Enter') CashierPOS.quickEntry()" autocomplete="off">
-                  <button class="btn btn-gold" onclick="CashierPOS.quickEntry()">+ Add</button>
-                </div>
-                <div class="flex flex-wrap gap-2 mt-2">
-                  <button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 transition-colors" onclick="document.getElementById('quick-entry-input').value='101'; CashierPOS.quickEntry()">101 Tinuom</button>
-                  <button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 transition-colors" onclick="document.getElementById('quick-entry-input').value='102'; CashierPOS.quickEntry()">102 Kinalan</button>
-                  <button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 transition-colors" onclick="document.getElementById('quick-entry-input').value='103'; CashierPOS.quickEntry()">103 Linapot</button>
-                  <button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 transition-colors" onclick="document.getElementById('quick-entry-input').value='104'; CashierPOS.quickEntry()">104 Kanto</button>
-                  <button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 transition-colors" onclick="document.getElementById('quick-entry-input').value='105'; CashierPOS.quickEntry()">105 Binagol</button>
-                </div>
+            <div class="p-4 border-b border-white/10 bg-black/20">
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-xs text-white/70 uppercase tracking-wide">Quick Item Entry (Type 3-digit ID)</label>
+                <button class="btn btn-outline text-xs border-gold text-gold hover:bg-gold/10 whitespace-nowrap" onclick="CashierPOS.startNewWalkin()">🔄 New Walk-In Sale</button>
               </div>
-              <button class="btn btn-outline text-xs border-gold text-gold hover:bg-gold/10 whitespace-nowrap" onclick="CashierPOS.startNewWalkin()">🔄 New Walk-In Sale</button>
+              <div class="flex gap-2 mb-3">
+                <input id="quick-entry-input" type="number" min="101" placeholder="e.g. 101" class="form-input flex-1 text-white border-white/20 bg-black/30 placeholder-white/30" onkeydown="if(event.key==='Enter') CashierPOS.quickEntry()" autocomplete="off">
+                <button class="btn btn-gold px-5" onclick="CashierPOS.quickEntry()">+ Add</button>
+              </div>
+              <div class="flex flex-wrap gap-2" id="quick-pills">
+                ${(window.PRODUCTS || []).filter(p => p.id.startsWith('prod-')).map(p => {
+                  const num = p.id.replace('prod-','');
+                  const shortName = p.name.split(' ').slice(0,2).join(' ');
+                  return `<button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 hover:border-gold transition-all" onclick="document.getElementById('quick-entry-input').value='${num}'; CashierPOS.quickEntry()">${num} ${shortName}</button>`;
+                }).join('')}
+              </div>
             </div>
+
             
             <div id="pos-active-order-banner" class="bg-blue-900/40 border-b border-blue-500/30 p-2 text-center text-sm text-blue-200 font-semibold hidden">
               <!-- Filled by JS when picking up an order -->
