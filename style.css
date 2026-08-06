@@ -540,12 +540,12 @@ h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
   gap: 1rem;
 }
 
-/* Mobile defaults (horizontal) — faster so all images are visible */
+/* Mobile defaults (horizontal) — fast enough to show all 5 images */
 .marquee-track-1 {
-  animation: marqueeLeft 18s linear infinite;
+  animation: marqueeLeft 8s linear infinite;
 }
 .marquee-track-2 {
-  animation: marqueeRight 18s linear infinite;
+  animation: marqueeRight 8s linear infinite;
 }
 
 /* Desktop overrides (vertical) */
