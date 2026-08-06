@@ -84,8 +84,13 @@ const App = (() => {
       const ingPreview = product.ingredients ? product.ingredients.slice(0, 2).join(', ') : '';
       
       return `
-        <a href="#${product.id}" class="shopee-card animate-slide-up">
-          <img src="${product.image}" alt="${product.name}" loading="lazy" />
+        <a href="#${product.id}" class="shopee-card animate-slide-up relative block">
+          <div class="relative">
+            <img src="${product.image}" alt="${product.name}" loading="lazy" />
+            <div class="absolute top-2 left-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-full border border-white/20 flex items-center gap-1 backdrop-blur-sm">
+              <span class="animate-pulse">👆</span> Pindutin para sa detalye
+            </div>
+          </div>
           <div class="shopee-card-body">
             <h3 class="shopee-title">${product.name}</h3>
             <p class="text-xs text-smoke mb-2 line-clamp-1">${ingPreview}...</p>
@@ -323,9 +328,14 @@ const App = (() => {
 
     function makeTile(item) {
       return `
-        <div class="gallery-tile" onclick="viewGalleryDetail('${item.galleryId}')" style="flex-shrink: 0; margin-bottom: 1rem;">
+        <div class="gallery-tile" onclick="viewGalleryDetail('${item.galleryId}')" style="flex-shrink: 0; margin-bottom: 1rem; position: relative; cursor: pointer;">
           <img src="${item.img}" alt="${item.caption}" loading="lazy" style="width: 100%; border-radius: 0.5rem; object-fit: cover;" />
-          <div class="gallery-tile-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; padding: 1rem; font-size: 0.9rem;">${item.caption}</div>
+          <div class="gallery-tile-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: white; padding: 1rem 1rem 1.5rem 1rem; font-size: 0.9rem;">
+            ${item.caption}
+            <div style="font-size: 0.7rem; color: #D4A017; font-weight: bold; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 4px;">
+              <span style="animation: pulse 2s infinite;">👆</span> Pindutin para sa detalye
+            </div>
+          </div>
         </div>
       `;
     }

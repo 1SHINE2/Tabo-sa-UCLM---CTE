@@ -660,16 +660,20 @@ const CashierPOS = (() => {
     const pnlCash   = document.getElementById('payment-panel-cash');
     const pnlGcash  = document.getElementById('payment-panel-gcash');
 
+    const completeBtn = document.getElementById('btn-complete-sale');
+
     if (mode === 'cash') {
       if(cashBtn) cashBtn.className = 'flex-1 py-2 rounded-lg text-sm font-bold transition-all border-2 border-gold bg-gold/15 text-gold';
       if(gcashBtn) gcashBtn.className = 'flex-1 py-2 rounded-lg text-sm font-bold transition-all border-2 border-white/20 text-white/50 bg-transparent';
       if(pnlCash) pnlCash.classList.remove('hidden');
       if(pnlGcash) pnlGcash.classList.add('hidden');
+      if(completeBtn) completeBtn.innerHTML = '✅ COMPLETE SALE';
     } else {
       if(gcashBtn) gcashBtn.className = 'flex-1 py-2 rounded-lg text-sm font-bold transition-all border-2 border-gold bg-gold/15 text-gold';
       if(cashBtn) cashBtn.className = 'flex-1 py-2 rounded-lg text-sm font-bold transition-all border-2 border-white/20 text-white/50 bg-transparent';
       if(pnlCash) pnlCash.classList.add('hidden');
       if(pnlGcash) pnlGcash.classList.remove('hidden');
+      if(completeBtn) completeBtn.innerHTML = '✅ Reference Match / Valid';
     }
     validateGCash();
   }

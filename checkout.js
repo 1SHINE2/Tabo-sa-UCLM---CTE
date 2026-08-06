@@ -110,11 +110,12 @@ const Checkout = (() => {
     const total = Cart.getOrderPayload().total;
     const link  = document.getElementById('gcash-pay-link');
     if (link) {
-      // gcash://pay?amount=XXX — direct anchor binding, safe from pop-up blockers
-      link.href = `gcash://pay?amount=${total}`;
+      link.href = `https://m.gcash.com/`;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
     }
     const payLabel = document.getElementById('gcash-pay-label');
-    if (payLabel) payLabel.textContent = `Pay ₱${total} via GCash`;
+    if (payLabel) payLabel.textContent = `Buksan ang GCash App (₱${total})`;
   }
 
   // ── Voucher Code ─────────────────────────────────────────────────────────────
@@ -133,10 +134,11 @@ const Checkout = (() => {
       // Show applied badge
       const appliedEl = document.getElementById('voucher-applied-badge');
       if (appliedEl) {
+        let discountText = result.code === 'TABO10' ? '10% Diskwento' : `-₱${result.amount}`;
         appliedEl.innerHTML = `
           <div class="voucher-applied animate-slide-down">
             ✅ <span>${result.code}</span>
-            <span class="ml-auto text-leaf font-bold">−₱${result.amount}</span>
+            <span class="ml-auto text-leaf font-bold">${discountText}</span>
           </div>
         `;
         appliedEl.classList.remove('hidden');
@@ -418,6 +420,8 @@ const Checkout = (() => {
     const screen = document.getElementById('receipt-screen');
     if (!screen) return;
 
+    const isGCash = payload.paymentMethod === 'GCash';
+
     screen.innerHTML = `
       <div class="bg-earth p-6 text-center rounded-t-xl relative overflow-hidden" style="background-color: var(--color-earth);">
         <div class="text-5xl mb-3 relative z-10 animate-bounce">⏳</div>
@@ -426,7 +430,7 @@ const Checkout = (() => {
       </div>
       <div class="bg-white p-8 text-center rounded-b-xl shadow-lg border border-gray-100 min-h-[300px] flex flex-col justify-center items-center">
         <div class="w-12 h-12 border-4 border-earth border-t-transparent rounded-full animate-spin mb-6"></div>
-        <p class="text-earth font-bold text-lg mb-2 text-center">Waiting for Cashier...</p>
+        <p class="text-earth font-bold text-lg mb-2 text-center">${isGCash ? 'Pagsusuri ng Reference Number...' : 'Waiting for Cashier...'}</p>
         <p class="text-smoke text-sm text-center leading-relaxed">Do not close this screen. Your digital receipt will appear here automatically once the cashier completes your order.</p>
       </div>
     `;
