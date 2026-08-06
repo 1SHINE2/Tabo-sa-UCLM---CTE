@@ -49,7 +49,7 @@ const PRODUCTS = [
       highlight: "Mataas sa Enerhiya",
       highlightDescription: "Ang carbohydrates mula sa malagkit ay nagbibigay ng mahabang lakas na kailangan sa maghapon."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Suman_Latik.jpg",
+    image: "budbud-latik.jpg",
     quizTags: ["sweet", "traditional"]
   },
   {
@@ -95,7 +95,7 @@ const PRODUCTS = [
       highlight: "Pang-Maramihan",
       highlightDescription: "Siksik sa carbohydrates, kaya magandang meryenda bago gumawa ng pisikal na gawain o aktibidad."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Suman_Latik.jpg",
+    image: "budbud-latik.jpg",
     quizTags: ["sweet", "traditional", "sharing"]
   },
   {
@@ -139,7 +139,7 @@ const PRODUCTS = [
       highlight: "Mababang Asukal",
       highlightDescription: "Dahil walang latik, ito ay may mas mababang asukal na angkop sa mga umiiwas sa sobrang tamis."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/c/c2/Suman_sa_Ibos.jpg",
+    image: "budbud.webp",
     quizTags: ["savory", "traditional", "chill"]
   },
   {
@@ -185,7 +185,7 @@ const PRODUCTS = [
       highlight: "Banayad na Meryenda",
       highlightDescription: "Ang isang piraso ng puto ay naglalaman ng sapat na carbohydrates bilang panawid-gutom sa kalagitnaan ng araw."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Puto_cheese.jpg",
+    image: "puto-keso.jpg",
     quizTags: ["sweet", "savory", "bite-sized"]
   },
   {
@@ -231,7 +231,7 @@ const PRODUCTS = [
       highlight: "Siksik at Sulit",
       highlightDescription: "Ang tatlong pirasong puto ay nagbibigay ng sapat na enerhiya para maipagpatuloy ang trabaho at pag-aaral nang hindi nabibigatan."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Puto_cheese.jpg",
+    image: "puto-keso.jpg",
     quizTags: ["sweet", "savory", "sharing"]
   },
   {
@@ -275,7 +275,7 @@ const PRODUCTS = [
       highlight: "Fat-Free Sweetness",
       highlightDescription: "Dahil wala itong mantika o gata (maliban sa niyog sa ibabaw), ang kutsinta ay isang light na meryenda na hindi nakakaumay."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/2/23/Kutsinta.jpg",
+    image: "puto-kutsinta.jpg",
     quizTags: ["sweet", "traditional", "bite-sized"]
   },
   {
@@ -319,7 +319,7 @@ const PRODUCTS = [
       highlight: "Quick Energy Boost",
       highlightDescription: "Ang simpleng carbohydrates nito ay madaling natutunaw upang bigyan ka ng agarang lakas at sigla."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/2/23/Kutsinta.jpg",
+    image: "puto-kutsinta.jpg",
     quizTags: ["sweet", "traditional", "sharing"]
   },
   {
@@ -363,7 +363,7 @@ const PRODUCTS = [
       highlight: "Mataas sa Potasyum",
       highlightDescription: "Ang saging na saba ay likas na mayaman sa potasyum at hibla na mabuti sa pag-iwas sa pulikat at pagpapabuti ng tiyan."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Nilupak.jpg",
+    image: "nilupak.webp",
     quizTags: ["sweet", "traditional", "comfort"]
   },
   {
@@ -405,7 +405,7 @@ const PRODUCTS = [
       highlight: "Bitamina A at Hibla",
       highlightDescription: "Nagtataglay ng beta-carotene mula sa kamote, nakakatulong sa kalusugan ng mata at nagbibigay ng fiber para sa tiyan."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/0/07/Camotecue.jpg",
+    image: "kamote.avif",
     quizTags: ["sweet", "crunchy", "street-food"]
   },
   {
@@ -449,7 +449,7 @@ const PRODUCTS = [
       highlight: "Likas na Tamis ng Mais",
       highlightDescription: "May taglay itong magandang carbohydrates at bitamina B mula sa sariwang mais na tumutulong sa metabolismo."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Binaki.jpg",
+    image: "binaki.jpg",
     quizTags: ["sweet", "traditional", "corn"]
   },
   {
@@ -493,7 +493,7 @@ const PRODUCTS = [
       highlight: "Bitamina C at Hydration",
       highlightDescription: "Mayaman sa Bitamina C na nagpapalakas ng resistensya at bromelain na tumutulong sa panunaw."
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/2/23/Pineapple_juice.jpg",
+    image: "pinya.webp",
     quizTags: ["refreshing", "sweet", "chill"]
   }
 ];
@@ -518,7 +518,9 @@ const GALLERY_DATA = [
       "Ang native na manok na ginagamit dito ay mas maliit ngunit mas mataba at masustansya kaysa sa commercial na manok.",
       "Ang usok mula sa dahon ng saging habang niluluto ay pinaniniwalaan na nagtatataboy ng masasamang espiritu."
     ],
-    photoCredit: "Larawan mula sa Tabo sa UCLM, CTE"
+    photoCredit: "Larawan mula sa Tabo sa UCLM, CTE",
+    kulturaPhoto: "gallery-01-kultura.jpg",
+    kasaysayanPhoto: "gallery-01-kasaysayan.jpg"
   },
   // 2 — Tamales
   {
@@ -536,7 +538,9 @@ const GALLERY_DATA = [
       "Sa loob ng tatlong araw, maaari pa ring kainin ang Tamales nang hindi nasisira — natural na pag-iingat ng pagkain.",
       "May ilang pamilya na may sariling lihim na recipe na ipinapasa lamang sa mga inapo."
     ],
-    photoCredit: "Larawan mula sa Tabo sa UCLM, CTE"
+    photoCredit: "Larawan mula sa Tabo sa UCLM, CTE",
+    kulturaPhoto: "gallery-02-kultura.jpg",
+    kasaysayanPhoto: "gallery-02-kasaysayan.jpg"
   },
   // 3 — Elders / Attire
   {
@@ -554,7 +558,9 @@ const GALLERY_DATA = [
       "Ang isang buong damit ng Baganihan ay maaaring tumagal ng isang taon upang matapos ang pagtatabing.",
       "Sa ilang bahagi ng kabundukan, ang mga matatanda ay ginagawang tagahatol sa mga hindi pagkakaunawaan ng komunidad."
     ],
-    photoCredit: "Larawan mula sa Panay Bukidnon IP documentation"
+    photoCredit: "Larawan mula sa Panay Bukidnon IP documentation",
+    kulturaPhoto: "gallery-03-kultura.jpg",
+    kasaysayanPhoto: "gallery-03-kasaysayan.jpg"
   },
   // 4 — Mount Madja-as
   {
@@ -572,7 +578,9 @@ const GALLERY_DATA = [
       "Naniniwala ang ilang mananaliksik na ang 'Madja-as' ay nagmula sa salitang nangangahulugang 'lugar ng hangin at liwanag'.",
       "Ang bundok ay tahanan ng mahigit 50 species ng ibon na endemic sa Panay, marami sa kanila ay nanganganib na mawala."
     ],
-    photoCredit: "Larawan mula sa Panay Bukidnon IP documentation"
+    photoCredit: "Larawan mula sa Panay Bukidnon IP documentation",
+    kulturaPhoto: "gallery-04-kultura.jpg",
+    kasaysayanPhoto: "gallery-04-kasaysayan.jpeg"
   },
   // 5 — Panubok weaving (weaving.jpg)
   {
@@ -590,7 +598,9 @@ const GALLERY_DATA = [
       "Mahigit 30 natatanging pattern ang kilala — bawat isa ay may sariling pangalan at kahulugan sa Kinaray-a.",
       "Ang pinaka-eksklusibong pattern, ang 'Bagsang', ay para lamang sa mga pinuno at mga espesyal na seremonya."
     ],
-    photoCredit: "Larawan mula sa community documentation, UCLM CTE"
+    photoCredit: "Larawan mula sa community documentation, UCLM CTE",
+    kulturaPhoto: "gallery-05-kultura.jpg",
+    kasaysayanPhoto: "gallery-05-kasaysayan.jpg"
   },
   // 6 — Manghahabi (fc075faf)
   {
@@ -608,7 +618,9 @@ const GALLERY_DATA = [
       "Ang ilang manghahabi ay may espesyal na 'singing voice' para sa bawat sinulid — kanta na tumutulong sa kanila na mapanatili ang tamang tensyon habang nagtitahi.",
       "Ang mga manghahabi ay karaniwang nagtatatrabaho sa umaga lamang, kapag ang kanilang mga mata ay pinaka-malinaw."
     ],
-    photoCredit: "College of Teacher Education, UCLM"
+    photoCredit: "College of Teacher Education, UCLM",
+    kulturaPhoto: "gallery-06-kultura.webp",
+    kasaysayanPhoto: "gallery-06-kasaysayan.jpg"
   },
   // 7 — Traditional Dress (7fc84c48)
   {
@@ -626,7 +638,9 @@ const GALLERY_DATA = [
       "Ang mga beads na ginagamit sa mga alahas ay kadalasang mga mana na pinagsalhan ng maraming henerasyon.",
       "Ang isang buong hanay ng alahas at kasuotan ay maaaring magkahalaga ng katumbas ng ilang buwang sahod."
     ],
-    photoCredit: "Larawan mula sa UCLM CTE Buwan ng Wika 2026"
+    photoCredit: "Larawan mula sa UCLM CTE Buwan ng Wika 2026",
+    kulturaPhoto: "gallery-07-kultura.jpg",
+    kasaysayanPhoto: "gallery-07-kasaysayan.jpg"
   },
   // 8 — Sugidanon Song
   {
@@ -644,7 +658,9 @@ const GALLERY_DATA = [
       "Ang mga Binukot ay nagsasaulo ng mahigit 10,000 berso — katumbas ng ilang buong nobela.",
       "Bago sa isang Binukot umawit, siya ay nagdarasal at nag-aayuno ng tatlong araw."
     ],
-    photoCredit: "Larawan mula sa Panay Bukidnon IP documentation"
+    photoCredit: "Larawan mula sa Panay Bukidnon IP documentation",
+    kulturaPhoto: "gallery-08-kultura.webp",
+    kasaysayanPhoto: "gallery-08-kasaysayan.jpg"
   },
   // 9 — Binanog Dance
   {
@@ -662,7 +678,9 @@ const GALLERY_DATA = [
       "Ang ritmo ng musika ng Binanog ay ginagaya ang tunog ng puso ng banog habang lumilipad — mabilis na tumitibok.",
       "Ang isang bihasa at kilalang mananayaw ng Binanog ay tinatawag na 'Hari ng Banog' ng kanilang komunidad."
     ],
-    photoCredit: "Larawan mula sa UCLM CTE Buwan ng Wika 2026"
+    photoCredit: "Larawan mula sa UCLM CTE Buwan ng Wika 2026",
+    kulturaPhoto: "gallery-09-kultura.jpg",
+    kasaysayanPhoto: "gallery-09-kasaysayan.jpg"
   },
   // 10 — Bagsang motif (50a19d46)
   {
@@ -680,7 +698,9 @@ const GALLERY_DATA = [
       "Sa ilang interpretasyon, ang Bagsang ay hindi isang serpyente kundi isang mythical na nilalang na may katangian ng parehong ibon at ahas.",
       "Ang kumplikadong Bagsang pattern ay kayang gawin lamang ng mga pinaka-bihasang manghahabi — ito ang ultimate na pagsubok ng kanilang kahusayan."
     ],
-    photoCredit: "Larawan mula sa community documentation, UCLM CTE"
+    photoCredit: "Larawan mula sa community documentation, UCLM CTE",
+    kulturaPhoto: "gallery-10-kultura.webp",
+    kasaysayanPhoto: "gallery-10-kasaysayan.jpg"
   }
 ];
 

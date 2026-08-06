@@ -304,22 +304,22 @@ const App = (() => {
     const rightCol = document.getElementById('home-gallery-right');
     if (!leftCol || !rightCol) return;
 
-    // Left column (5 images) — uses new local files
+    // Left column (5 images)
     const leftItems = [
       { img: 'be12f643-361f-4ad9-9cbc-c89416a5dba5.jpg', caption: 'Tinuom na Manok, isang espesyal na pagkain', galleryId: 'gallery-01' },
       { img: 'e1e5a388-ace2-4e6a-a6db-2db4181c5450.jpg', caption: 'Tamales, nakabalot sa dahon ng mais', galleryId: 'gallery-02' },
-      { img: 'c3749917-6e05-4b82-86a6-79ee251240ae.jpg', caption: 'Mga matatanda sa tradisyunal na damit', galleryId: 'gallery-03' },
+      { img: 'gallery-03-kultura.jpg', caption: 'Mga matatanda sa tradisyunal na gamit', galleryId: 'gallery-03' },
       { img: 'Madjaas.jpg', caption: 'Bundok Madja-as, ang sagradong tuktok ng Panay', galleryId: 'gallery-04' },
-      { img: 'weaving.jpg', caption: 'Ang mapanlikhang sining ng Panubok', galleryId: 'gallery-05' },
+      { img: 'gallery-05-kultura.jpg', caption: 'Ang mapanlikhang sining ng Panubok', galleryId: 'gallery-05' },
     ];
 
-    // Right column (5 images) — uses new local files
+    // Right column (5 images)
     const rightItems = [
-      { img: 'fc075faf-172b-4ce9-8559-143ca84f5c26.jpg', caption: 'Isang manghahabi ng Panubok, tagapagpanatili ng sining', galleryId: 'gallery-06' },
-      { img: '7fc84c48-b93b-4a9f-9141-d2c70ebdaadb.jpg', caption: 'Tradisyunal na damit ng Panay Bukidnon', galleryId: 'gallery-07' },
-      { img: 'Sugidanon - Song.jpg', caption: 'Sugidanon — ang epikong awit ng kabundukan', galleryId: 'gallery-08' },
-      { img: 'Binanog - dance.jpg', caption: 'Binanog — sayaw ng agila', galleryId: 'gallery-09' },
-      { img: '50a19d46-e237-4b5c-958a-8454f060f70d.jpg', caption: 'Bagsang — espiritu ng proteksyon', galleryId: 'gallery-10' },
+      { img: 'gallery-06-kasaysayan.jpg', caption: 'Isang manghahabi ng Panubok, tagapagpanatili ng sining', galleryId: 'gallery-06' },
+      { img: 'gallery-07-kultura.jpg', caption: 'Tradisyunal na damit ng Panay Bukidnon', galleryId: 'gallery-07' },
+      { img: 'gallery-08-kasaysayan.jpg', caption: 'Sugidanon — ang epikong awit ng kabundukan', galleryId: 'gallery-08' },
+      { img: 'gallery-09-kultura.jpg', caption: 'Binanog — sayaw ng agila', galleryId: 'gallery-09' },
+      { img: 'gallery-10-kasaysayan.jpg', caption: 'Bagsang — espiritu ng proteksyon', galleryId: 'gallery-10' },
     ];
 
     // Duplicate arrays for infinite marquee scrolling
@@ -384,15 +384,9 @@ const App = (() => {
             <p class="text-lg leading-relaxed" style="color:#d4c9b5; font-family: Georgia, serif;">${item.culture}</p>
           </div>
 
-          <!-- Photo Placeholder 1 -->
-          <div class="mb-16 rounded-2xl overflow-hidden border" style="border-color: rgba(212,160,23,0.3); background: rgba(255,255,255,0.03);">
-            <div class="flex items-center justify-center" style="height: 280px; border: 2px dashed rgba(212,160,23,0.4); border-radius: 1rem; margin: 1rem;">
-              <div class="text-center" style="color: rgba(212,160,23,0.6);">
-                <div style="font-size: 3rem; margin-bottom: 0.5rem;">📷</div>
-                <p style="font-family: Georgia, serif; font-style: italic;">Ilagay ang larawan dito</p>
-                <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.25rem;">Placeholder &mdash; Palitan ng tunay na larawan</p>
-              </div>
-            </div>
+          <!-- Photo 1: Kultura -->
+          <div class="mb-16 rounded-2xl overflow-hidden" style="border: 2px solid rgba(212,160,23,0.3);">
+            ${item.kulturaPhoto ? `<img src="${item.kulturaPhoto}" alt="Larawan ng kultura" style="width:100%; max-height:360px; object-fit:cover; display:block;">` : ''}
           </div>
 
           <!-- Section: Tradisyon (RIGHT STAGGER) -->
@@ -409,15 +403,9 @@ const App = (() => {
             <p class="text-lg leading-relaxed inline-block" style="color:#d4c9b5; font-family: Georgia, serif;">${item.history}</p>
           </div>
 
-          <!-- Photo Placeholder 2 -->
-          <div class="mb-16 rounded-2xl overflow-hidden border" style="border-color: rgba(139,26,26,0.3); background: rgba(255,255,255,0.03);">
-            <div class="flex items-center justify-center" style="height: 280px; border: 2px dashed rgba(139,26,26,0.4); border-radius: 1rem; margin: 1rem;">
-              <div class="text-center" style="color: rgba(192,57,43,0.6);">
-                <div style="font-size: 3rem; margin-bottom: 0.5rem;">📷</div>
-                <p style="font-family: Georgia, serif; font-style: italic;">Ilagay ang larawan dito</p>
-                <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.25rem;">Placeholder &mdash; Palitan ng tunay na larawan</p>
-              </div>
-            </div>
+          <!-- Photo 2: Kasaysayan -->
+          <div class="mb-16 rounded-2xl overflow-hidden" style="border: 2px solid rgba(139,26,26,0.3);">
+            ${item.kasaysayanPhoto ? `<img src="${item.kasaysayanPhoto}" alt="Larawan ng kasaysayan" style="width:100%; max-height:360px; object-fit:cover; display:block;">` : ''}
           </div>
 
           <!-- Section: Epekto sa Buhay ng Tao (LEFT STAGGER) -->
