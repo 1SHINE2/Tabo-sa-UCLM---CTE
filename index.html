@@ -68,8 +68,8 @@
     <!-- 1️⃣ HOMEPAGE VIEW (#home) -->
     <section id="view-home" class="view-section active relative w-full h-screen overflow-hidden" style="background: url('panubok_bg.jpg') center center / cover no-repeat;">
       
-      <!-- Moving Marquee Background Container (floats on top of panubok at low opacity) -->
-      <div class="absolute inset-0 flex flex-col md:flex-row" style="opacity:0.55;">
+      <!-- Moving Marquee Background Container -->
+      <div class="absolute inset-0 flex flex-col md:flex-row" style="opacity:0.9;">
         <!-- Top (Mobile) / Left (Desktop) Track -->
         <div class="flex-1 overflow-hidden relative">
           <div class="marquee-content marquee-track-1" id="home-gallery-left">
@@ -84,10 +84,8 @@
         </div>
       </div>
 
-      <!-- Layer 1: Darken the panubok base -->
-      <div class="absolute inset-0 pointer-events-none" style="background: rgba(60,10,10,0.45);"></div>
-      <!-- Layer 2: Very dark gradient over everything for text readability -->
-      <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.65) 100%);"></div>
+      <!-- Single dark overlay for text readability only -->
+      <div class="absolute inset-0 pointer-events-none" style="background: rgba(0,0,0,0.45);"></div>
 
       <!-- Center Title Block (Fixed Centered) -->
       <div class="absolute inset-0 flex flex-col items-center justify-center z-10 p-4 text-center mt-8 pointer-events-none">
