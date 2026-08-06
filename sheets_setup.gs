@@ -121,6 +121,64 @@ function doPost(e) {
 
       response.message = "Status retrieved.";
       response.orderStatus = orderStatus;
+    } else if (action === "GET_PENDING_ORDERS") {
+      const dataRange = sheet.getDataRange();
+      const values = dataRange.getValues();
+      const pendingOrders = [];
+      
+      for (let i = 1; i < values.length; i++) {
+        const status = values[i][8];
+        if (status === "Pending") {
+          pendingOrders.push({
+            transactionId: values[i][0],
+            timestamp: values[i][1],
+            orderType: values[i][2],
+            fulfillment: values[i][3],
+            paymentMethod: values[i][4],
+            gcashRef: values[i][5],
+            itemsSummary: values[i][6],
+            grandTotal: values[i][7],
+            status: values[i][8],
+            destination: values[i][9]
+          });
+        }
+      }
+      
+      response.message = "Pending orders retrieved.";
+      response.orders = pendingOrders;
+    } else if (action === "GET_REVENUE_METRICS") {
+      const dataRange = sheet.getDataRange();
+      const values = dataRange.getValues();
+      
+      let totalRevenue = 0;
+      let cashTotal = 0;
+      let gcashTotal = 0;
+      let completedCount = 0;
+      
+      for (let i = 1; i < values.length; i++) {
+        const status = values[i][8];
+        if (status === "Completed") {
+          const amount = parseFloat(values[i][7]) || 0;
+          const method = String(values[i][4] || '').trim().toLowerCase();
+          
+          totalRevenue += amount;
+          completedCount++;
+          
+          if (method === "cash") {
+            cashTotal += amount;
+          } else if (method === "gcash") {
+            gcashTotal += amount;
+          }
+        }
+      }
+      
+      response.message = "Revenue metrics retrieved.";
+      response.metrics = {
+        totalRevenue: totalRevenue,
+        cashTotal: cashTotal,
+        gcashTotal: gcashTotal,
+        completedCount: completedCount
+      };
     } else {
       response = { status: "error", message: "Unknown action." };
     }
