@@ -640,7 +640,7 @@ const CashierPOS = (() => {
     const btn = document.getElementById('btn-complete-sale');
     if (btn) { btn.disabled = true; btn.textContent = '⏳ Processing...'; }
 
-    const WEBHOOK = "https://script.google.com/macros/s/AKfycbyyEmFzccV7FfE7mozo-BK4p7MiGhSJ3itHZVstMIhIf65yNtVJMoP6_yG3wC5jpiHa/exec";
+    const WEBHOOK = "https://script.google.com/macros/s/AKfycbyV05DpATN5wugG2LQKKjlPizj5JKlf-joYqKenQDz-KrKd1QouUl8IMDzBcB3RzXuq/exec";
     
     const subtotal = _getBillSubtotal();
     const grandTotal = Math.max(0, subtotal - currentDiscountAmt);
