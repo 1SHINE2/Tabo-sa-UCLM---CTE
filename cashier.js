@@ -22,7 +22,7 @@ const CashierPOS = (() => {
   let orderFeed = [];
   
   // New State
-  let currentQueueFilter = 'Walk-in - Cash';
+  let currentQueueFilter = 'Online Pickup - Cash';
   let currentActiveOrder = null;
   let currentVoucherCode = null;
   let currentDiscountAmt = 0;
@@ -30,7 +30,6 @@ const CashierPOS = (() => {
   let gcashValidated = false;
 
   const QUEUE_CATEGORIES = [
-    'Walk-in - Cash', 'Walk-in - GCash', 
     'Online Pickup - Cash', 'Online Pickup - GCash', 
     'Online Delivery - Cash', 'Online Delivery - GCash'
   ];
