@@ -170,7 +170,7 @@ const CashierPOS = (() => {
     if (!container) return;
 
     container.innerHTML = `
-      <div id="cashier-pos" class="min-h-screen panubok-bg text-white flex flex-col">
+      <div id="cashier-pos" class="min-h-screen text-white flex flex-col" style="background:#1a1008;">
 
         <!-- Header & Tabs -->
         <div class="pos-header flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-black/40 border-b border-white/10">
@@ -240,21 +240,23 @@ const CashierPOS = (() => {
             </div>
 
             <!-- Walk-in Payment Toggle -->
-            <div class="p-4 border-b border-white/10 bg-black/20">
+            <div class="p-4 border-b border-white/10" style="background:rgba(0,0,0,0.25);">
               <div class="text-xs text-white/70 uppercase tracking-widest mb-2">Walk-in Payment Method</div>
               <div class="flex gap-2">
-                <button id="walkin-pay-cash" class="flex-1 py-2 rounded-lg text-sm font-bold border-2 border-gold bg-gold/10 text-gold" onclick="CashierPOS.setWalkinPayment('cash')">💵 Cash</button>
-                <button id="walkin-pay-gcash" class="flex-1 py-2 rounded-lg text-sm font-bold border-2 border-white/20 text-white/60" onclick="CashierPOS.setWalkinPayment('gcash')">📱 GCash</button>
+                <button id="walkin-pay-cash"
+                  class="flex-1 py-2 rounded-lg text-sm font-bold transition-all"
+                  style="border:2px solid #D4A017; background:rgba(212,160,23,0.15); color:#D4A017;"
+                  onclick="CashierPOS.setWalkinPayment('cash')">💵 Cash</button>
+                <button id="walkin-pay-gcash"
+                  class="flex-1 py-2 rounded-lg text-sm font-bold transition-all"
+                  style="border:2px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.5);"
+                  onclick="CashierPOS.setWalkinPayment('gcash')">📱 GCash</button>
               </div>
-              <!-- GCash Ref field for walk-in GCash -->
-              <div id="walkin-gcash-ref-row" class="hidden mt-3">
-                <label class="text-xs text-white/70 block mb-1 uppercase tracking-wide">GCash Reference No.</label>
-                <input id="walkin-gcash-ref" type="text" maxlength="13" class="form-input font-mono tracking-widest text-white border-white/20 w-full" style="background:rgba(0,0,0,0.3);" placeholder="13 digits" />
-              </div>
+              <p id="walkin-gcash-hint" class="hidden text-xs text-white/50 mt-2 leading-relaxed">Customer scans/transfers. Then check the <strong class="text-gold">Online Orders Feed</strong> tab to verify and mark done.</p>
             </div>
 
-            <!-- Cash Calculator (hidden for GCash walk-in) -->
-            <div class="p-6 border-b border-white/10 flex-1 bg-black/20" id="walkin-cash-calc">
+            <!-- Cash Calculator (hidden when GCash mode) -->
+            <div class="p-6 border-b border-white/10 flex-1" id="walkin-cash-calc" style="background:rgba(0,0,0,0.2);">
               <h3 class="font-display text-lg text-white mb-4">💵 Cash Calculator</h3>
               <input id="calc-total" type="hidden">
               <div class="mb-4">
@@ -273,14 +275,18 @@ const CashierPOS = (() => {
                 class="rounded-lg p-4 text-center font-bold text-3xl"
                 style="background: rgba(255,255,255,0.05)"
               >
-                <div class="text-xs text-gray-400 mb-1 font-normal uppercase tracking-wide">Change Due</div>
-                <div id="calc-change-value" class="text-gray-400">—</div>
+                <div class="text-xs text-white/50 mb-1 font-normal uppercase tracking-wide">Change Due</div>
+                <div id="calc-change-value" class="text-white/40">—</div>
               </div>
             </div>
 
             <!-- Action Button -->
-            <div class="p-6">
-              <button class="btn-complete-sale" id="btn-complete-sale" onclick="CashierPOS.completeCashSale()">
+            <div class="p-5" style="background:rgba(0,0,0,0.3);">
+              <button
+                id="btn-complete-sale"
+                class="btn-complete-sale w-full"
+                onclick="CashierPOS.completeCashSale()"
+              >
                 ✅ COMPLETE CASH SALE
               </button>
             </div>
@@ -288,14 +294,14 @@ const CashierPOS = (() => {
         </div>
 
         <!-- ── TAB B: ONLINE ORDERS FEED ── -->
-        <div class="pos-panel flex-1 overflow-y-auto bg-black/20 p-6" id="tab-online">
+        <div class="pos-panel flex-1 overflow-y-auto p-6" id="tab-online" style="background:rgba(0,0,0,0.15);">
           <div class="flex items-center justify-between mb-6 max-w-4xl mx-auto">
             <div>
-              <h3 class="font-display text-2xl text-gold">📲 Online Orders Queue</h3>
-              <p class="text-sm text-white/70 mt-1">Orders paid via GCash or Booth Pickup</p>
+              <h3 class="font-display text-2xl text-gold">📲 Orders Queue</h3>
+              <p class="text-sm text-white/60 mt-1">Online & Walk-in GCash orders waiting for verification</p>
             </div>
-            <button class="btn btn-outline border-white/30 text-white/90 hover:bg-white/10" onclick="CashierPOS.refreshFeed()">
-              ↻ Refresh Queue
+            <button class="btn btn-outline border-white/30 text-white/90" onclick="CashierPOS.refreshFeed()">
+              ↻ Refresh
             </button>
           </div>
           <div id="order-feed-container" class="max-w-4xl mx-auto grid gap-4 grid-cols-1 md:grid-cols-2">
@@ -510,21 +516,24 @@ const CashierPOS = (() => {
 
   function setWalkinPayment(mode) {
     walkinPaymentMode = mode;
-    const cashBtn      = document.getElementById('walkin-pay-cash');
-    const gcashBtn     = document.getElementById('walkin-pay-gcash');
-    const cashCalc     = document.getElementById('walkin-cash-calc');
-    const gcashRefRow  = document.getElementById('walkin-gcash-ref-row');
+    const cashBtn   = document.getElementById('walkin-pay-cash');
+    const gcashBtn  = document.getElementById('walkin-pay-gcash');
+    const cashCalc  = document.getElementById('walkin-cash-calc');
+    const hint      = document.getElementById('walkin-gcash-hint');
+    const completeBtn = document.getElementById('btn-complete-sale');
 
     if (mode === 'cash') {
-      if (cashBtn)  { cashBtn.classList.add('border-gold','bg-gold/10','text-gold');     cashBtn.classList.remove('border-white/20','text-white/60'); }
-      if (gcashBtn) { gcashBtn.classList.remove('border-gold','bg-gold/10','text-gold'); gcashBtn.classList.add('border-white/20','text-white/60'); }
-      if (cashCalc)    cashCalc.classList.remove('hidden');
-      if (gcashRefRow) gcashRefRow.classList.add('hidden');
+      if (cashBtn)  { cashBtn.style.cssText  = 'border:2px solid #D4A017; background:rgba(212,160,23,0.15); color:#D4A017; flex:1; padding:0.5rem; border-radius:0.5rem; font-size:0.875rem; font-weight:700;'; }
+      if (gcashBtn) { gcashBtn.style.cssText = 'border:2px solid rgba(255,255,255,0.2); background:transparent; color:rgba(255,255,255,0.5); flex:1; padding:0.5rem; border-radius:0.5rem; font-size:0.875rem; font-weight:700;'; }
+      if (cashCalc) cashCalc.classList.remove('hidden');
+      if (hint)     hint.classList.add('hidden');
+      if (completeBtn) completeBtn.textContent = '✅ COMPLETE CASH SALE';
     } else {
-      if (gcashBtn) { gcashBtn.classList.add('border-gold','bg-gold/10','text-gold');    gcashBtn.classList.remove('border-white/20','text-white/60'); }
-      if (cashBtn)  { cashBtn.classList.remove('border-gold','bg-gold/10','text-gold');  cashBtn.classList.add('border-white/20','text-white/60'); }
-      if (cashCalc)    cashCalc.classList.add('hidden');
-      if (gcashRefRow) gcashRefRow.classList.remove('hidden');
+      if (gcashBtn) { gcashBtn.style.cssText = 'border:2px solid #D4A017; background:rgba(212,160,23,0.15); color:#D4A017; flex:1; padding:0.5rem; border-radius:0.5rem; font-size:0.875rem; font-weight:700;'; }
+      if (cashBtn)  { cashBtn.style.cssText  = 'border:2px solid rgba(255,255,255,0.2); background:transparent; color:rgba(255,255,255,0.5); flex:1; padding:0.5rem; border-radius:0.5rem; font-size:0.875rem; font-weight:700;'; }
+      if (cashCalc) cashCalc.classList.add('hidden');
+      if (hint)     hint.classList.remove('hidden');
+      if (completeBtn) completeBtn.textContent = '📲 QUEUE GCASH PAYMENT';
     }
   }
 
@@ -538,22 +547,8 @@ const CashierPOS = (() => {
       return;
     }
 
-    // Walk-in GCash validation
-    let walkinGcashRef = 'N/A';
-    if (walkinPaymentMode === 'gcash') {
-      const refInput = document.getElementById('walkin-gcash-ref');
-      walkinGcashRef = refInput?.value?.trim() || '';
-      if (!walkinGcashRef || walkinGcashRef.length !== 13 || isNaN(Number(walkinGcashRef))) {
-        window.showToast('Please enter a valid 13-digit GCash Reference Number.', 'error');
-        return;
-      }
-    }
-
     const btn = document.getElementById('btn-complete-sale');
-    if (btn) {
-      btn.disabled = true;
-      btn.textContent = "⏳ Processing...";
-    }
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ Processing...'; }
 
     // Build items summary
     const items = [];
@@ -566,78 +561,109 @@ const CashierPOS = (() => {
       }
     });
     const itemsSummary = items.join(', ');
+    const txnId        = `WLK-${Date.now().toString().slice(-6)}`;
+    const timeStr      = new Date().toISOString();
+    const WEBHOOK      = "https://script.google.com/macros/s/AKfycbwR2c9jCTCmU-qMVrSlnKi4DzDgIumQLqi_En1doE5rYG1QaUWgCyJZSq0djnPWGjKg/exec";
 
-    // Read tendered amount for cash
-    const tenderedInput = document.getElementById('calc-tendered');
-    const amountTendered = walkinPaymentMode === 'cash' ? (parseFloat(tenderedInput?.value) || 0) : 'N/A';
-    const changeGiven    = walkinPaymentMode === 'cash' ? Math.max(0, (parseFloat(tenderedInput?.value) || 0) - subtotal) : 0;
+    // ── WALK-IN GCASH: queue as Pending, switch to feed tab ─────────────────
+    if (walkinPaymentMode === 'gcash') {
+      const pendingOrder = {
+        action:        "CREATE_TRANSACTION",
+        timestamp:     timeStr,
+        transactionId: txnId,
+        orderType:     "Walk-in",
+        fulfillment:   "Over-the-Counter",
+        paymentMethod: "GCash",
+        customerName:  "Walk-in (GCash)",
+        contactInfo:   "N/A",
+        itemsSummary:  itemsSummary,
+        subtotal:      subtotal,
+        voucherApplied:"NONE",
+        discountAmount:0,
+        grandTotal:    subtotal,
+        amountTendered:"N/A",
+        changeGiven:   0,
+        gcashRef:      "",  // empty — cashier will verify in the queue
+        status:        "Pending",
+        // UI rendering fields
+        payment:       "gcash",
+        items:         [],
+        total:         subtotal,
+      };
 
-    // Generate transaction ID
-    const txnId  = `WLK-${Date.now().toString().slice(-6)}`;
-    const timeStr = new Date().toISOString();
+      // Save to tabo_orders array so it shows in the feed
+      try {
+        const existing = JSON.parse(localStorage.getItem('tabo_orders') || '[]');
+        existing.push(pendingOrder);
+        localStorage.setItem('tabo_orders', JSON.stringify(existing));
+      } catch(e) {}
 
-    const WEBHOOK = "https://script.google.com/macros/s/AKfycbwR2c9jCTCmU-qMVrSlnKi4DzDgIumQLqi_En1doE5rYG1QaUWgCyJZSq0djnPWGjKg/exec";
+      // Send to Sheets as Pending
+      try {
+        await fetch(WEBHOOK, {
+          method: 'POST', mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(pendingOrder)
+        });
+      } catch(err) { console.warn('Walk-in GCash sheet log failed:', err); }
+
+      clearBill();
+      calcChange();
+      if (btn) { btn.disabled = false; btn.textContent = '📲 QUEUE GCASH PAYMENT'; }
+      window.showToast('Walk-in GCash queued! Check Online Orders Feed.', 'success');
+      // Switch to queue tab
+      switchPosTab('online');
+      refreshFeed();
+      return;
+    }
+
+    // ── WALK-IN CASH: complete immediately ──────────────────────────────────
+    const tenderedInput  = document.getElementById('calc-tendered');
+    const amountTendered = parseFloat(tenderedInput?.value) || 0;
+    const changeGiven    = Math.max(0, amountTendered - subtotal);
 
     const payload = {
-      action:          "CREATE_TRANSACTION",
-      timestamp:       timeStr,
-      transactionId:   txnId,
-      orderType:       "Walk-in",
-      fulfillment:     "Over-the-Counter",
-      paymentMethod:   walkinPaymentMode === 'cash' ? "Cash" : "GCash",
-      customerName:    "Walk-in Customer",
-      contactInfo:     "N/A",
-      itemsSummary:    itemsSummary,
-      subtotal:        subtotal,
-      voucherApplied:  "NONE",
-      discountAmount:  0,
-      grandTotal:      subtotal,
-      amountTendered:  amountTendered,
-      changeGiven:     changeGiven,
-      gcashRef:        walkinGcashRef,
-      status:          "Completed"
+      action:        "CREATE_TRANSACTION",
+      timestamp:     timeStr,
+      transactionId: txnId,
+      orderType:     "Walk-in",
+      fulfillment:   "Over-the-Counter",
+      paymentMethod: "Cash",
+      customerName:  "Walk-in Customer",
+      contactInfo:   "N/A",
+      itemsSummary:  itemsSummary,
+      subtotal:      subtotal,
+      voucherApplied:"NONE",
+      discountAmount:0,
+      grandTotal:    subtotal,
+      amountTendered:amountTendered,
+      changeGiven:   changeGiven,
+      gcashRef:      "N/A",
+      status:        "Completed"
     };
 
-    let success = false;
     try {
       await fetch(WEBHOOK, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      success = true;
-    } catch (err) {
-      console.error("Walk-in POST failed:", err);
+    } catch(err) {
+      // Offline fallback
+      try {
+        const pending = JSON.parse(localStorage.getItem('pending_walkin_sales') || '[]');
+        pending.push(payload);
+        localStorage.setItem('pending_walkin_sales', JSON.stringify(pending));
+      } catch(e) {}
     }
 
-    // Offline fallback
-    if (!success) {
-      let pending = [];
-      try { pending = JSON.parse(localStorage.getItem('pending_walkin_sales')) || []; } catch(e){}
-      pending.push(payload);
-      localStorage.setItem('pending_walkin_sales', JSON.stringify(pending));
-    }
-
-    // Get change display before clearing
-    const valueEl  = document.getElementById('calc-change-value');
-    const changeStr = walkinPaymentMode === 'cash'
-      ? (valueEl && valueEl.textContent !== '—' ? valueEl.textContent : '₱0.00')
-      : 'GCash – No change needed';
-
-    // Clear UI
+    const valueEl   = document.getElementById('calc-change-value');
+    const changeStr = valueEl && valueEl.textContent !== '—' ? valueEl.textContent : '₱0.00';
     clearBill();
     if (tenderedInput) tenderedInput.value = '';
-    const gcashRefInput = document.getElementById('walkin-gcash-ref');
-    if (gcashRefInput) gcashRefInput.value = '';
     calcChange();
-
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = "✅ COMPLETE SALE";
-    }
-
-    window.showToast(`Sale complete! ${walkinPaymentMode === 'cash' ? 'Change: ' + changeStr : 'GCash payment recorded.'}`, 'success');
+    if (btn) { btn.disabled = false; btn.textContent = '✅ COMPLETE CASH SALE'; }
+    window.showToast(`Sale complete! Change: ${changeStr}`, 'success');
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -672,8 +698,12 @@ const CashierPOS = (() => {
     }
 
     // Read cashier-entered tendered amount (for Cash online orders)
-    const tenderedEl = document.getElementById(`cash-collect-${CSS.escape(orderId)}`);
+    const tenderedEl     = document.getElementById(`cash-collect-${CSS.escape(orderId)}`);
     const amountTendered = tenderedEl ? (parseFloat(tenderedEl.value) || 0) : 'N/A';
+
+    // Read cashier-verified GCash ref (for GCash orders)
+    const gcashVerifyEl  = document.getElementById(`gcash-verify-${CSS.escape(orderId)}`);
+    const verifiedRef    = gcashVerifyEl ? gcashVerifyEl.value.trim() : undefined;
 
     // Update in localStorage and compute change
     let changeGiven = 0;
@@ -705,6 +735,7 @@ const CashierPOS = (() => {
       status:          "Completed",
       amountTendered:  amountTendered,
       changeGiven:     changeGiven,
+      gcashRef:        verifiedRef,  // cashier-verified ref (for GCash orders)
     };
     fetch(WEBHOOK, {
       method:  'POST',
@@ -722,87 +753,180 @@ const CashierPOS = (() => {
 
     if (orderFeed.length === 0) {
       container.innerHTML = `
-        <p class="text-white/50 text-sm text-center py-8">
-          No incoming orders yet.<br>
-          <span class="text-xs">Orders from buyers will appear here.</span>
+        <p class="text-white/40 text-sm text-center py-12 col-span-full">
+          No orders yet.<br>
+          <span class="text-xs">Online and Walk-in GCash orders will appear here.</span>
         </p>
       `;
       return;
     }
 
     container.innerHTML = orderFeed.map(order => {
-      const orderId         = escapeHTML(order.transactionId || order.timestamp);
-      const time            = new Date(order.timestamp).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' });
-      const safeCustomer    = escapeHTML(order.customerName);
-      const safePayment     = escapeHTML(order.paymentMethod || (order.payment === 'cash' ? 'Cash' : 'GCash'));
-      const safeGcashRef    = escapeHTML(order.gcashRef || 'N/A');
-      const safeDestination = escapeHTML(order.destination || order.contactInfo || '');
+      const orderId      = escapeHTML(order.transactionId || order.timestamp);
+      const rawId        = order.transactionId || order.timestamp;
+      const time         = new Date(order.timestamp).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' });
+      const safeCustomer = escapeHTML(order.customerName);
+      const customerRef  = order.gcashRef || '';
+      const safeRef      = escapeHTML(customerRef);
+      const safeContact  = escapeHTML(order.destination || order.contactInfo || '');
 
       const isCash      = (order.payment === 'cash' || order.paymentMethod === 'Cash');
       const isGcash     = !isCash;
+      const isWalkin    = order.orderType === 'Walk-in';
       const isDelivery  = order.fulfillment === 'delivery' || order.fulfillment === 'Campus Delivery';
       const isCompleted = order.status === 'Completed';
 
-      const fulfillLabel = isDelivery
-        ? `🚚 Campus Delivery — ${safeDestination}`
-        : '🏪 Booth Pickup';
+      const fulfillLabel = isWalkin
+        ? '🏪 Over-the-Counter (Walk-in)'
+        : (isDelivery ? `🚚 Campus Delivery — ${safeContact}` : '🏪 Booth Pickup');
 
       const itemsSummary = (order.items || []).length > 0
         ? (order.items || []).map(i => `${escapeHTML(i.name)} ×${Number(i.qty)}`).join(', ')
         : escapeHTML(order.itemsSummary || '');
 
       const displayTotal = Number(order.grandTotal || order.total || 0);
+      const typeTag = isWalkin
+        ? `<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full" style="background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.6);">Walk-in</span>`
+        : `<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full" style="background:rgba(74,124,89,0.25); color:#6fcf97;">Online</span>`;
 
-      // For Cash online orders: show a tendered-amount input the cashier fills in
+      // ── CASH ORDER: Cashier inputs tendered amount → calculates change → Done ──
       const cashCollectRow = isCash && !isCompleted ? `
-        <div class="mt-3 p-3 bg-black/30 rounded-lg border border-white/10">
-          <div class="text-xs text-white/60 uppercase tracking-widest mb-2">💵 Collect Cash</div>
-          <div class="flex gap-2 items-center">
-            <input
-              id="cash-collect-${orderId}"
-              type="number"
-              placeholder="Amount Tendered"
-              class="form-input text-white text-sm border-white/20 flex-1"
-              style="background:rgba(0,0,0,0.3);"
-            />
-            <span class="text-white/50 text-xs">Total: ₱${displayTotal}</span>
-          </div>
+        <div class="p-3 rounded-lg mt-1" style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1);">
+          <div class="text-xs text-white/60 uppercase tracking-widest mb-2">💵 Collect Payment · Total: ₱${displayTotal}</div>
+          <input
+            id="cash-collect-${orderId}"
+            type="number"
+            placeholder="Enter amount tendered by customer"
+            class="form-input text-white text-sm w-full"
+            style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.2);"
+            oninput="CashierPOS.previewChange('${orderId}', ${displayTotal})"
+          />
+          <div id="change-preview-${orderId}" class="text-center text-xs mt-2 text-white/40">Enter amount above to see change</div>
         </div>
-      ` : '';
+      ` : (isCompleted && isCash && order.changeGiven >= 0 ? `
+        <div class="text-xs text-white/50 mt-1">Change given: <span class="text-gold font-bold">₱${Number(order.changeGiven).toFixed(2)}</span></div>
+      ` : '');
 
-      // For GCash orders: show the ref number prominently
-      const gcashRefRow = isGcash ? `
-        <div class="flex justify-between items-center mt-2 pt-2 border-t border-white/10 text-xs">
-          <span class="text-white/60 uppercase tracking-widest">GCash Ref No.</span>
-          <span class="font-mono font-bold text-gold tracking-widest">${safeGcashRef}</span>
+      // ── GCASH ORDER: Show customer ref, cashier verifies by typing it ─────────
+      const gcashVerifyRow = isGcash && !isCompleted ? `
+        <div class="p-3 rounded-lg mt-1" style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1);">
+          ${customerRef ? `
+            <div class="text-xs text-white/60 uppercase tracking-widest mb-1">Customer's GCash Ref</div>
+            <div class="font-mono font-bold text-gold tracking-widest text-base mb-3">${safeRef}</div>
+          ` : `
+            <div class="text-xs text-white/60 mb-2">📱 Walk-in GCash — customer will show their GCash receipt</div>
+          `}
+          <div class="text-xs text-white/50 uppercase tracking-widest mb-1">Verify: Enter Ref from ${isWalkin ? "customer's phone" : "your GCash inbox"}</div>
+          <input
+            id="gcash-verify-${orderId}"
+            type="text"
+            maxlength="13"
+            placeholder="Type 13-digit reference to verify"
+            class="form-input font-mono tracking-widest text-white text-sm w-full"
+            style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.2);"
+            oninput="CashierPOS.checkGCashVerify('${orderId}', '${safeRef}')"
+          />
+          <div id="gcash-verify-status-${orderId}" class="text-xs mt-2 text-white/40 text-center">Type the reference number to verify</div>
         </div>
-      ` : '';
+      ` : (isCompleted && isGcash ? `
+        <div class="text-xs text-white/50 mt-1">✅ GCash Ref verified: <span class="font-mono text-gold">${safeRef}</span></div>
+      ` : '');
 
-      const cardBorder = isCompleted ? 'border-white/5 opacity-60' : (isCash ? 'border-gold/40' : 'border-green-400/40');
-      const btnState   = isCompleted ? 'disabled' : '';
-      const btnText    = isCompleted ? '✅ Done' : 'Mark as Done / Dispatch';
+      const cardAccent = isCompleted
+        ? 'border-white/10 opacity-50'
+        : (isCash ? 'border-yellow-500/50' : 'border-green-500/40');
+
+      const doneDisabled = isGcash && !isCompleted && customerRef ? 'disabled' : (isCompleted ? 'disabled' : '');
+      const doneText     = isCompleted ? '✅ Completed' : '✅ Mark as Done';
 
       return `
-        <div class="bg-black/40 border ${cardBorder} p-4 rounded-xl shadow flex flex-col gap-2" id="feed-card-${orderId}">
+        <div class="rounded-xl p-4 flex flex-col gap-2" style="background:rgba(0,0,0,0.35); border:1px solid; border-color:${isCompleted ? 'rgba(255,255,255,0.08)' : (isCash ? 'rgba(212,160,23,0.4)' : 'rgba(74,207,97,0.35)')}; opacity:${isCompleted ? '0.6' : '1'};" id="feed-card-${orderId}">
           <div class="flex justify-between items-start">
-            <div>
-              <div class="font-bold text-white text-base">${safeCustomer}</div>
-              <div class="text-xs text-white/60">${isCash ? '💵' : '📱'} ${safePayment} · ${escapeHTML(time)}</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-0.5">
+                ${typeTag}
+                <span class="font-bold text-white text-sm">${safeCustomer}</span>
+              </div>
+              <div class="text-xs text-white/50">${isCash ? '💵' : '📱'} ${isGcash ? 'GCash' : 'Cash'} · ${escapeHTML(time)}</div>
             </div>
-            <div class="font-bold text-gold text-xl">₱${displayTotal}</div>
+            <div class="font-bold text-gold text-2xl">₱${displayTotal}</div>
           </div>
-          <div class="text-xs text-white/70 leading-relaxed">${itemsSummary}</div>
-          <div class="text-xs text-white/50">${fulfillLabel}</div>
-          ${gcashRefRow}
+          <div class="text-xs text-white/60 leading-relaxed">${itemsSummary}</div>
+          <div class="text-xs text-white/40">${fulfillLabel}</div>
           ${cashCollectRow}
+          ${gcashVerifyRow}
           <button
+            id="done-btn-${orderId}"
             class="fulfill-btn btn btn-sm btn-primary mt-1 w-full"
             onclick="CashierPOS.markDoneAndDispatch('${orderId}')"
-            ${btnState}
-          >${btnText}</button>
+            ${isCompleted ? 'disabled' : ''}
+          >${doneText}</button>
         </div>
       `;
     }).join('');
+  }
+
+  // ── Live Change Preview (Cash Queue Cards) ─────────────────────────────────
+
+  function previewChange(orderId, total) {
+    const input     = document.getElementById(`cash-collect-${CSS.escape(orderId)}`);
+    const display   = document.getElementById(`change-preview-${CSS.escape(orderId)}`);
+    if (!input || !display) return;
+
+    const tendered = parseFloat(input.value) || 0;
+    const change   = tendered - total;
+
+    if (tendered === 0) {
+      display.textContent = 'Enter amount above to see change';
+      display.style.color = 'rgba(255,255,255,0.3)';
+    } else if (change < 0) {
+      display.textContent = `⚠️ Short by ₱${Math.abs(change).toFixed(2)}`;
+      display.style.color = '#f87171';
+    } else {
+      display.textContent = `Change due: ₱${change.toFixed(2)}`;
+      display.style.color = '#4ade80';
+    }
+  }
+
+  // ── GCash Reference Verification (GCash Queue Cards) ───────────────────────
+
+  function checkGCashVerify(orderId, customerRef) {
+    const input      = document.getElementById(`gcash-verify-${CSS.escape(orderId)}`);
+    const statusEl   = document.getElementById(`gcash-verify-status-${CSS.escape(orderId)}`);
+    const doneBtn    = document.getElementById(`done-btn-${CSS.escape(orderId)}`);
+    if (!input || !statusEl) return;
+
+    const entered = input.value.trim();
+
+    // Walk-in GCash: no customer ref to match, any 13-digit ref enables Done
+    if (!customerRef) {
+      const valid = entered.length === 13 && !isNaN(Number(entered));
+      if (valid) {
+        statusEl.textContent = '✅ Reference recorded. Click Done to complete.';
+        statusEl.style.color = '#4ade80';
+        if (doneBtn) doneBtn.disabled = false;
+      } else {
+        statusEl.textContent = 'Enter the 13-digit reference from the customer\'s GCash receipt.';
+        statusEl.style.color = 'rgba(255,255,255,0.4)';
+        if (doneBtn) doneBtn.disabled = true;
+      }
+      return;
+    }
+
+    // Online GCash: must match the customer's submitted ref
+    if (entered === customerRef) {
+      statusEl.textContent = '✅ Reference matches! Click Done to complete.';
+      statusEl.style.color = '#4ade80';
+      if (doneBtn) doneBtn.disabled = false;
+    } else if (entered.length > 0) {
+      statusEl.textContent = `❌ Doesn't match (expected: ${customerRef})`;
+      statusEl.style.color = '#f87171';
+      if (doneBtn) doneBtn.disabled = true;
+    } else {
+      statusEl.textContent = 'Type the reference number from your GCash inbox to verify.';
+      statusEl.style.color = 'rgba(255,255,255,0.4)';
+      if (doneBtn) doneBtn.disabled = true;
+    }
   }
 
   // ── Lock POS ────────────────────────────────────────────────────────────────
@@ -821,6 +945,8 @@ const CashierPOS = (() => {
     setBillQty,
     clearBill,
     calcChange,
+    previewChange,
+    checkGCashVerify,
     refreshFeed,
     markDoneAndDispatch,
     completeCashSale,
