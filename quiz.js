@@ -9,17 +9,17 @@
 const Quiz = (() => {
 
   const QUIZ_MATRIX = {
-    "chill": ["prod-101", "prod-103", "prod-105", "prod-106"],
-    "hyped": ["prod-102", "prod-107", "prod-110"],
-    "hardcore": ["prod-104", "prod-108", "prod-109"],
-    "sweet": ["prod-105", "prod-106", "prod-107"],
-    "savory": ["prod-101", "prod-103", "prod-104", "prod-109", "prod-110"],
-    "smoky": ["prod-102", "prod-108"],
-    "peak": ["prod-103", "prod-104", "prod-107"],
-    "river": ["prod-102", "prod-106", "prod-108", "prod-109"],
-    "mist": ["prod-101", "prod-105", "prod-110"],
-    "weave": ["prod-101", "prod-103", "prod-106"],
-    "hunt": ["prod-102", "prod-108", "prod-110"]
+    "chill": ["prod-003", "prod-004", "prod-011"],
+    "hyped": ["prod-005", "prod-007", "prod-011"],
+    "hardcore": ["prod-008", "prod-009"],
+    "sweet": ["prod-001", "prod-002", "prod-003", "prod-006", "prod-007", "prod-010"],
+    "savory": ["prod-001", "prod-004", "prod-005"],
+    "smoky": ["prod-008", "prod-009"],
+    "peak": ["prod-004", "prod-008", "prod-011"],
+    "river": ["prod-002", "prod-006"],
+    "mist": ["prod-003", "prod-010", "prod-011"],
+    "weave": ["prod-001", "prod-006"],
+    "hunt": ["prod-009", "prod-010"]
   };
 
   const QUESTIONS = [

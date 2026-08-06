@@ -13,16 +13,17 @@ const PRODUCTS = [
     quote: "Malagkit na kanin na binalot sa dahon ng saging, pinasarap ng matamis at siksik na latik.",
     history: {
       origin: "Kabisayaan",
-      summary: "Ang budbud ay tradisyonal na kakanin sa Visayas na madalas ihain tuwing may pagdiriwang, kasal, o simpleng almusal.",
+      summary: "Ang budbud ay isa sa pinakamatandang kakanin sa Visayas, madalas ihain tuwing may pagdiriwang gaya ng kasal, binyag, at pista opisyal. Sa mga komunidad ng Panay Bukidnon, ang paggawa ng budbud ay isang sama-samang gawain — nagtitipon ang mga babae sa komunidad upang tulungan ang isa't isa sa pagbalot at pagpapasingaw. Ang proseso mismo ay isang ritwal ng pagkakabuklod.",
       funFacts: [
-        "Ang pagbalot sa dahon ng saging ay nagbibigay ng kakaibang aroma habang ito ay pinapasingawan.",
-        "Ang latik ay nagmula sa pinakuluang gata ng niyog na naging langis at latak."
+        "Ang pagbalot sa dahon ng saging ay nagbibigay ng kakaibang aroma habang ito ay pinapasingawan — isang likas na 'packaging' na libu-libong taon nang ginagamit ng ating mga ninuno.",
+        "Ang latik ay nagmula sa pinakuluang gata ng niyog na naging langis at latak — isang proseso ng pagkuha na walang basura dahil pareho ang langis at latak ay may silbi sa kusina.",
+        "Sa mga pista ng Panay Bukidnon, ang dami ng budbud na naihanda ay minsan sukatan ng kayamanan at kasaganaan ng pamilya."
       ],
-      impact: "Simbolo ng mainit na pagtanggap at pagkakabuklod-buklod ng pamilyang Pilipino."
+      impact: "Simbolo ng mainit na pagtanggap at pagkakabuklod-buklod ng pamilyang Pilipino. Ang bawat piraso ay naglalaman hindi lamang ng sangkap kundi ng pagmamahal at pagsisikap ng mga kamay na gumawa nito. Ang pagbabahagi ng budbud ay isang paraan ng pagpapalakas ng ugnayan sa pagitan ng mga tao."
     },
     culturalTie: {
-      boothRelevance: "Ito ang pambato naming kakanin na tiyak na magbabalik sa inyo sa mga alaala ng pista sa probinsya.",
-      themeConnection: "Ipinapakita nito ang mayamang kultura ng Pilipinas sa paggamit ng niyog at malagkit bilang pangunahing sangkap."
+      boothRelevance: "Ito ang pambato naming kakanin na tiyak na magbabalik sa inyo sa mga alaala ng pista sa probinsya. Sa bawat kagat, muling mararamdaman ang init ng tahanan at ang amoy ng pinasingawang dahon ng saging.",
+      themeConnection: "Ipinapakita nito ang mayamang kultura ng Pilipinas sa paggamit ng niyog at malagkit bilang pangunahing sangkap — mga produktong bunga ng pagtutulungan ng tao at kalikasan sa ating mga taniman at niyugan."
     },
     ingredients: [
       "Malagkit na bigas",
@@ -105,12 +106,13 @@ const PRODUCTS = [
     quote: "Simpleng suman o malagkit na binalot sa dahon ng saging, mainam kapartner ng kape o tsokolate.",
     history: {
       origin: "Pilipinas",
-      summary: "Isang pang-araw-araw na kakanin sa Pilipinas, madalas kinakain sa agahan o meryenda.",
+      summary: "Isang pang-araw-araw na kakanin sa Pilipinas, madalas kinakain sa agahan o meryenda kasabay ng mainit na kape o tsokolate. Ang budbud na walang latik ay nagbibigay ng purong lasa ng malagkit at gata — isang simpleng kasiyahan na hindi nangangailangan ng karagdagang pampatamis para mapahalagahan.",
       funFacts: [
-        "May iba't ibang bersyon ang suman sa bawat rehiyon ng Pilipinas.",
-        "Maaaring isawsaw sa asukal, tsokolate, o mangga ang klasikong budbud."
+        "May iba't ibang bersyon ang suman sa bawat rehiyon ng Pilipinas — may katugma itong tinatawag na 'ibos' sa Ilocos, 'moron' sa Zamboanga, at 'suman sa lihiya' sa Batangas.",
+        "Maaaring isawsaw sa asukal, tsokolate, o mangga ang klasikong budbud — ang bawat pamilya ay may sariling paboritong paraan ng pagkain nito.",
+        "Ayon sa mga matatanda, ang tamang paraan ng pagkain ng budbud ay dahan-dahang alisan ng balot ang dahon at ubusin habang mainit pa."
       ],
-      impact: "Isang hindi nawawalang bahagi ng kulturang Pilipino na nag-uugnay sa mga henerasyon."
+      impact: "Isang hindi nawawalang bahagi ng kulturang Pilipino na nag-uugnay sa mga henerasyon. Ang lasa ng budbud ay madalas na unang alaala ng maraming Pilipinong lumaki sa probinsya — isang pagkain ng nostalgia na nagdadala ng init ng tahanan kahit malayo ka na."
     },
     culturalTie: {
       boothRelevance: "Ang pinakapayak at klasikong handog sa aming menu, swak sa panlasa ng lahat.",
@@ -329,12 +331,13 @@ const PRODUCTS = [
     quote: "Nilamas at pinaghalong saba, gata, at asukal — simpleng kakaning puno ng tradisyon at sarap.",
     history: {
       origin: "Luzon at Visayas",
-      summary: "Ang paglulupak ay isang proseso ng pagbayo o pagdurog ng saging, kamoteng kahoy, o kamote. Ang nilupak na saging ay sikat sa mga probinsya bilang meryenda.",
+      summary: "Ang paglulupak ay isang sinaunang proseso ng pagbayo o pagdurog ng saging, kamoteng kahoy, o kamote gamit ang lusong at halo. Ang nilupak na saging ay sikat sa mga probinsya bilang meryenda at minsan ay pampalakas pagkatapos ng mabuong trabaho sa bukid. Ito ay isa sa mga kakaning may malalim na ugat sa pang-araw-araw na buhay ng mga manggagawa sa lupa.",
       funFacts: [
-        "Tradisyonal na ginagamit ang malaking lusong at halo upang bayuhin ang saging hanggang maging makinis ang tekstura.",
-        "Maaari ring dagdagan ng margarina para mas bumango at mas maging malinamnam."
+        "Tradisyonal na ginagamit ang malaking lusong at halo upang bayuhin ang saging hanggang maging makinis ang tekstura — isang gawain na nangangailangan ng lakas at ritmo, kaya madalas ito ay ginagawa nang mayroon pang awit o salitaan.",
+        "Maaari ring dagdagan ng margarina para mas bumango at mas maging malinamnam — isang modernong halo sa tradisyonal na resipe.",
+        "Sa ilang lugar sa Visayas, ang nilupak ay inihahain bilang pagkain ng paghaharap sa mga bisita bilang tanda ng mataas na pagtangkilik."
       ],
-      impact: "Isang paraan noon ng mga kabataan at pamilya na magtulungan sa pamamagitan ng salitan sa pagbayo sa lusong."
+      impact: "Isang paraan noon ng mga kabataan at pamilya na magtulungan sa pamamagitan ng salitan sa pagbayo sa lusong — ang gawaing ito ay hindi lamang pagluluto kundi isang okasyon ng pagtitipon at pagbabahagi ng mga kwento."
     },
     culturalTie: {
       boothRelevance: "Isang nakakabusog na meryenda na nagpapakita ng pagka-maparaan gamit ang saging na saba.",
@@ -381,8 +384,8 @@ const PRODUCTS = [
       impact: "Simbolo ng kasipagan at pagiging maparaan ng mga Pilipino pagdating sa abot-kayang pagkain."
     },
     culturalTie: {
-      boothRelevance: "Isa sa mga pinakamabentang paborito na agad nakakabuo ng enerhiya para sa mga estudyante at guro.",
-      themeConnection: "Sinasalamin ang masiglang street food culture at agrikultura ng mga halamang-ugat sa bansa."
+      boothRelevance: "Isa sa mga pinakamabentang paborito na agad nakakabuo ng enerhiya para sa mga estudyante at guro. Ang masarap na amoy ng mainit na kamoteng may karamel ay natural na nakakaakit ng pansin mula sa malayo.",
+      themeConnection: "Sinasalamin ang masiglang street food culture at agrikultura ng mga halamang-ugat sa bansa — ang kamote ay hindi lamang pagkain kundi simbolo ng katatagan at kakayahang mabuhay sa kahit anong pagkakataon."
     },
     ingredients: [
       "Kamote (Sweet potato)",

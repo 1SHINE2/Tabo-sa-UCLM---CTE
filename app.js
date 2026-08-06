@@ -333,19 +333,19 @@ const App = (() => {
     galleryView.innerHTML = `
       <!-- Back Button (sticky top) -->
       <div class="sticky top-0 z-20 px-4 py-3" style="background: rgba(10,5,2,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(212,160,23,0.2);">
-        <button onclick="Router.navigate('#home')" class="flex items-center gap-2 text-gold font-bold text-sm hover:text-yellow-300 transition-colors">
+        <button onclick="Router.navigate('#home')" class="flex items-center gap-2 text-yellow-400 font-bold text-sm hover:text-yellow-300 transition-colors" style="color: #FBBF24; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
           <span style="font-size:1.2rem;">&larr;</span> Bumalik sa Simula
         </button>
       </div>
 
       <!-- Hero Image -->
       <div class="relative w-full overflow-hidden" style="height: 65vh; min-height: 300px;">
-        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" style="filter: brightness(0.75);" />
-        <div class="absolute inset-0" style="background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.9) 100%);"></div>
+        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" style="filter: brightness(0.6);" />
+        <div class="absolute inset-0" style="background: linear-gradient(to bottom, transparent 10%, rgba(0,0,0,0.95) 100%); pointer-events: none;"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 md:p-10">
-          <p class="text-gold text-xs md:text-sm uppercase tracking-widest font-bold mb-2">Buwan ng Wika 2026 &mdash; Panay Bukidnon</p>
-          <h1 class="font-display text-white text-4xl md:text-6xl font-bold leading-tight mb-2" style="text-shadow: 0 4px 24px rgba(0,0,0,0.9);">${item.title}</h1>
-          <p class="text-white/70 text-lg md:text-xl italic font-display">${item.subtitle}</p>
+          <p class="text-xs md:text-sm uppercase tracking-widest font-bold mb-2" style="color: #FBBF24; text-shadow: 0 2px 8px rgba(0,0,0,0.9);">Buwan ng Wika 2026 &mdash; Panay Bukidnon</p>
+          <h1 class="font-display text-white text-4xl md:text-6xl font-bold leading-tight mb-2" style="text-shadow: 0 4px 32px rgba(0,0,0,1), 0 2px 8px rgba(0,0,0,0.8);">${item.title}</h1>
+          <p class="text-white/90 text-lg md:text-xl italic font-display" style="text-shadow: 0 2px 8px rgba(0,0,0,0.9);">${item.subtitle}</p>
         </div>
       </div>
 

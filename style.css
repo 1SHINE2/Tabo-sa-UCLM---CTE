@@ -542,10 +542,10 @@ h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
 
 /* Mobile defaults (horizontal) */
 .marquee-track-1 {
-  animation: marqueeLeft 35s linear infinite;
+  animation: marqueeLeft 30s linear infinite;
 }
 .marquee-track-2 {
-  animation: marqueeRight 35s linear infinite;
+  animation: marqueeRight 30s linear infinite;
 }
 
 /* Desktop overrides (vertical) */

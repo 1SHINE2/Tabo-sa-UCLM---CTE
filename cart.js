@@ -9,7 +9,6 @@
 const Cart = (() => {
 
   let items = {}; // { "prod-101": 2, "prod-102": 1 }
-  let currentDiscount = 0;
   let activeVoucher = null;
   const DISCOUNT_AMOUNT = 10; // ₱10 off
 
@@ -22,13 +21,25 @@ const Cart = (() => {
     items[productId] += delta;
     if (items[productId] <= 0) delete items[productId];
     
-    // If they remove the item that the voucher applies to, remove the voucher
+    // If they remove the item that the SPIRIT voucher applies to, remove the voucher
     if (activeVoucher && activeVoucher.startsWith('SPIRIT-')) {
       const requiredId = `prod-${activeVoucher.split('-')[1]}`;
       if (!items[requiredId]) {
-        currentDiscount = 0;
         activeVoucher = null;
         window.showToast('Tinanggal ang voucher (Wala sa cart ang Espirituwal na Putahe)', 'warning');
+      }
+    }
+    
+    // If TABO10 is active, check if subtotal dropped below 50
+    if (activeVoucher === 'TABO10') {
+      let subtotal = 0;
+      for (const [id, qty] of Object.entries(items)) {
+        const p = window.PRODUCTS.find(x => x.id === id);
+        if (p) subtotal += p.price * qty;
+      }
+      if (subtotal < 50) {
+        activeVoucher = null;
+        window.showToast('Tinanggal ang TABO10 (Kinakailangan ng ₱50 minimum spend)', 'warning');
       }
     }
 
@@ -49,12 +60,38 @@ const Cart = (() => {
     const code = String(rawCode).trim().toUpperCase();
 
     // Reset current discount first
-    currentDiscount = 0;
     activeVoucher = null;
 
     if (!code) {
       _render();
       return { success: false, message: 'Please enter a voucher code.' };
+    }
+    
+    // 10% General Voucher Logic (TABO10)
+    if (code === 'TABO10') {
+      if (localStorage.getItem('tabo10_used') === 'true') {
+        window.showToast('Nagamit na ang voucher na ito.', 'error');
+        if (input) input.value = '';
+        _render();
+        return { success: false, message: 'Voucher already used.' };
+      }
+      
+      let subtotal = 0;
+      for (const [id, qty] of Object.entries(items)) {
+        const p = window.PRODUCTS.find(x => x.id === id);
+        if (p) subtotal += p.price * qty;
+      }
+      
+      if (subtotal < 50) {
+        window.showToast('Kailangan ng hindi bababa sa ₱50 na kabuuang halaga.', 'error');
+        _render();
+        return { success: false, message: 'Minimum spend of ₱50 required.' };
+      }
+      
+      activeVoucher = code;
+      window.showToast('Nailapat na ang TABO10! 10% diskwento.', 'success');
+      _render();
+      return { success: true, code, message: '10% discount applied!' };
     }
 
     // Check if it's a SPIRIT-xxx code
@@ -76,7 +113,6 @@ const Cart = (() => {
       }
 
       // Valid!
-      currentDiscount = DISCOUNT_AMOUNT;
       activeVoucher = code;
       window.showToast('Nailapat na ang biyaya! ₱10 diskwento.', 'success');
       _render();
@@ -101,12 +137,23 @@ const Cart = (() => {
       }
     }
 
-    const total = Math.max(0, subtotal - currentDiscount);
+    let dynamicDiscount = 0;
+    if (activeVoucher === 'TABO10') {
+      if (subtotal >= 50) {
+        dynamicDiscount = Math.floor(subtotal * 0.1);
+      } else {
+        activeVoucher = null;
+      }
+    } else if (activeVoucher && activeVoucher.startsWith('SPIRIT-')) {
+      dynamicDiscount = DISCOUNT_AMOUNT;
+    }
+
+    const total = Math.max(0, subtotal - dynamicDiscount);
 
     return {
       items: lines,
       subtotal,
-      discount: currentDiscount,
+      discount: dynamicDiscount,
       voucherUsed: activeVoucher || 'NONE',
       total
     };
@@ -114,7 +161,6 @@ const Cart = (() => {
 
   function clearCart() {
     items = {};
-    currentDiscount = 0;
     activeVoucher = null;
     const input = document.getElementById('voucher-input');
     if (input) input.value = '';

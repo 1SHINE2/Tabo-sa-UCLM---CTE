@@ -3,7 +3,7 @@
  * ─────────────────────────────────────────────────────────────────────────────
  * IMPORTANT PLACEHOLDERS — Replace before go-live:
  *
- *   const GCASH_NUMBER            → Change "09123456789" to your actual GCash number
+ *   const GCASH_NUMBER            → Change "09506803024" to your actual GCash number
  *   const GOOGLE_SHEETS_WEBHOOK_URL → Replace "YOUR_WEBHOOK_URL_HERE" with your
  *                                     Google Apps Script Web App URL
  *
@@ -33,7 +33,7 @@
  */
 
 // ── ⚠️ PLACEHOLDERS — CHANGE BEFORE GO-LIVE ──────────────────────────────────
-const GCASH_NUMBER              = "09123456789";           // TODO: Replace with your real GCash number
+const GCASH_NUMBER              = "09506803024";           // TODO: Replace with your real GCash number
 const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwaibLoaT7AfjGgoL2L8PUwBAkKj6GC1XAkePLIFTOyd9DgDjaz-b1XipUIgkTySCNZ/exec";
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -265,7 +265,7 @@ const Checkout = (() => {
     if (!formData) return;
 
     const snapshot = Cart.getSnapshot();
-    if (snapshot.count === 0) {
+    if (snapshot.items.length === 0) {
       window.showToast('Walang laman ang iyong cart!', 'warning');
       return;
     }
@@ -358,6 +358,11 @@ const Checkout = (() => {
       // Webhook URL not configured — go straight to receipt
       console.log('[Checkout] Webhook not configured. Payload:', payload);
       _showDigitalReceipt(payload);
+    }
+
+    // Mark TABO10 voucher as used (single-use per person per session)
+    if (snapshot.voucherUsed === 'TABO10') {
+      localStorage.setItem('tabo10_used', 'true');
     }
 
     // Clear cart after submission
