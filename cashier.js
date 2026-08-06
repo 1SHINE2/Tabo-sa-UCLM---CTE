@@ -17,6 +17,7 @@ const CashierPOS = (() => {
 
   let pinBuffer    = '';
   let pinUnlocked  = false;
+  let pollingIntervalId = null;
 
   const bill = new Map();
   let orderFeed = [];
@@ -41,6 +42,7 @@ const CashierPOS = (() => {
   function initCashierGate() {
     if (pinUnlocked) {
       _renderPOS();
+      startQueuePolling();
       return;
     }
     _renderPINGate();
@@ -87,10 +89,10 @@ const CashierPOS = (() => {
       const dot = document.getElementById(`dot-${i}`);
       if (dot) {
         if (i < pinBuffer.length) {
-          dot.classList.add('bg-gold', 'border-gold');
+          dot.classList.add('bg-[#D4A017]', 'border-[#D4A017]');
           dot.classList.remove('border-white/50');
         } else {
-          dot.classList.remove('bg-gold', 'border-gold');
+          dot.classList.remove('bg-[#D4A017]', 'border-[#D4A017]');
           dot.classList.add('border-white/50');
         }
       }
@@ -104,13 +106,18 @@ const CashierPOS = (() => {
       pinUnlocked = true;
       window.showToast('🔓 Cashier Mode Unlocked!', 'success');
       _renderPOS();
+      startQueuePolling();
     } else {
       const errorEl = document.getElementById('pin-error');
-      if (errorEl) errorEl.classList.remove('hidden');
+      if (errorEl) {
+        errorEl.classList.remove('hidden');
+        errorEl.style.animation = 'shake 0.4s ease-in-out';
+        setTimeout(() => { errorEl.style.animation = ''; }, 400);
+      }
       for (let i = 0; i < 6; i++) {
         const dot = document.getElementById(`dot-${i}`);
         if (dot) {
-          dot.classList.remove('bg-gold', 'border-gold');
+          dot.classList.remove('bg-[#D4A017]', 'border-[#D4A017]');
           dot.classList.add('border-white/50');
         }
       }
@@ -133,6 +140,24 @@ const CashierPOS = (() => {
           <div>
             <h1 class="font-display text-xl text-gold">🍽️ Tabo sa UCLM POS</h1>
             <p class="text-xs opacity-80" id="pos-timestamp"></p>
+          </div>
+          <div class="flex gap-4 sm:gap-8 items-center mr-4 hidden md:flex">
+            <div class="text-center">
+              <div class="text-[10px] text-white/50 uppercase tracking-widest">Total Revenue</div>
+              <div class="text-gold font-bold" id="rev-total">₱0.00</div>
+            </div>
+            <div class="text-center">
+              <div class="text-[10px] text-white/50 uppercase tracking-widest">Cash</div>
+              <div class="text-green-400 font-bold" id="rev-cash">₱0.00</div>
+            </div>
+            <div class="text-center">
+              <div class="text-[10px] text-white/50 uppercase tracking-widest">GCash</div>
+              <div class="text-blue-400 font-bold" id="rev-gcash">₱0.00</div>
+            </div>
+            <div class="text-center">
+              <div class="text-[10px] text-white/50 uppercase tracking-widest">Completed</div>
+              <div class="text-white font-bold" id="rev-count">0</div>
+            </div>
           </div>
           <button class="btn btn-sm bg-white/10 hover:bg-white/20 text-white" onclick="CashierPOS.lockPOS()">🔒 Lock</button>
         </div>
@@ -240,7 +265,8 @@ const CashierPOS = (() => {
     _updateTimestamp();
     setInterval(_updateTimestamp, 60000);
     _renderBill();
-    refreshFeed();
+    // Instead of local refreshFeed(), we use polling
+    // refreshFeed() is now handled by the polling interval
 
     // Re-apply active tab styling manually
     document.getElementById('tab-btn-walkin').style.borderBottomColor = '#D4A017';
@@ -309,19 +335,64 @@ const CashierPOS = (() => {
     }
   }
 
-  function refreshFeed() {
+  // ═══════════════════════════════════════════════════════════════════════════
+  // WEBHOOK & POLLING
+  // ═══════════════════════════════════════════════════════════════════════════
+  const WEBHOOK = "https://script.google.com/macros/s/AKfycbyV05DpATN5wugG2LQKKjlPizj5JKlf-joYqKenQDz-KrKd1QouUl8IMDzBcB3RzXuq/exec";
+
+  function startQueuePolling() {
+    if (pollingIntervalId) clearInterval(pollingIntervalId);
+    
+    // Initial fetch
+    _fetchServerData();
+    
+    // Poll every 5 seconds
+    pollingIntervalId = setInterval(_fetchServerData, 5000);
+  }
+
+  function stopQueuePolling() {
+    if (pollingIntervalId) clearInterval(pollingIntervalId);
+  }
+
+  async function _fetchServerData() {
     try {
-      const raw = localStorage.getItem('tabo_orders');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          orderFeed = [...parsed].reverse();
-        }
+      // 1. Fetch Pending Orders
+      const orderRes = await fetch(WEBHOOK, {
+        method: 'POST',
+        body: JSON.stringify({ action: "GET_PENDING_ORDERS" })
+      });
+      const orderData = await orderRes.json();
+      if (orderData && orderData.orders) {
+        orderFeed = orderData.orders.reverse();
+        _renderOrderFeed();
+      }
+
+      // 2. Fetch Revenue Metrics
+      const revRes = await fetch(WEBHOOK, {
+        method: 'POST',
+        body: JSON.stringify({ action: "GET_REVENUE_METRICS" })
+      });
+      const revData = await revRes.json();
+      if (revData && revData.metrics) {
+        const m = revData.metrics;
+        const revTotalEl = document.getElementById('rev-total');
+        const revCashEl = document.getElementById('rev-cash');
+        const revGCashEl = document.getElementById('rev-gcash');
+        const revCountEl = document.getElementById('rev-count');
+        
+        if (revTotalEl) revTotalEl.textContent = `₱${Number(m.totalRevenue).toFixed(2)}`;
+        if (revCashEl) revCashEl.textContent = `₱${Number(m.cashTotal).toFixed(2)}`;
+        if (revGCashEl) revGCashEl.textContent = `₱${Number(m.gcashTotal).toFixed(2)}`;
+        if (revCountEl) revCountEl.textContent = m.completedCount;
       }
     } catch (e) {
-      console.warn('Could not read orders from localStorage:', e);
+      console.warn("Polling error:", e);
     }
-    _renderOrderFeed();
+  }
+
+  function refreshFeed() {
+    // Manual refresh button triggers an immediate fetch
+    _fetchServerData();
   }
 
   function _renderOrderFeed() {
@@ -640,7 +711,6 @@ const CashierPOS = (() => {
     const btn = document.getElementById('btn-complete-sale');
     if (btn) { btn.disabled = true; btn.textContent = '⏳ Processing...'; }
 
-    const WEBHOOK = "https://script.google.com/macros/s/AKfycbyV05DpATN5wugG2LQKKjlPizj5JKlf-joYqKenQDz-KrKd1QouUl8IMDzBcB3RzXuq/exec";
     
     const subtotal = _getBillSubtotal();
     const grandTotal = Math.max(0, subtotal - currentDiscountAmt);
@@ -670,25 +740,15 @@ const CashierPOS = (() => {
       };
 
       try {
+        // Optimistic UI update: instantly remove from feed
+        orderFeed = orderFeed.filter(o => o.transactionId !== orderId && o.timestamp !== orderId);
+        _renderOrderFeed();
+        
         await fetch(WEBHOOK, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updatePayload) });
       } catch(e) {}
 
-      // Remove from local storage queue
-      try {
-        const raw = localStorage.getItem('tabo_orders');
-        if (raw) {
-          let parsed = JSON.parse(raw);
-          const idx = parsed.findIndex(o => o.transactionId === orderId || String(o.timestamp) === String(orderId));
-          if (idx !== -1) {
-            parsed[idx].status = "Completed";
-            localStorage.setItem('tabo_orders', JSON.stringify(parsed));
-          }
-        }
-      } catch (e) {}
-
       window.showToast('✅ Order Fulfilled & Completed!', 'success');
       startNewWalkin();
-      refreshFeed();
 
     } else {
       // ── COMPLETE A FRESH MANUAL WALK-IN (CREATE_TRANSACTION) ──
