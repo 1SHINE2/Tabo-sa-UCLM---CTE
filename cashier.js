@@ -338,7 +338,7 @@ const CashierPOS = (() => {
   // ═══════════════════════════════════════════════════════════════════════════
   // WEBHOOK & POLLING
   // ═══════════════════════════════════════════════════════════════════════════
-  const WEBHOOK = "https://script.google.com/macros/s/AKfycbyV05DpATN5wugG2LQKKjlPizj5JKlf-joYqKenQDz-KrKd1QouUl8IMDzBcB3RzXuq/exec";
+  const WEBHOOK = "https://script.google.com/macros/s/AKfycbwaibLoaT7AfjGgoL2L8PUwBAkKj6GC1XAkePLIFTOyd9DgDjaz-b1XipUIgkTySCNZ/exec";
 
   function startQueuePolling() {
     if (pollingIntervalId) clearInterval(pollingIntervalId);
