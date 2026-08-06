@@ -108,14 +108,9 @@ const Checkout = (() => {
 
   function _updateGCashLink() {
     const total = Cart.getOrderPayload().total;
-    const link  = document.getElementById('gcash-pay-link');
-    if (link) {
-      link.href = `https://m.gcash.com/`;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-    }
-    const payLabel = document.getElementById('gcash-pay-label');
-    if (payLabel) payLabel.textContent = `Buksan ang GCash App (₱${total})`;
+    // Update the "send this amount" display in the 3-step GCash panel
+    const sendAmountEl = document.getElementById('gcash-send-amount');
+    if (sendAmountEl) sendAmountEl.textContent = `₱${total}`;
   }
 
   // ── Voucher Code ─────────────────────────────────────────────────────────────
