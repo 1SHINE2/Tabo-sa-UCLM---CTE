@@ -1,134 +1,147 @@
 /**
- * Tabo sa UCLM — Google Apps Script Backend
- * ─────────────────────────────────────────────────────────────────────────────
- * INSTRUCTIONS:
- * 1. Open your Google Sheet
- * 2. Click Extensions > Apps Script
- * 3. Delete any code there, paste this entire file, and click Save 💾
- * 4. Run the "setupSheets" function once to build your 3 tabs.
- * 5. Click Deploy > New deployment
- * 6. Select "Web app", Execute as: "Me", Who has access: "Anyone"
- * 7. Click Deploy, authorize permissions, and copy the Web App URL.
- * 8. Paste that URL into your `checkout.js` and `cashier.js` code!
- * ─────────────────────────────────────────────────────────────────────────────
+ * Tabo sa UCLM - Google Sheets POS & E-Commerce Webhook
+ * Handles: CREATE_TRANSACTION, UPDATE_TRANSACTION, CHECK_STATUS
  */
 
-function setupSheets() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-
-  // 1. All_Transactions Tab
-  let txSheet = ss.getSheetByName("All_Transactions");
-  if (!txSheet) {
-    txSheet = ss.insertSheet("All_Transactions");
-  }
-  const headers = [
-    "Timestamp", "Order ID", "Order Type", "Fulfillment Type", "Payment Method",
-    "Customer Name", "Contact Info / Location", "Items Purchased", "Subtotal Amount",
-    "Voucher Applied", "Discount Amount", "Final Total Amount", "Amount Tendered",
-    "Change Given", "GCash Reference Number", "Order Status"
-  ];
-  if (txSheet.getLastRow() === 0) {
-    txSheet.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold");
-    txSheet.setFrozenRows(1);
-  }
-
-  // 2. Delivery_Queue Tab
-  let dqSheet = ss.getSheetByName("Delivery_Queue");
-  if (!dqSheet) {
-    dqSheet = ss.insertSheet("Delivery_Queue");
-  }
-  if (dqSheet.getLastRow() === 0) {
-    dqSheet.getRange("A1").setFormula(`=QUERY(All_Transactions!A:P, "SELECT A, B, F, G, H, L, P WHERE D = 'Campus Delivery' AND LOWER(P) = 'pending'", 1)`);
-  }
-
-  // 3. Financial_Summary Tab
-  let fsSheet = ss.getSheetByName("Financial_Summary");
-  if (!fsSheet) {
-    fsSheet = ss.insertSheet("Financial_Summary");
-  }
-  
-  if (fsSheet.getLastRow() === 0) {
-    fsSheet.getRange("A1:B1").setValues([["TABO SA UCLM", "REVENUE TRACKER"]]).setFontWeight("bold").setBackground("#d9ead3");
-    
-    // Formulas
-    fsSheet.getRange("A2:B2").setValues([["Live / Walk-in Cash Sales", '=SUMIF(All_Transactions!C:C, "Walk-in", All_Transactions!L:L)']]);
-    fsSheet.getRange("A3:B3").setValues([["Online GCash Sales", '=SUMIFS(All_Transactions!L:L, All_Transactions!C:C, "Online", All_Transactions!E:E, "GCash")']]);
-    fsSheet.getRange("A4:B4").setValues([["Total Online Cash Sales", '=SUMIFS(All_Transactions!L:L, All_Transactions!C:C, "Online", All_Transactions!E:E, "Cash")']]);
-    fsSheet.getRange("A5:B5").setValues([["TOTAL EARNINGS OVERALL", '=SUM(B2:B4)']]).setFontWeight("bold").setBackground("#fff2cc");
-    
-    fsSheet.setColumnWidth(1, 250);
-  }
-  
-  SpreadsheetApp.getUi().alert("Setup complete! Your 3 tabs are ready. (Make sure to deploy as a New Web App deployment)");
-}
-
 function doPost(e) {
+  // CORS Headers are automatically handled by Web Apps if returning ContentService
   try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("All_Transactions");
     const data = JSON.parse(e.postData.contents);
-    
-    // Default to CREATE_TRANSACTION if no action is explicitly specified
     const action = data.action || "CREATE_TRANSACTION";
 
+    // 1. Spreadsheet Target
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sheet = ss.getSheetByName("Orders");
+    if (!sheet) {
+      // Fallback to first sheet if "Orders" doesn't exist
+      sheet = ss.getSheets()[0];
+    }
+
+    // 2. Auto-Header Creation
+    const headers = [
+      "Order ID", "Timestamp", "Order Type", "Fulfillment", 
+      "Payment Method", "GCash Ref", "Items", "Total Amount", 
+      "Status", "Delivery Location"
+    ];
+    
+    if (sheet.getLastRow() === 0) {
+      sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+      sheet.getRange(1, 1, 1, headers.length).setFontWeight("bold");
+      sheet.setFrozenRows(1);
+    }
+
+    let response = { status: "success" };
+
     if (action === "CREATE_TRANSACTION") {
+      // Extract data safely
+      const orderId = data.transactionId || data.orderId || "N/A";
+      const timestamp = data.timestamp || new Date().toISOString();
+      const orderType = data.orderType || "Online";
+      const fulfillment = data.fulfillment || "Pickup";
+      const paymentMethod = data.paymentMethod || data.payment || "Cash";
+      const gcashRef = data.gcashRef || "N/A";
       
-      // Explicit 16-Column Array Mapping with strict position anchors & fallbacks
-      const row = [
-        data.timestamp ? new Date(data.timestamp) : new Date(), // Col A: Timestamp
-        data.transactionId || "N/A",                           // Col B: Order ID
-        data.orderType || "Online",                            // Col C: Order Type
-        data.fulfillment || "Over the counter",               // Col D: Fulfillment Type
-        data.paymentMethod || data.payment || "Cash",          // Col E: Payment Method
-        data.customerName || "Walk-in Customer",              // Col F: Customer Name
-        data.contactInfo || data.destination || "N/A",        // Col G: Contact / Location
-        data.itemsSummary || "N/A",                            // Col H: Items Purchased
-        Number(data.subtotal) || Number(data.total) || 0,     // Col I: Subtotal
-        data.voucherApplied || "NONE",                        // Col J: Voucher Applied
-        Number(data.discountAmount) || 0,                     // Col K: Discount Amount
-        Number(data.grandTotal) || Number(data.total) || 0,   // Col L: Final Total Amount
-        data.amountTendered !== undefined ? data.amountTendered : "N/A", // Col M: Amount Tendered
-        Number(data.changeGiven) || 0,                         // Col N: Change Given
-        data.gcashRef || "N/A",                                // Col O: GCash Ref
-        data.status || "Pending"                               // Col P: Status
+      // Handle items (array or string)
+      let itemsStr = data.itemsSummary || "";
+      if (!itemsStr && data.items && Array.isArray(data.items)) {
+        itemsStr = data.items.map(i => `${i.name} x${i.qty}`).join(", ");
+      }
+
+      const total = data.grandTotal || data.total || 0;
+      const status = data.status || "Pending";
+      const location = data.destination || data.deliveryLocation || data.contactInfo || "N/A";
+
+      const rowData = [
+        orderId,
+        timestamp,
+        orderType,
+        fulfillment,
+        paymentMethod,
+        gcashRef,
+        itemsStr,
+        total,
+        status,
+        location
       ];
 
-      sheet.appendRow(row);
+      sheet.appendRow(rowData);
+      response.message = "Transaction created successfully.";
+      response.orderId = orderId;
 
-      return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "Row appended cleanly" }))
-        .setMimeType(ContentService.MimeType.JSON);
-        
     } else if (action === "UPDATE_TRANSACTION") {
+      const orderIdToFind = String(data.transactionId || data.orderId);
+      
+      // Efficient Sheet Lookup (load all at once)
       const dataRange = sheet.getDataRange();
       const values = dataRange.getValues();
-      const txnIdToFind = data.transactionId;
-      
       let rowIndex = -1;
+
+      // Loop to find the row (skip header)
       for (let i = 1; i < values.length; i++) {
-        if (values[i][1] === txnIdToFind) { // Column B is Order ID (index 1)
-          rowIndex = i + 1; 
+        if (String(values[i][0]) === orderIdToFind) {
+          rowIndex = i + 1; // +1 because array is 0-indexed and sheets are 1-indexed
           break;
         }
       }
-      
-      if (rowIndex > -1) {
-        if (data.status) sheet.getRange(rowIndex, 16).setValue(data.status); // Col P
-        if (data.amountTendered !== undefined) sheet.getRange(rowIndex, 13).setValue(data.amountTendered); // Col M
-        if (data.changeGiven !== undefined) sheet.getRange(rowIndex, 14).setValue(data.changeGiven); // Col N
-        if (data.gcashRef !== undefined) sheet.getRange(rowIndex, 15).setValue(data.gcashRef); // Col O
+
+      if (rowIndex !== -1) {
+        // Update Status (Column I - index 9)
+        if (data.status) {
+          sheet.getRange(rowIndex, 9).setValue(data.status);
+        }
         
-        return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "Transaction updated" }))
-          .setMimeType(ContentService.MimeType.JSON);
+        // Update Payment Method (Column E - index 5)
+        if (data.paymentMethod) {
+          sheet.getRange(rowIndex, 5).setValue(data.paymentMethod);
+        }
+        
+        // Update GCash Ref (Column F - index 6)
+        if (data.gcashRef && data.gcashRef !== "N/A") {
+          sheet.getRange(rowIndex, 6).setValue(data.gcashRef);
+        }
+        
+        response.message = `Transaction ${orderIdToFind} updated.`;
       } else {
-        return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "Transaction ID not found" }))
-          .setMimeType(ContentService.MimeType.JSON);
+        response = { status: "error", message: "Order ID not found." };
       }
+
+    } else if (action === "CHECK_STATUS") {
+      const orderIdToFind = String(data.transactionId || data.orderId);
+      
+      const dataRange = sheet.getDataRange();
+      const values = dataRange.getValues();
+      let orderStatus = "Not Found";
+
+      for (let i = 1; i < values.length; i++) {
+        if (String(values[i][0]) === orderIdToFind) {
+          orderStatus = values[i][8]; // Status is in Column I (index 8)
+          break;
+        }
+      }
+
+      response.message = "Status retrieved.";
+      response.orderStatus = orderStatus;
+    } else {
+      response = { status: "error", message: "Unknown action." };
     }
-    
-    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "Invalid action" }))
+
+    return ContentService.createTextOutput(JSON.stringify(response))
       .setMimeType(ContentService.MimeType.JSON);
 
-  } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+/**
+ * Handle GET requests (optional, to respond to basic pings or browsers)
+ */
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    status: "success",
+    message: "Tabo sa UCLM Webhook is active and listening for POST requests."
+  })).setMimeType(ContentService.MimeType.JSON);
 }

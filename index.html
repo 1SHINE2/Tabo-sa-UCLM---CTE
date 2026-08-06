@@ -66,7 +66,7 @@
   <main id="app-container" class="pb-24">
     
     <!-- 1️⃣ HOMEPAGE VIEW (#home) -->
-    <section id="view-home" class="view-section active relative w-full h-screen overflow-hidden bg-black">
+    <section id="view-home" class="view-section active relative w-full h-screen overflow-hidden">
       
       <!-- Moving Marquee Background Container -->
       <div class="absolute inset-0 flex flex-col md:flex-row opacity-50">
@@ -89,10 +89,10 @@
       <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
 
       <!-- Center Title Block (Fixed Centered) -->
-      <div class="absolute inset-0 flex flex-col items-center justify-center z-10 p-4 text-center mt-8">
+      <div class="absolute inset-0 flex flex-col items-center justify-center z-10 p-4 text-center mt-8 pointer-events-none">
         <h1 class="text-white text-6xl md:text-8xl font-display font-bold leading-none mb-4 drop-shadow-2xl" style="text-shadow: 0 4px 24px rgba(0,0,0,0.8);">Panay<br>Bukidnon</h1>
         <p class="text-[#F0C84A] text-xl md:text-2xl italic font-display mb-8 drop-shadow-md" style="text-shadow: 0 2px 12px rgba(0,0,0,0.8);">Ating Kilalanin at Isapuso.</p>
-        <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex flex-col sm:flex-row gap-4 pointer-events-auto">
           <button class="btn btn-gold btn-lg shadow-2xl scale-105" onclick="Router.navigate('#menu')">View Online Menu</button>
           <button class="btn btn-outline btn-lg shadow-2xl" style="border-color:white;color:white;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);" onclick="Router.navigate('#quest')">Take the Spirit Quest</button>
         </div>

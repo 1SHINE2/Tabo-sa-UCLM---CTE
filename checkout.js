@@ -345,8 +345,8 @@ const Checkout = (() => {
 
         clearTimeout(timeoutId);
 
-        // ✅ Webhook succeeded — show online confirmation
-        _showOnlineConfirmation(payload);
+        // ✅ Webhook succeeded — show waiting screen and start polling
+        _showWaitingScreen(payload);
 
       } catch (err) {
         console.warn('[Checkout] Webhook failed (offline/timeout):', err.message);
@@ -364,7 +364,52 @@ const Checkout = (() => {
     Cart.clearCart();
   }
 
-  // ── Online Confirmation Screen ──────────────────────────────────────────────
+  // ── Polling & Waiting Screen ────────────────────────────────────────────────
+  let pollIntervalId = null;
+
+  function _showWaitingScreen(payload) {
+    Router.showView('view-receipt');
+    const screen = document.getElementById('receipt-screen');
+    if (!screen) return;
+
+    screen.innerHTML = `
+      <div class="bg-earth p-6 text-center rounded-t-xl relative overflow-hidden" style="background-color: var(--color-earth);">
+        <div class="text-5xl mb-3 relative z-10 animate-bounce">⏳</div>
+        <h2 class="font-display text-white text-3xl font-bold leading-tight relative z-10">Order in Queue</h2>
+        <p class="text-white/90 text-sm mt-1 relative z-10">Please wait while the cashier processes your order.</p>
+      </div>
+      <div class="bg-white p-8 text-center rounded-b-xl shadow-lg border border-gray-100 min-h-[300px] flex flex-col justify-center items-center">
+        <div class="w-12 h-12 border-4 border-earth border-t-transparent rounded-full animate-spin mb-6"></div>
+        <p class="text-earth font-bold text-lg mb-2 text-center">Waiting for Cashier...</p>
+        <p class="text-smoke text-sm text-center leading-relaxed">Do not close this screen. Your digital receipt will appear here automatically once the cashier completes your order.</p>
+      </div>
+    `;
+
+    if (pollIntervalId) clearInterval(pollIntervalId);
+    
+    pollIntervalId = setInterval(async () => {
+      try {
+        const res = await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+          method: 'POST',
+          // Note: using plain text body to avoid CORS preflight, allowing us to read response
+          body: JSON.stringify({
+            action: "CHECK_STATUS",
+            orderId: payload.transactionId
+          })
+        });
+        
+        const data = await res.json();
+        if (data && data.orderStatus === "Completed") {
+          clearInterval(pollIntervalId);
+          _showSuccessReceipt(payload);
+        }
+      } catch (err) {
+        console.warn('[Checkout] Polling error:', err);
+      }
+    }, 5000);
+  }
+
+  // ── Online Confirmation Screen (Receipt) ────────────────────────────────────
 
   function _showSuccessReceipt(payload) {
     Router.showView('view-receipt');

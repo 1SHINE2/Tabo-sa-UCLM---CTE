@@ -151,9 +151,16 @@ const CashierPOS = (() => {
             <div class="p-4 border-b border-white/10 bg-black/20 flex justify-between items-center">
               <div>
                 <label class="text-xs text-white/70 uppercase tracking-wide block mb-1">Quick Item Entry (Type 3-digit ID)</label>
-                <div class="flex gap-2">
+                <div class="flex gap-2 mb-2">
                   <input id="quick-entry-input" type="number" min="101" placeholder="e.g. 101" class="form-input w-40 text-white border-white/20 bg-black/30 placeholder-white/30" onkeydown="if(event.key==='Enter') CashierPOS.quickEntry()" autocomplete="off">
                   <button class="btn btn-gold" onclick="CashierPOS.quickEntry()">+ Add</button>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-2">
+                  <button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 transition-colors" onclick="document.getElementById('quick-entry-input').value='101'; CashierPOS.quickEntry()">101 Tinuom</button>
+                  <button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 transition-colors" onclick="document.getElementById('quick-entry-input').value='102'; CashierPOS.quickEntry()">102 Kinalan</button>
+                  <button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 transition-colors" onclick="document.getElementById('quick-entry-input').value='103'; CashierPOS.quickEntry()">103 Linapot</button>
+                  <button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 transition-colors" onclick="document.getElementById('quick-entry-input').value='104'; CashierPOS.quickEntry()">104 Kanto</button>
+                  <button class="px-3 py-1 rounded-full border border-white/30 text-xs text-white/80 hover:bg-white/10 transition-colors" onclick="document.getElementById('quick-entry-input').value='105'; CashierPOS.quickEntry()">105 Binagol</button>
                 </div>
               </div>
               <button class="btn btn-outline text-xs border-gold text-gold hover:bg-gold/10 whitespace-nowrap" onclick="CashierPOS.startNewWalkin()">🔄 New Walk-In Sale</button>
@@ -211,9 +218,9 @@ const CashierPOS = (() => {
         <div class="pos-panel flex-1 overflow-hidden flex-col bg-black/15" id="tab-online" style="display:none;">
           
           <!-- Category Tabs -->
-          <div class="p-4 border-b border-white/10 flex gap-2 overflow-x-auto hide-scrollbar whitespace-nowrap bg-black/40">
+          <div class="p-4 border-b border-white/10 flex gap-3 overflow-x-auto hide-scrollbar whitespace-nowrap bg-black/40">
             ${QUEUE_CATEGORIES.map(cat => `
-              <button id="qfilter-${cat.replace(/\\s/g,'').replace('-','')}" class="queue-filter-btn px-5 py-2 rounded-full border border-white/20 text-sm font-semibold transition-colors ${currentQueueFilter === cat ? 'bg-gold text-black border-gold' : 'text-white/70 hover:bg-white/10'}" onclick="CashierPOS.setQueueFilter('${cat}')">${cat}</button>
+              <button id="qfilter-${cat.replace(/\s/g,'').replace('-','')}" class="queue-filter-btn px-6 py-3 rounded-full border-2 border-white/20 text-base font-bold transition-all ${currentQueueFilter === cat ? 'bg-[#D4A017] text-black border-[#D4A017] shadow-[0_0_15px_rgba(212,160,23,0.3)]' : 'text-white/70 hover:bg-white/10'}" onclick="CashierPOS.setQueueFilter('${cat}')">${cat}</button>
             `).join('')}
           </div>
           
@@ -273,12 +280,12 @@ const CashierPOS = (() => {
   function setQueueFilter(cat) {
     currentQueueFilter = cat;
     document.querySelectorAll('.queue-filter-btn').forEach(btn => {
-      btn.className = 'queue-filter-btn px-5 py-2 rounded-full border border-white/20 text-sm font-semibold transition-colors text-white/70 hover:bg-white/10';
+      btn.className = 'queue-filter-btn px-6 py-3 rounded-full border-2 border-white/20 text-base font-bold transition-all text-white/70 hover:bg-white/10';
     });
     const activeId = `qfilter-${cat.replace(/\s/g,'').replace('-','')}`;
     const activeBtn = document.getElementById(activeId);
     if(activeBtn) {
-      activeBtn.className = 'queue-filter-btn px-5 py-2 rounded-full border border-gold text-sm font-semibold transition-colors bg-gold text-black';
+      activeBtn.className = 'queue-filter-btn px-6 py-3 rounded-full border-2 border-[#D4A017] text-base font-bold transition-all bg-[#D4A017] text-black shadow-[0_0_15px_rgba(212,160,23,0.3)]';
     }
     const label = document.getElementById('queue-title-label');
     if(label) label.textContent = `${cat} Queue`;
@@ -358,8 +365,8 @@ const CashierPOS = (() => {
              ${order.itemsSummary ? escapeHTML(order.itemsSummary) : (order.items || []).map(i=>`${escapeHTML(i.name)} x${i.qty}`).join(', ')}
           </div>
 
-          <button class="btn w-full mt-auto ${isGCash ? 'bg-green-600 hover:bg-green-500 text-white' : 'bg-gold hover:bg-yellow-400 text-black'} shadow-lg py-3 rounded-lg font-bold" onclick="CashierPOS.loadOrderToPOS('${orderId}')">
-            PICK UP ORDER ➔
+          <button class="w-full mt-auto bg-[#D4A017] hover:bg-yellow-400 text-black shadow-lg py-3 rounded-lg font-bold uppercase tracking-wider text-sm transition-transform active:scale-95 border-none" onclick="CashierPOS.loadOrderToPOS('${orderId}')" style="color: #000 !important;">
+            Pick Up Order ➔
           </button>
         </div>
       `;
