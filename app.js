@@ -456,5 +456,30 @@ const App = (() => {
   return { init };
 })();
 
+// Global Video Modal Functions
+window.playVideoModal = function(videoSrc, captionText) {
+  const overlay = document.getElementById('video-modal-overlay');
+  const video = document.getElementById('video-player');
+  const caption = document.getElementById('video-caption');
+
+  if (overlay && video && caption) {
+    video.src = videoSrc;
+    caption.innerText = captionText;
+    overlay.classList.remove('hidden');
+    video.play();
+  }
+};
+
+window.closeVideoModal = function() {
+  const overlay = document.getElementById('video-modal-overlay');
+  const video = document.getElementById('video-player');
+
+  if (overlay && video) {
+    overlay.classList.add('hidden');
+    video.pause();
+    video.currentTime = 0;
+  }
+};
+
 // Bootstrap
 document.addEventListener('DOMContentLoaded', App.init);

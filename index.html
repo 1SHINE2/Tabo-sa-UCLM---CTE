@@ -94,6 +94,7 @@
         <div class="flex flex-col sm:flex-row gap-4 pointer-events-auto">
           <button class="btn btn-gold btn-lg shadow-2xl scale-105" onclick="Router.navigate('#menu')">Tingnan ang Online Menu</button>
           <button class="btn btn-outline btn-lg shadow-2xl" style="border-color:white;color:white;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);" onclick="Router.navigate('#quest')">Subukan ang Spirit Quest</button>
+          <button class="btn btn-outline btn-lg shadow-2xl" style="border-color:#F0C84A;color:#F0C84A;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);" onclick="playVideoModal('trivia-video.mp4', 'Subukan niyo hulaan kung anong tribo ito ng Panay Bukidnon!')">🎬 Trivia</button>
         </div>
       </div>
 
@@ -101,7 +102,7 @@
       <footer class="absolute bottom-0 w-full p-4 text-center z-10 opacity-70 flex flex-col md:flex-row items-center justify-center gap-4 text-xs text-white">
         <div>© 2026 College of Teacher Education, UCLM</div>
         <div class="hidden md:block">•</div>
-        <div>📧 cte@uclm.edu.ph</div>
+        <div>📧 uclmctesofea@gmail.com</div>
       </footer>
 
     </section>
@@ -305,6 +306,15 @@
   </div>
 
   <!-- ── Global Toast Container ── -->
+  <!-- Video Modal (Trivia & Easter Eggs) -->
+  <div id="video-modal-overlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-md" onclick="closeVideoModal()">
+    <div class="relative w-full max-w-3xl bg-[#1A0F0A] rounded-2xl overflow-hidden shadow-2xl border border-[#D4A017]/30" onclick="event.stopPropagation()">
+      <button type="button" class="absolute top-2 right-2 z-10 bg-black/50 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-black" onclick="closeVideoModal()">✕</button>
+      <video id="video-player" class="w-full h-auto max-h-[70vh] object-contain bg-black" controls playsinline></video>
+      <div id="video-caption" class="p-4 text-center text-[#F5EDE0] font-display text-lg italic border-t border-[#D4A017]/20"></div>
+    </div>
+  </div>
+
   <div id="toast-container"></div>
 
   <!-- ── Script Imports ── -->

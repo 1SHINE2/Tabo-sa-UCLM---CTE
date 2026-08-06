@@ -12,6 +12,11 @@ const Cart = (() => {
   let activeVoucher = null;
   const DISCOUNT_AMOUNT = 10; // ₱10 off
 
+  // Easter Egg States
+  let egg1Unlocked = false;
+  let egg2Unlocked = false;
+  let egg3Unlocked = false;
+
   function init() {
     _render();
   }
@@ -34,7 +39,46 @@ const Cart = (() => {
       }
     }
 
+    _checkEasterEggs();
     _render();
+  }
+
+  function _checkEasterEggs() {
+    const hasBudbud = !!items['prod-003'];
+    const hasBudbudLatik = !!items['prod-001'] || !!items['prod-002'];
+    
+    const cartKeys = Object.keys(items);
+    const hasOnlyBinaki = cartKeys.length === 1 && cartKeys[0] === 'prod-010';
+
+    if (hasBudbud && !egg1Unlocked) {
+      egg1Unlocked = true;
+      _showEasterEggIcon('egg1-video.mp4', 'Budbud Guy at Budbud Girl, isang kwento ng pag-ibig.', '15%', '25%');
+    }
+
+    if (hasBudbudLatik && egg1Unlocked && !egg2Unlocked) {
+      egg2Unlocked = true;
+      _showEasterEggIcon('egg2-video.mp4', 'Dumating si Latik Girl, nagtaksil si Budbud Guy.', '75%', '40%');
+    }
+
+    if (hasOnlyBinaki && !egg3Unlocked) {
+      egg3Unlocked = true;
+      _showEasterEggIcon('egg3-video.mp4', 'Nalungkot si Budbud Girl, ngunit nakita niya si Binaki Guy. Nag-ibigan sila at nagtapos ang kwento.', '45%', '70%');
+    }
+  }
+
+  function _showEasterEggIcon(vidSrc, caption, top, left) {
+    const egg = document.createElement('div');
+    egg.innerHTML = '🥚';
+    egg.className = 'fixed text-5xl cursor-pointer animate-bounce z-50 drop-shadow-2xl';
+    egg.style.top = top;
+    egg.style.left = left;
+    egg.onclick = () => {
+      if (window.playVideoModal) {
+        window.playVideoModal(vidSrc, caption);
+        egg.remove();
+      }
+    };
+    document.body.appendChild(egg);
   }
 
   function getQty(productId) {
