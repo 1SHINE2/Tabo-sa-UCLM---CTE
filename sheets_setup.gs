@@ -27,16 +27,19 @@ function setupSheets() {
     "Voucher Applied", "Discount Amount", "Final Total Amount", "Amount Tendered",
     "Change Given", "GCash Reference Number", "Order Status"
   ];
-  txSheet.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold");
-  txSheet.setFrozenRows(1);
+  if (txSheet.getLastRow() === 0) {
+    txSheet.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold");
+    txSheet.setFrozenRows(1);
+  }
 
   // 2. Delivery_Queue Tab
   let dqSheet = ss.getSheetByName("Delivery_Queue");
   if (!dqSheet) {
     dqSheet = ss.insertSheet("Delivery_Queue");
   }
-  // Order Status is column P (16th column), Fulfillment is D
-  dqSheet.getRange("A1").setFormula(`=QUERY(All_Transactions!A:P, "SELECT A, B, F, G, H, L, P WHERE D = 'Campus Delivery' AND P = 'Pending'", 1)`);
+  if (dqSheet.getLastRow() === 0) {
+    dqSheet.getRange("A1").setFormula(`=QUERY(All_Transactions!A:P, "SELECT A, B, F, G, H, L, P WHERE D = 'Campus Delivery' AND LOWER(P) = 'pending'", 1)`);
+  }
 
   // 3. Financial_Summary Tab
   let fsSheet = ss.getSheetByName("Financial_Summary");
@@ -44,18 +47,19 @@ function setupSheets() {
     fsSheet = ss.insertSheet("Financial_Summary");
   }
   
-  fsSheet.getRange("A1:B1").setValues([["TABO SA UCLM", "REVENUE TRACKER"]]).setFontWeight("bold").setBackground("#d9ead3");
-  // Final Total is column L, Order Type is column C
-  fsSheet.getRange("A2:B2").setValues([["Live / Walk-in Cash Sales", '=SUMIF(All_Transactions!C:C, "Walk-in", All_Transactions!L:L)']]);
-  fsSheet.getRange("A3:B3").setValues([["Online GCash Sales", '=SUMIF(All_Transactions!C:C, "Online", All_Transactions!L:L)']]);
-  // Note: Delivery fees are no longer tracked as a separate column in the 16-field schema.
-  // Assuming delivery fee is baked into Final Total, we can remove or change it.
-  fsSheet.getRange("A4:B4").setValues([["Total Online Cash Sales", '=SUMIFS(All_Transactions!L:L, All_Transactions!C:C, "Online", All_Transactions!E:E, "Cash")']]);
-  fsSheet.getRange("A5:B5").setValues([["TOTAL EARNINGS OVERALL", '=SUM(B2:B4)']]).setFontWeight("bold").setBackground("#fff2cc");
+  if (fsSheet.getLastRow() === 0) {
+    fsSheet.getRange("A1:B1").setValues([["TABO SA UCLM", "REVENUE TRACKER"]]).setFontWeight("bold").setBackground("#d9ead3");
+    
+    // Formulas
+    fsSheet.getRange("A2:B2").setValues([["Live / Walk-in Cash Sales", '=SUMIF(All_Transactions!C:C, "Walk-in", All_Transactions!L:L)']]);
+    fsSheet.getRange("A3:B3").setValues([["Online GCash Sales", '=SUMIFS(All_Transactions!L:L, All_Transactions!C:C, "Online", All_Transactions!E:E, "GCash")']]);
+    fsSheet.getRange("A4:B4").setValues([["Total Online Cash Sales", '=SUMIFS(All_Transactions!L:L, All_Transactions!C:C, "Online", All_Transactions!E:E, "Cash")']]);
+    fsSheet.getRange("A5:B5").setValues([["TOTAL EARNINGS OVERALL", '=SUM(B2:B4)']]).setFontWeight("bold").setBackground("#fff2cc");
+    
+    fsSheet.setColumnWidth(1, 250);
+  }
   
-  fsSheet.setColumnWidth(1, 250);
-  
-  SpreadsheetApp.getUi().alert("Setup complete! Your 3 tabs are ready. (Make sure to deploy as a New Web App)");
+  SpreadsheetApp.getUi().alert("Setup complete! Your 3 tabs are ready. (Make sure to deploy as a New Web App deployment)");
 }
 
 function doPost(e) {
@@ -63,32 +67,37 @@ function doPost(e) {
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("All_Transactions");
     const data = JSON.parse(e.postData.contents);
     
-    const action = data.action;
+    // Default to CREATE_TRANSACTION if no action is explicitly specified
+    const action = data.action || "CREATE_TRANSACTION";
 
     if (action === "CREATE_TRANSACTION") {
-      sheet.appendRow([
-        data.timestamp,
-        data.transactionId,
-        data.orderType,
-        data.fulfillment,
-        data.paymentMethod,
-        data.customerName,
-        data.contactInfo,
-        data.itemsSummary,
-        data.subtotal,
-        data.voucherApplied,
-        data.discountAmount,
-        data.grandTotal,
-        data.amountTendered,
-        data.changeGiven,
-        data.gcashRef,
-        data.status
-      ]);
-      return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "Row appended" }))
+      
+      // Explicit 16-Column Array Mapping with strict position anchors & fallbacks
+      const row = [
+        data.timestamp ? new Date(data.timestamp) : new Date(), // Col A: Timestamp
+        data.transactionId || "N/A",                           // Col B: Order ID
+        data.orderType || "Online",                            // Col C: Order Type
+        data.fulfillment || "Over the counter",               // Col D: Fulfillment Type
+        data.paymentMethod || data.payment || "Cash",          // Col E: Payment Method
+        data.customerName || "Walk-in Customer",              // Col F: Customer Name
+        data.contactInfo || data.destination || "N/A",        // Col G: Contact / Location
+        data.itemsSummary || "N/A",                            // Col H: Items Purchased
+        Number(data.subtotal) || Number(data.total) || 0,     // Col I: Subtotal
+        data.voucherApplied || "NONE",                        // Col J: Voucher Applied
+        Number(data.discountAmount) || 0,                     // Col K: Discount Amount
+        Number(data.grandTotal) || Number(data.total) || 0,   // Col L: Final Total Amount
+        data.amountTendered !== undefined ? data.amountTendered : "N/A", // Col M: Amount Tendered
+        Number(data.changeGiven) || 0,                         // Col N: Change Given
+        data.gcashRef || "N/A",                                // Col O: GCash Ref
+        data.status || "Pending"                               // Col P: Status
+      ];
+
+      sheet.appendRow(row);
+
+      return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "Row appended cleanly" }))
         .setMimeType(ContentService.MimeType.JSON);
         
     } else if (action === "UPDATE_TRANSACTION") {
-      // Enhanced to update Status, Tendered, and Change
       const dataRange = sheet.getDataRange();
       const values = dataRange.getValues();
       const txnIdToFind = data.transactionId;
@@ -102,11 +111,10 @@ function doPost(e) {
       }
       
       if (rowIndex > -1) {
-        // Status is Column P (16), Tendered is M (13), Change is N (14), GCash Ref is O (15)
-        if (data.status) sheet.getRange(rowIndex, 16).setValue(data.status);
-        if (data.amountTendered !== undefined) sheet.getRange(rowIndex, 13).setValue(data.amountTendered);
-        if (data.changeGiven !== undefined) sheet.getRange(rowIndex, 14).setValue(data.changeGiven);
-        if (data.gcashRef !== undefined) sheet.getRange(rowIndex, 15).setValue(data.gcashRef);
+        if (data.status) sheet.getRange(rowIndex, 16).setValue(data.status); // Col P
+        if (data.amountTendered !== undefined) sheet.getRange(rowIndex, 13).setValue(data.amountTendered); // Col M
+        if (data.changeGiven !== undefined) sheet.getRange(rowIndex, 14).setValue(data.changeGiven); // Col N
+        if (data.gcashRef !== undefined) sheet.getRange(rowIndex, 15).setValue(data.gcashRef); // Col O
         
         return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "Transaction updated" }))
           .setMimeType(ContentService.MimeType.JSON);
