@@ -325,9 +325,9 @@ const App = (() => {
       { img: 'gallery-10-kasaysayan.jpg', caption: 'Bagsang — espiritu ng proteksyon', galleryId: 'gallery-10' },
     ];
 
-    // Duplicate arrays for infinite marquee scrolling
-    const loopLeft = [...leftItems, ...leftItems, ...leftItems];
-    const loopRight = [...rightItems, ...rightItems, ...rightItems];
+    // 2 copies: the -50% animation covers exactly one full set (all 5 images) before seamlessly looping
+    const loopLeft  = [...leftItems,  ...leftItems];
+    const loopRight = [...rightItems, ...rightItems];
 
     function makeTile(item) {
       return `
