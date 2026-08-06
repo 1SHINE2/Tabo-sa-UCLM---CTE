@@ -554,6 +554,7 @@ h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
   .marquee-content {
     flex-direction: column;
     height: max-content;
+    width: 100%;
   }
   .marquee-track-1 {
     animation: marqueeUp 45s linear infinite;

@@ -52,17 +52,17 @@ const Cart = (() => {
 
     if (hasBudbud && !egg1Unlocked) {
       egg1Unlocked = true;
-      _showEasterEggIcon('egg1-video.mp4', 'Budbud Guy at Budbud Girl, isang kwento ng pag-ibig.', '15%', '25%');
+      _showEasterEggIcon('egg1-video.mp4', 'OMG! 😍 Isang epic na love story ni Budbud Guy at Budbud Girl na mas matamis pa sa asukal! Panoorin ang kanilang mainit na pag-iibigan! ✨ (Maghanap ka pa ng ibang easter egg!)', '15%', '25%');
     }
 
     if (hasBudbudLatik && egg1Unlocked && !egg2Unlocked) {
       egg2Unlocked = true;
-      _showEasterEggIcon('egg2-video.mp4', 'Dumating si Latik Girl, nagtaksil si Budbud Guy.', '75%', '40%');
+      _showEasterEggIcon('egg2-video.mp4', 'SHOCKING REVELATION! 😱 Dumating si Latik Girl at tuluyang nagtaksil si Budbud Guy! Ang kapal ng mukha! Iiyak ka sa tindi ng dramang ito! 💔 (Maghanap ka pa ng ibang easter egg!)', '75%', '40%');
     }
 
     if (hasOnlyBinaki && !egg3Unlocked) {
       egg3Unlocked = true;
-      _showEasterEggIcon('egg3-video.mp4', 'Nalungkot si Budbud Girl, ngunit nakita niya si Binaki Guy. Nag-ibigan sila at nagtapos ang kwento.', '45%', '70%');
+      _showEasterEggIcon('egg3-video.mp4', 'THE GRAND FINALE! 🎉 Sa wakas, naka-move on si Budbud Girl at natagpuan ang tunay na pag-ibig kay Binaki Guy! 🌽❤️ (Ito na ang LAST easter egg! You just found a love story that no one asked for HAHAHAH.)', '45%', '70%');
     }
   }
 
