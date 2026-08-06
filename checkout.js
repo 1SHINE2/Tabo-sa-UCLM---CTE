@@ -34,7 +34,7 @@
 
 // ── ⚠️ PLACEHOLDERS — CHANGE BEFORE GO-LIVE ──────────────────────────────────
 const GCASH_NUMBER              = "09123456789";           // TODO: Replace with your real GCash number
-const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwR2c9jCTCmU-qMVrSlnKi4DzDgIumQLqi_En1doE5rYG1QaUWgCyJZSq0djnPWGjKg/exec";
+const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyyEmFzccV7FfE7mozo-BK4p7MiGhSJ3itHZVstMIhIf65yNtVJMoP6_yG3wC5jpiHa/exec";
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── XSS Guard — escapeHTML ────────────────────────────────────────────────────

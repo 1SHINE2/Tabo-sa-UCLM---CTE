@@ -563,7 +563,7 @@ const CashierPOS = (() => {
     const itemsSummary = items.join(', ');
     const txnId        = `WLK-${Date.now().toString().slice(-6)}`;
     const timeStr      = new Date().toISOString();
-    const WEBHOOK      = "https://script.google.com/macros/s/AKfycbwR2c9jCTCmU-qMVrSlnKi4DzDgIumQLqi_En1doE5rYG1QaUWgCyJZSq0djnPWGjKg/exec";
+    const WEBHOOK      = "https://script.google.com/macros/s/AKfycbyyEmFzccV7FfE7mozo-BK4p7MiGhSJ3itHZVstMIhIf65yNtVJMoP6_yG3wC5jpiHa/exec";
 
     // ── WALK-IN GCASH: queue as Pending, switch to feed tab ─────────────────
     if (walkinPaymentMode === 'gcash') {
@@ -728,7 +728,7 @@ const CashierPOS = (() => {
     }
 
     // Send UPDATE_TRANSACTION to Google Sheets
-    const WEBHOOK = "https://script.google.com/macros/s/AKfycbwR2c9jCTCmU-qMVrSlnKi4DzDgIumQLqi_En1doE5rYG1QaUWgCyJZSq0djnPWGjKg/exec";
+    const WEBHOOK = "https://script.google.com/macros/s/AKfycbyyEmFzccV7FfE7mozo-BK4p7MiGhSJ3itHZVstMIhIf65yNtVJMoP6_yG3wC5jpiHa/exec";
     const updatePayload = {
       action:          "UPDATE_TRANSACTION",
       transactionId:   orderId,
