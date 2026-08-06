@@ -7,464 +7,494 @@
 
 const PRODUCTS = [
   {
-    id: "prod-101",
-    name: "Tinuom na Manok",
-    price: 85,
-    quote: "Tender native chicken steamed inside banana leaves with fresh herbs — a fragrant highland embrace in every bite.",
+    id: "prod-001",
+    name: "Budbud na may latik",
+    price: 20,
+    quote: "Malagkit na kanin na binalot sa dahon ng saging, pinasarap ng matamis at siksik na latik.",
     history: {
-      origin: "Cabatuan, Iloilo & Central Panay Highlands",
-      summary: "Historically created by highland hunters using native chicken wrapped in banana leaves and slow-steamed over embers without metal pots.",
+      origin: "Kabisayaan",
+      summary: "Ang budbud ay tradisyonal na kakanin sa Visayas na madalas ihain tuwing may pagdiriwang, kasal, o simpleng almusal.",
       funFacts: [
-        "The banana leaf seal traps 100% of the natural chicken juices, acting like an ancient pressure cooker.",
-        "Traditional cooks test doneness purely by smelling the aroma released through the steamed leaves."
+        "Ang pagbalot sa dahon ng saging ay nagbibigay ng kakaibang aroma habang ito ay pinapasingawan.",
+        "Ang latik ay nagmula sa pinakuluang gata ng niyog na naging langis at latak."
       ],
-      impact: "Serves as a staple for Sunday family gatherings and community celebrations, symbolizing warmth and hospitality."
+      impact: "Simbolo ng mainit na pagtanggap at pagkakabuklod-buklod ng pamilyang Pilipino."
     },
     culturalTie: {
-      boothRelevance: "Featured in our Tabo sa UCLM booth as the flagship protein dish representing indigenous Visayan steam-cooking techniques.",
-      themeConnection: "Reflects the Panay Bukidnon value of living in harmony with the environment by utilizing biodegradable banana leaves as natural cooking vessels."
+      boothRelevance: "Ito ang pambato naming kakanin na tiyak na magbabalik sa inyo sa mga alaala ng pista sa probinsya.",
+      themeConnection: "Ipinapakita nito ang mayamang kultura ng Pilipinas sa paggamit ng niyog at malagkit bilang pangunahing sangkap."
     },
     ingredients: [
-      "Native free-range chicken",
-      "Fresh lemongrass",
-      "Wild ginger",
-      "Onion leeks",
-      "Banana leaf wrapper",
-      "Highland salt & peppercorns"
+      "Malagkit na bigas",
+      "Gata ng niyog",
+      "Asukal na pula",
+      "Asin",
+      "Dahon ng saging"
     ],
     ingredientDescriptions: {
-      "Native free-range chicken": "Raised in open highland farms — leaner, more flavorful, and richer in Omega-3 than commercial breeds.",
-      "Fresh lemongrass": "Aromatic highland stalk prized for its citrusy fragrance and natural antibacterial properties.",
-      "Wild ginger": "Foraged ginger (Luya-luya) with a sharper, more pungent flavor than cultivated varieties.",
-      "Onion leeks": "Mild, sweet allium used in highland cooking for depth of flavor without overpowering the chicken.",
-      "Banana leaf wrapper": "The natural cooking vessel — seals in steam and imparts a light herbal, earthy aroma to the meat.",
-      "Highland salt & peppercorns": "Unrefined mineral-rich salt paired with native cracked peppercorns for authentic seasoning."
+      "Malagkit na bigas": "Espesyal na uri ng bigas na nagbibigay ng perpektong kunat at lambot.",
+      "Gata ng niyog": "Sariwang katas ng niyog para sa malinamnam na lasa at paggawa ng latik.",
+      "Asukal na pula": "Nagbibigay ng katamtamang tamis at kulay sa kakanin at latik.",
+      "Asin": "Pampa-balanse ng tamis ng latik.",
+      "Dahon ng saging": "Ginagamit bilang pambalot na nag-iiwan ng mabangong amoy pagkatapos pasingawan."
     },
-    ingredientTheme: "Utilizing banana leaves as a natural steaming vessel preserves eco-friendly ancestral practices.",
-    nutrition: {
-      calories: 280,
-      carbs: "8g",
-      protein: "32g",
-      fat: "12g",
-      sugar: "1g",
-      fiber: "0g",
-      highlight: "High Protein Core",
-      highlightDescription: "Exceptional lean protein from native free-range chicken makes this dish an ideal post-activity recovery meal, supporting muscle repair and sustained energy."
-    },
-    image: "https://upload.wikimedia.org/wikipedia/commons/6/67/Chicken_Binakol.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["chill", "savory", "mist"]
-  },
-  {
-    id: "prod-102",
-    name: "Kinalan na Isda",
-    price: 75,
-    quote: "Fresh mountain river fish roasted over open coals, infused with wild ginger and calamansi zest.",
-    history: {
-      origin: "Jalaur River systems, Central Panay",
-      summary: "Before commercial markets reached Central Panay, river fishing was a primary protein source for inland settlement communities. Kinalan focuses on preserving the fish's natural freshwater flavor.",
-      funFacts: [
-        "Calamansi was traditionally squeezed directly onto the coals to create an aromatic, citrus-infused smoke.",
-        "The fish is rarely scaled before grilling; the scales act as a protective barrier against the intense heat."
-      ],
-      impact: "Strengthens community bonds as roasting is often done collectively by the riverbanks after a successful day's catch."
-    },
-    culturalTie: {
-      boothRelevance: "Demonstrates the simplicity and purity of indigenous Panay cooking, relying on fire and wild citrus.",
-      themeConnection: "River fish harvested from clean mountain streams symbolizes purity and respect for nature's water spirits (Murokpok)."
-    },
-    ingredients: [
-      "Fresh river fish",
-      "Wild ginger (Luya-luya)",
-      "Calamansi",
-      "Highland sea salt",
-      "Banana leaf wrap"
-    ],
-    ingredientDescriptions: {
-      "Fresh river fish": "Caught from the Jalaur River — firm, clean flesh with a naturally mild, sweet flavor.",
-      "Wild ginger (Luya-luya)": "Smaller and more pungent than commercial ginger; neutralizes fishy odors and aids digestion.",
-      "Calamansi": "Philippine lime — squeezed for citric acid brightness that cuts through the richness of grilled fish.",
-      "Highland sea salt": "Mineral-rich, unprocessed salt that enhances without masking the fish's natural sweetness.",
-      "Banana leaf wrap": "Used as a grilling barrier to prevent the fish from sticking while adding a subtle herbal aroma."
-    },
-    ingredientTheme: "Wild Luya-luya neutralizes any muddy taste while providing potent anti-inflammatory benefits.",
-    nutrition: {
-      calories: 210,
-      carbs: "2g",
-      protein: "28g",
-      fat: "9g",
-      sugar: "0g",
-      fiber: "0g",
-      highlight: "Lean & Heart-Healthy",
-      highlightDescription: "Low in saturated fat and rich in Omega-3 fatty acids from river fish, this dish actively supports cardiovascular health and keeps cholesterol levels balanced."
-    },
-    image: "https://upload.wikimedia.org/wikipedia/commons/1/11/Inihaw_na_bangus.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["hyped", "smoky", "river"]
-  },
-  {
-    id: "prod-103",
-    name: "Linapot na Kan-on",
-    price: 30,
-    quote: "Fragrant heirloom mountain rice wrapped in fresh katmon leaves, giving off a subtle herbal aroma.",
-    history: {
-      origin: "Bukidnon Mountain Terraces",
-      summary: "Wrapping rice in Katmon leaves preserved it against spoilage during long mountain treks across Panay. It is the ultimate portable food for highland farmers.",
-      funFacts: [
-        "Katmon leaves impart a slightly sour, citrusy aroma that acts as a natural appetite stimulant.",
-        "Heirloom red rice takes nearly twice as long to mature, but offers double the fiber of lowland white rice."
-      ],
-      impact: "Serves as the vital energy source for arduous labor and travel, connecting the farmer directly to the soil."
-    },
-    culturalTie: {
-      boothRelevance: "Acts as the foundation of our booth's meals, elevating standard rice into a culturally rich experience.",
-      themeConnection: "Heirloom rice varieties are preserved through generations using ancestral seeds cultivated without chemical additives, reflecting ancestral wisdom."
-    },
-    ingredients: [
-      "Heirloom highland red rice",
-      "Katmon leaves",
-      "Spring water"
-    ],
-    ingredientDescriptions: {
-      "Heirloom highland red rice": "An ancient, unmodified rice variety with a nutty flavor, deep red bran, and a lower glycemic index than white rice.",
-      "Katmon leaves": "Indigenous leaves with natural antimicrobial properties, used to wrap and preserve rice during long highland journeys.",
-      "Spring water": "Pure mountain spring water, free of lowland chemicals, allowing the rice's natural sweetness to come through."
-    },
-    ingredientTheme: "Katmon leaves are renowned in indigenous medicine for their antibacterial properties, extending the rice's shelf life naturally.",
+    ingredientTheme: "Likas na kayamanan ng niyog at bigas mula sa malalawak na sakahan ng bansa.",
     nutrition: {
       calories: 220,
       carbs: "45g",
-      protein: "4g",
-      fat: "1g",
-      sugar: "0g",
-      fiber: "3g",
-      highlight: "Rich in Complex Carbs",
-      highlightDescription: "Heirloom red rice provides slow-digesting complex carbohydrates that sustain energy for hours, making it the perfect fuel for highland farmers and active lifestyles."
+      protein: "3g",
+      fat: "5g",
+      sugar: "15g",
+      fiber: "2g",
+      highlight: "Mataas sa Enerhiya",
+      highlightDescription: "Ang carbohydrates mula sa malagkit ay nagbibigay ng mahabang lakas na kailangan sa maghapon."
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Suman_Latik.jpg",
+    quizTags: ["sweet", "traditional"]
+  },
+  {
+    id: "prod-002",
+    name: "Budbud na may latik (3 piraso)",
+    price: 50,
+    quote: "Tatlong piraso ng paboritong malagkit na may latik, perpekto para sa barkada o pamilya.",
+    history: {
+      origin: "Kabisayaan",
+      summary: "Kagaya ng solong budbud, ito ay bahagi ng masaganang tradisyon ng pagbabahagi ng biyaya.",
+      funFacts: [
+        "Mas makakatipid ka kapag bumili ng maramihan!",
+        "Ang pag-aalok ng pagkain sa kapwa ay likas na kaugaliang Pilipino."
+      ],
+      impact: "Nagtataguyod ng samahan sa pamamagitan ng pagbabahagi ng kakanin sa hapag-kainan."
+    },
+    culturalTie: {
+      boothRelevance: "Maganda para sa mga magkakaibigang bumibisita sa aming booth.",
+      themeConnection: "Sinasalamin ang diwa ng bayanihan at pagbibigayan sa bawat kagat."
+    },
+    ingredients: [
+      "Malagkit na bigas",
+      "Gata ng niyog",
+      "Asukal na pula",
+      "Asin",
+      "Dahon ng saging"
+    ],
+    ingredientDescriptions: {
+      "Malagkit na bigas": "Piniling malagkit para sa pinakamasarap na tekstura.",
+      "Gata ng niyog": "Unang piga ng niyog para sa siksik na linamnam.",
+      "Asukal na pula": "Nagpapatamis at nagbibigay kulay sa kakanin.",
+      "Asin": "Kaunting asin upang mas lumabas ang lasa ng gata.",
+      "Dahon ng saging": "Pambalot na pinadaan sa apoy para mas madaling tiklupin at magbigay ng aroma."
+    },
+    ingredientTheme: "Ang paggamit ng mga lokal na sangkap ay nagpapakita ng ating pagpapahalaga sa agrikultura.",
+    nutrition: {
+      calories: 660,
+      carbs: "135g",
+      protein: "9g",
+      fat: "15g",
+      sugar: "45g",
+      fiber: "6g",
+      highlight: "Pang-Maramihan",
+      highlightDescription: "Siksik sa carbohydrates, kaya magandang meryenda bago gumawa ng pisikal na gawain o aktibidad."
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Suman_Latik.jpg",
+    quizTags: ["sweet", "traditional", "sharing"]
+  },
+  {
+    id: "prod-003",
+    name: "Budbud",
+    price: 15,
+    quote: "Simpleng suman o malagkit na binalot sa dahon ng saging, mainam kapartner ng kape o tsokolate.",
+    history: {
+      origin: "Pilipinas",
+      summary: "Isang pang-araw-araw na kakanin sa Pilipinas, madalas kinakain sa agahan o meryenda.",
+      funFacts: [
+        "May iba't ibang bersyon ang suman sa bawat rehiyon ng Pilipinas.",
+        "Maaaring isawsaw sa asukal, tsokolate, o mangga ang klasikong budbud."
+      ],
+      impact: "Isang hindi nawawalang bahagi ng kulturang Pilipino na nag-uugnay sa mga henerasyon."
+    },
+    culturalTie: {
+      boothRelevance: "Ang pinakapayak at klasikong handog sa aming menu, swak sa panlasa ng lahat.",
+      themeConnection: "Sinasalamin ang pagiging payak at mapagkumbaba ng kulturang Pilipino."
+    },
+    ingredients: [
+      "Malagkit na bigas",
+      "Gata ng niyog",
+      "Asin",
+      "Dahon ng saging"
+    ],
+    ingredientDescriptions: {
+      "Malagkit na bigas": "Ang pundasyon ng kakanin, malambot at madikit kapag naluto.",
+      "Gata ng niyog": "Pampalambot at pampalasa sa bigas habang hinahalo bago pasingawan.",
+      "Asin": "Nagbibigay ng malinamnam na balanse sa natural na tamis ng gata.",
+      "Dahon ng saging": "Likas at environment-friendly na pambalot na nag-aambag din sa lasa."
+    },
+    ingredientTheme: "Ang kasimplehan ng sangkap ay nagbibigay-daan sa natural na lasa ng niyog at bigas.",
+    nutrition: {
+      calories: 180,
+      carbs: "38g",
+      protein: "3g",
+      fat: "3g",
+      sugar: "2g",
+      fiber: "1g",
+      highlight: "Mababang Asukal",
+      highlightDescription: "Dahil walang latik, ito ay may mas mababang asukal na angkop sa mga umiiwas sa sobrang tamis."
     },
     image: "https://upload.wikimedia.org/wikipedia/commons/c/c2/Suman_sa_Ibos.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["chill", "savory", "peak"]
+    quizTags: ["savory", "traditional", "chill"]
   },
   {
-    id: "prod-104",
-    name: "Kanto Kadios",
-    price: 90,
-    quote: "Hearty black bean stew slow-simmered with smoked pork knuckle and sour batwan fruit.",
+    id: "prod-004",
+    name: "Putong may keso",
+    price: 7,
+    quote: "Malambot at malinamnam na puto, pinatungan ng hiniwang keso para sa perpektong tamis at alat.",
     history: {
-      origin: "Iloilo-Bukidnon Trading Routes",
-      summary: "A staple in Western Visayas culture, this combination has fed highland families for generations. Kadios (pigeon peas) thrive even during tough highland dry seasons.",
+      origin: "Pilipinas",
+      summary: "Ang puto ay paboritong kapareha ng dinuguan, pancit, o kinakain ng mag-isa bilang meryenda.",
       funFacts: [
-        "Batwan fruit gives the stew a clean, non-astringent sourness that tamarind simply cannot replicate.",
-        "The deep purple hue of the broth comes naturally from the skins of the kadios beans."
+        "Ang salitang 'puto' ay maaaring nagmula sa salitang Malay na 'puttu' na ibig sabihin ay pinasingawang pagkain.",
+        "Sa mga pista, hindi nawawala ang puto sa hapag dahil sa madali itong kainin at ihanda."
       ],
-      impact: "The dish is a classic centerpiece at large family reunions, famously tasting even better the day after it is cooked."
+      impact: "Isang pangunahing meryenda na nagbibigay ng saya at nakakabusog na karanasan sa bawat bata o matanda."
     },
     culturalTie: {
-      boothRelevance: "Showcases the iconic 'Ilonggo Trinity' of ingredients (Kadios, Baboy, Langka/Batwan) in an authentic, uncompromised form.",
-      themeConnection: "Batwan, a native souring fruit endemic to Western Visayas, gives this dish its distinct indigenous acidity and geographical identity."
+      boothRelevance: "Isang mabilis at murang meryenda na patok sa mga estudyante at dumadaan.",
+      themeConnection: "Ang puto ay kumakatawan sa kasaganahan ng bigas sa ating bansa at ang impluwensyang dayuhan sa pagdagdag ng keso."
     },
     ingredients: [
-      "Kadios (Pigeon peas)",
-      "Smoked pork knuckle",
-      "Batwan fruit",
-      "Sweet potato tops"
+      "Galapong o Harina",
+      "Gata o Gatas",
+      "Asukal",
+      "Baking powder",
+      "Keso"
     ],
     ingredientDescriptions: {
-      "Kadios (Pigeon peas)": "Drought-resistant highland legume packed with plant protein and fiber; the cornerstone of Ilonggo cuisine.",
-      "Smoked pork knuckle": "Slow-smoked over wood chips for hours, infusing the meat with a deep, savory-smoky richness.",
-      "Batwan fruit": "An endemic Visayan souring agent with a clean, refreshing tartness that defines the stew's character.",
-      "Sweet potato tops": "Tender highland leafy greens added at the end, providing iron, vitamins A and C."
+      "Galapong o Harina": "Ang pangunahing sangkap na nagbibigay ng esponghang tekstura ng puto.",
+      "Gata o Gatas": "Nagsisilbing pampalambot at nagdaragdag ng linamnam.",
+      "Asukal": "Nagbibigay ng katamtamang tamis.",
+      "Baking powder": "Upang umalsa nang maayos at maging malambot ang puto.",
+      "Keso": "Ang maalat-alat na topping na perpektong bumabalanse sa tamis ng puto."
     },
-    ingredientTheme: "Kadios represents agricultural resilience, surviving and yielding pods even during severe dry spells.",
+    ingredientTheme: "Ang tamis ng masa at alat ng keso ay nagpapakita ng mahusay na balanse ng lasa.",
     nutrition: {
-      calories: 340,
-      carbs: "24g",
-      protein: "26g",
-      fat: "16g",
-      sugar: "3g",
-      fiber: "8g",
-      highlight: "High Fiber & Protein",
-      highlightDescription: "Pigeon peas are among the richest plant-based protein and dietary fiber sources in Visayan cuisine, promoting healthy digestion and long-lasting satiety."
-    },
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Kadyos_Baboy_Langka_%28KBL%29.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["hardcore", "savory", "peak"]
-  },
-  {
-    id: "prod-105",
-    name: "Binagol sa Puraw",
-    price: 50,
-    quote: "Sweetened taro root mash infused with coconut cream and brown sugar, baked inside a coconut shell.",
-    history: {
-      origin: "Eastern & Central Visayas",
-      summary: "Taro root cultivated in cool mountain soil yields a velvety texture unmatched by lowland varieties. Binagol is served during thanksgiving rituals celebrating rich root-crop harvests.",
-      funFacts: [
-        "The dish is traditionally buried in hot ashes to bake evenly from all sides.",
-        "The 'bagol' (coconut shell) acts as a natural, biodegradable ramekin."
-      ],
-      impact: "A festive delicacy that rewards the community's hard labor during the intense planting season."
-    },
-    culturalTie: {
-      boothRelevance: "Brings a traditional, visually striking dessert to the menu, honoring the root-crop agriculture of the highlands.",
-      themeConnection: "Muscovado sugar reflects the traditional zero-waste sugarcane processing methods of Visayan farmers."
-    },
-    ingredients: [
-      "Highland taro (Gabi)",
-      "Fresh coconut cream",
-      "Muscovado sugar",
-      "Condensed milk"
-    ],
-    ingredientDescriptions: {
-      "Highland taro (Gabi)": "Cool mountain taro yields an exceptionally creamy, starchy flesh — far silkier than lowland varieties.",
-      "Fresh coconut cream": "First-press coconut cream, thick and intensely rich, adding tropical fat and natural sweetness.",
-      "Muscovado sugar": "Unrefined, minimally processed cane sugar retaining molasses; earthy, complex, and less sweet than white sugar.",
-      "Condensed milk": "Added for a smooth, caramel-like creaminess that binds the taro and coconut together."
-    },
-    ingredientTheme: "Coconut shells used for baking infuses a subtle woody, toasted aroma into the sweet taro.",
-    nutrition: {
-      calories: 290,
-      carbs: "52g",
-      protein: "3g",
-      fat: "8g",
-      sugar: "18g",
-      fiber: "5g",
-      highlight: "High Energy & Fiber",
-      highlightDescription: "Taro root is an excellent source of dietary fiber and complex carbohydrates, providing a sustained energy boost while supporting healthy digestion."
-    },
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/30/Binagol.jpg",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["chill", "sweet", "river"]
-  },
-  {
-    id: "prod-106",
-    name: "Bayaboy Sweet Soup",
-    price: 45,
-    quote: "Comforting sweet coconut soup filled with soft sticky rice balls, jackfruit, and purple yam.",
-    history: {
-      origin: "Panay Bukidnon Highlands",
-      summary: "A highland variant of Ginataan enjoyed during cool misty afternoons in Central Panay. It is shared in communal bowls during gatherings to strengthen ties among neighbors.",
-      funFacts: [
-        "The sticky rice balls (bilo-bilo) symbolize families sticking together through hardship.",
-        "Traditionally eaten on Friday afternoons as a communal end-of-week reward."
-      ],
-      impact: "Fosters community harmony and unity through the act of sharing a massive, communal pot."
-    },
-    culturalTie: {
-      boothRelevance: "Offers a warm, nostalgic comfort food that directly contrasts the savory, heavy smoked meats.",
-      themeConnection: "Wild jackfruit gathered from mountain fringes adds natural sweetness without relying entirely on refined colonial sugar."
-    },
-    ingredients: [
-      "Glutinous rice flour",
-      "Coconut milk",
-      "Ripe jackfruit (Langka)",
-      "Purple yam (Ube)",
-      "Tapioca pearls"
-    ],
-    ingredientDescriptions: {
-      "Glutinous rice flour": "Ground sticky rice that forms the chewy, satisfying bilo-bilo dumplings at the heart of this soup.",
-      "Coconut milk": "Light, sweet coconut milk forms the fragrant broth base, distinctly gentler than coconut cream.",
-      "Ripe jackfruit (Langka)": "Naturally honey-sweet mountain jackfruit chunks that dissolve into the broth for fruity depth.",
-      "Purple yam (Ube)": "Vibrant purple highland yam — mildly sweet with an earthy, vanilla-like note and stunning color.",
-      "Tapioca pearls": "Translucent starchy pearls that add a bouncy, bubble-tea-like texture to the soup."
-    },
-    ingredientTheme: "Purple yam (Ube) gives the soup its vibrant, royal hue, turning a simple dish into a celebratory visual feast.",
-    nutrition: {
-      calories: 290,
-      carbs: "48g",
-      protein: "3g",
-      fat: "10g",
-      sugar: "22g",
-      fiber: "2g",
-      highlight: "Rich Comfort Bowl",
-      highlightDescription: "A warm, nourishing blend of complex carbohydrates and natural fruit sugars that provides both immediate comfort and sustained warmth — perfect for cool highland afternoons."
-    },
-    image: "https://images.unsplash.com/photo-1563805042-7684c8a9e9cb?w=800&q=80",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["chill", "sweet", "river"]
-  },
-  {
-    id: "prod-107",
-    name: "Inasor sa Sugba",
-    price: 95,
-    quote: "Skewered marinated pork belly grilled over glowing wood charcoal with local annatto oil glaze.",
-    history: {
-      origin: "Visayan Coast to Highland Trails",
-      summary: "Open-fire skewers were traditionally cooked during Panaad festivals and gathering ceremonies. Grilling over open wood coals brings out festive flavors essential for Panay celebrations.",
-      funFacts: [
-        "The marinade uses absolutely no soy sauce; the deep color comes entirely from the annatto seeds.",
-        "Bamboo skewers were historically whittled on the spot by hunters while waiting for the fire to mature."
-      ],
-      impact: "The smoke signals the start of a festival, drawing villagers together from miles around."
-    },
-    culturalTie: {
-      boothRelevance: "Provides an instantly recognizable, highly aromatic street-food element that draws attendees to the booth.",
-      themeConnection: "Natural annatto oil provides a vibrant red hue directly inspired by traditional Panubok embroidery dyes."
-    },
-    ingredients: [
-      "Pork belly",
-      "Annatto seed oil (Asuete)",
-      "Native vinegar",
-      "Garlic & lemongrass"
-    ],
-    ingredientDescriptions: {
-      "Pork belly": "Skin-on pork belly sliced and skewered — the fat renders into the meat over charcoal for a crisp, juicy bite.",
-      "Annatto seed oil (Asuete)": "Vibrant orange-red oil extracted from annatto seeds; used for both color and a subtle earthy, peppery flavor.",
-      "Native vinegar": "Fermented sugarcane or coconut vinegar — the tenderizing marinade acid that balances the rich fatty pork.",
-      "Garlic & lemongrass": "Aromatics that perfume the meat during marination, leaving a fragrant, smoky undertone after grilling."
-    },
-    ingredientTheme: "Asuete (Annatto) is deeply tied to Panay Bukidnon culture, used historically for both culinary flavor and vibrant textile dyeing.",
-    nutrition: {
-      calories: 410,
-      carbs: "4g",
-      protein: "22g",
-      fat: "34g",
-      sugar: "2g",
-      fiber: "0g",
-      highlight: "High Fat Keto",
-      highlightDescription: "Pork belly's high natural fat content makes this dish perfect for low-carb and ketogenic diets — the body burns this fat efficiently as fuel during festival activities."
-    },
-    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["hyped", "sweet", "peak"]
-  },
-  {
-    id: "prod-108",
-    name: "Lutlot na Bamboo Pork",
-    price: 110,
-    quote: "Pork belly slow-cooked inside bamboo tubes over open flames, locking in woodsy steam and rich fat.",
-    history: {
-      origin: "Deep Panay Jungles",
-      summary: "Mastered by indigenous peoples across Panay, bamboo cooking preserved moisture during long jungle expeditions. Lutlot is an ancient indigenous cooking method requiring no pots, relying solely on natural forest materials.",
-      funFacts: [
-        "Green, freshly cut bamboo is essential — dry bamboo would simply burn instead of steaming the food.",
-        "The bamboo internode imparts a distinct, sweet, earthy flavor into the pork fat."
-      ],
-      impact: "Showcases the supreme resourcefulness of the Bukidnon, demonstrating culinary mastery over wild environments."
-    },
-    culturalTie: {
-      boothRelevance: "Serves as the pinnacle of indigenous cooking demonstrations for our grading criteria.",
-      themeConnection: "Cooking inside fresh green bamboo stems (Lutlot) represents a flawless symbiosis between the hunter and the forest."
-    },
-    ingredients: [
-      "Pork belly cubes",
-      "Fresh bamboo tube",
-      "Ginger & lemongrass",
-      "Wild garlic",
-      "Chili peppers"
-    ],
-    ingredientDescriptions: {
-      "Pork belly cubes": "Thick-cut heritage pork belly marbled with fat — tenderizes beautifully inside the sealed bamboo chamber.",
-      "Fresh bamboo tube": "Freshly harvested green bamboo — the cooking vessel that slowly releases sweet, woody steam to flavor the pork.",
-      "Ginger & lemongrass": "Highland aromatics that neutralize gamey notes and infuse the sealed chamber with bright, warming fragrance.",
-      "Wild garlic": "Smaller, more intensely flavored than commercial garlic; foraged from shaded forest clearings.",
-      "Chili peppers": "Native highland chilies — mild enough to add warmth without overwhelming the bamboo-infused pork flavor."
-    },
-    ingredientTheme: "Fresh bamboo not only acts as a pot but dynamically flavors the meat as its internal moisture turns to steam.",
-    nutrition: {
-      calories: 380,
-      carbs: "3g",
-      protein: "28g",
-      fat: "29g",
-      sugar: "1g",
-      fiber: "0g",
-      highlight: "Rich Ancestral Protein",
-      highlightDescription: "A powerful combination of dense protein and natural fats cooked without additives or processed ingredients — exactly as highland ancestors intended for sustained physical endurance."
-    },
-    image: "https://images.unsplash.com/photo-1514326640560-7d063ef2aed5?w=800&q=80",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["hardcore", "smoky", "river"]
-  },
-  {
-    id: "prod-109",
-    name: "Pinagba na Utan",
-    price: 60,
-    quote: "A medley of highland root vegetables and indigenous leafy greens stewed in light ginger broth.",
-    history: {
-      origin: "Bukidnon Backyard Farms",
-      summary: "Daily nourishment for highland families, highlighting the natural flavors of freshly picked produce. Embodying zero-waste sustainability, every part of the harvested vegetable is utilized.",
-      funFacts: [
-        "Taro leaves must be cooked perfectly; undercooked leaves contain calcium oxalate crystals that cause an itchy throat.",
-        "The broth is never boiled vigorously, only gently simmered to keep the vegetables intact."
-      ],
-      impact: "The backbone of daily sustenance, reflecting the quiet, enduring lifestyle of the highland farmer."
-    },
-    culturalTie: {
-      boothRelevance: "Provides a strictly vegetarian option that stays 100% true to the indigenous dietary staples.",
-      themeConnection: "Freshly harvested mountain greens supply vital nutrients harvested straight from backyard highland gardens, reinforcing sustainable living."
-    },
-    ingredients: [
-      "Squash",
-      "Taro leaves",
-      "Okra",
-      "Eggplant",
-      "Ginger broth"
-    ],
-    ingredientDescriptions: {
-      "Squash": "Highland-grown kalabasa with dense, sweet orange flesh; a rich source of beta-carotene and vitamin A.",
-      "Taro leaves": "Tender young leaves harvested from taro plants — must be fully cooked to neutralize naturally occurring calcium oxalate.",
-      "Okra": "Pods that release a natural starch into the broth, giving it a slightly silky, thickened body.",
-      "Eggplant": "Locally grown talong that absorbs the ginger broth beautifully, becoming buttery soft when simmered.",
-      "Ginger broth": "The aromatic, warming base made by simmering fresh knobs of highland ginger in mountain spring water."
-    },
-    ingredientTheme: "Taro leaves and roots demonstrate the indigenous philosophy of full-plant utilization.",
-    nutrition: {
-      calories: 140,
-      carbs: "22g",
-      protein: "4g",
-      fat: "2g",
+      calories: 90,
+      carbs: "18g",
+      protein: "2g",
+      fat: "1g",
       sugar: "6g",
-      fiber: "5g",
-      highlight: "Low Calorie Vegan",
-      highlightDescription: "A guilt-free, plant-based powerhouse rich in dietary fiber and vitamins from a diverse mix of highland vegetables — ideal for mindful, sustainable eating."
+      fiber: "0g",
+      highlight: "Banayad na Meryenda",
+      highlightDescription: "Ang isang piraso ng puto ay naglalaman ng sapat na carbohydrates bilang panawid-gutom sa kalagitnaan ng araw."
     },
-    image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&q=80",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["hardcore", "savory", "river"]
+    image: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Puto_cheese.jpg",
+    quizTags: ["sweet", "savory", "bite-sized"]
   },
   {
-    id: "prod-110",
-    name: "Buntog Tea & Herbs",
-    price: 35,
-    quote: "Invigorating hot herbal tea steeped from wild mountain lemongrass, pandan leaves, and honey.",
+    id: "prod-005",
+    name: "Putong may keso (3 piraso)",
+    price: 20,
+    quote: "Tatlong piraso ng paboritong esponghang puto na may keso. Mas marami, mas masaya!",
     history: {
-      origin: "Panay Bukidnon Highlands",
-      summary: "Traditional herbal infusions have been used by Panay Bukidnon elders to warm the body in chilly mountain altitudes. Offered to guests upon arriving at highland homes as a gesture of hospitality.",
+      origin: "Pilipinas",
+      summary: "Ito ang karaniwang benta ng puto sa mga kanto at pamilihan, mas masarap kapag pinagsaluhan.",
       funFacts: [
-        "Pandan leaves are tied into neat knots before boiling to release maximum aromatic oils.",
-        "Wild honey hunters in Panay track bees by observing flight paths near watering holes."
+        "Kapag tatlo ang binili, madalas ay sakto ito bilang pamalit sa isang mabigat na meryenda.",
+        "Ang bilog na hugis ng puto ay sumisimbolo din minsan sa pagkabuo at pagkakaisa."
       ],
-      impact: "Acts as a social unifier and natural medicine, cementing the bond between host and visitor."
+      impact: "Mura at nakakabusog, ito ang go-to meryenda ng mga Pilipino on the go."
     },
     culturalTie: {
-      boothRelevance: "The perfect authentic beverage to wash down our rich, smoky meat dishes.",
-      themeConnection: "Wild mountain lemongrass and raw honey serve as natural restorative remedies in highland culture, showcasing indigenous medicinal knowledge."
+      boothRelevance: "Promo naming alok para sa mga gustong magbahagi sa kaibigan o ubusin nang mag-isa.",
+      themeConnection: "Sinasalamin nito ang abot-kayang pagkain sa mga kalsada at palengke ng Pilipinas."
     },
     ingredients: [
-      "Wild lemongrass",
-      "Fresh pandan leaves",
-      "Wild forest honey",
-      "Mountain spring water"
+      "Galapong o Harina",
+      "Gatas",
+      "Asukal",
+      "Baking powder",
+      "Keso"
     ],
     ingredientDescriptions: {
-      "Wild lemongrass": "Foraged from highland clearings — more intensely fragrant and citrusy than farmed varieties; calms anxiety and aids digestion.",
-      "Fresh pandan leaves": "Knotted before boiling to release concentrated aromatic oils that give the tea its signature vanilla-green scent.",
-      "Wild forest honey": "Unprocessed raw honey gathered by indigenous honey-hunters from mountain hives; rich in enzymes and antioxidants.",
-      "Mountain spring water": "Pure, mineral-rich water sourced from highland springs — the clean base that lets the herbal flavors shine."
+      "Galapong o Harina": "Pinong harina para sa mala-ulap na lambot.",
+      "Gatas": "Nagpapasarap sa masa at nagdadagdag ng kaunting protina.",
+      "Asukal": "Matamis na pampalasa.",
+      "Baking powder": "Ang lihim sa pag-alsa at pagiging fluffy ng kakanin.",
+      "Keso": "Klasikong paborito bilang topping na nagpapalinamnam."
     },
-    ingredientTheme: "Wild forest honey embodies the untamed richness of the mountains, gathered sustainably by indigenous honey-hunters.",
+    ingredientTheme: "Sulit na meryenda na hindi nagtitipid sa lasa at kalidad.",
     nutrition: {
-      calories: 60,
-      carbs: "15g",
+      calories: 270,
+      carbs: "54g",
+      protein: "6g",
+      fat: "3g",
+      sugar: "18g",
+      fiber: "0g",
+      highlight: "Siksik at Sulit",
+      highlightDescription: "Ang tatlong pirasong puto ay nagbibigay ng sapat na enerhiya para maipagpatuloy ang trabaho at pag-aaral nang hindi nabibigatan."
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Puto_cheese.jpg",
+    quizTags: ["sweet", "savory", "sharing"]
+  },
+  {
+    id: "prod-006",
+    name: "Puto kutsinta",
+    price: 7,
+    quote: "Makunat, matamis, at malinamnam na kutsinta, siksik sa sarap lalo na kung may niyog.",
+    history: {
+      origin: "Pilipinas",
+      summary: "Isang tradisyonal na kakanin na laging kasama ng puto tuwing meryenda, gawa sa lye water at asukal na pula.",
+      funFacts: [
+        "Ang kulay nito ay dahil sa asukal na pula o minsan ay katas ng annatto (atsuete).",
+        "Ang lihiya o lye water ang nagbibigay ng katangi-tanging kunat ng kutsinta."
+      ],
+      impact: "Nagpapakita ng husay sa paggawa ng iba't ibang uri ng kakanin gamit ang parehong pangunahing sangkap."
+    },
+    culturalTie: {
+      boothRelevance: "Hindi kumpleto ang karanasan ng kakanin kung walang kutsinta na paborito ng marami.",
+      themeConnection: "Sumisimbolo sa kulay at sigla ng pagkaing Pilipino."
+    },
+    ingredients: [
+      "Harina at Tapioca",
+      "Asukal na pula",
+      "Lihiya (Lye water)",
+      "Kinayod na niyog"
+    ],
+    ingredientDescriptions: {
+      "Harina at Tapioca": "Ang pinaghalong ginagamit upang makuha ang malambot ngunit makunat na tekstura.",
+      "Asukal na pula": "Nagbibigay ng malalim at mala-karamel na tamis at kayumangging kulay.",
+      "Lihiya (Lye water)": "Pangunahing sangkap para maging 'jelly-like' at makunat ang kakanin.",
+      "Kinayod na niyog": "Inilalagay sa ibabaw upang pandagdag-lasa at balanse sa tamis."
+    },
+    ingredientTheme: "Tekstura at tradisyon—ang lihiya at tapioca ay nagbibigay ng kakaibang karanasan sa pag-nguya.",
+    nutrition: {
+      calories: 80,
+      carbs: "19g",
+      protein: "1g",
+      fat: "0g",
+      sugar: "8g",
+      fiber: "0g",
+      highlight: "Fat-Free Sweetness",
+      highlightDescription: "Dahil wala itong mantika o gata (maliban sa niyog sa ibabaw), ang kutsinta ay isang light na meryenda na hindi nakakaumay."
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/23/Kutsinta.jpg",
+    quizTags: ["sweet", "traditional", "bite-sized"]
+  },
+  {
+    id: "prod-007",
+    name: "Puto kutsinta (3 piraso)",
+    price: 20,
+    quote: "Bakit ka pa kukuha ng isa kung kaya mo namang ubusin ang tatlo? Kutsintang may niyog na nagpapalaway.",
+    history: {
+      origin: "Pilipinas",
+      summary: "Ito ang sulit na pormat para sa mga gustong mapadami ang kain o magbahagi sa iba.",
+      funFacts: [
+        "Madalas itong tinitinda ng mga nag-iikot na magkakanin kasama ng puto at sapin-sapin.",
+        "Sa kulturang Pinoy, ang kakanin ay madalas ipasaubong sa pamilya pagkagaling sa trabaho."
+      ],
+      impact: "Nagsisilbing pampasaya ng hapag-kainan, perpekto sa mainit na kape tuwing hapon."
+    },
+    culturalTie: {
+      boothRelevance: "Ang tatlong piraso ay siguradong magpapasaya ng isang nagugutom na kustomer.",
+      themeConnection: "Sinasalamin nito ang kaugaliang pag-uwi ng pasalubong para sa pamilya."
+    },
+    ingredients: [
+      "Harina at Tapioca",
+      "Asukal na pula",
+      "Lihiya (Lye water)",
+      "Kinayod na niyog"
+    ],
+    ingredientDescriptions: {
+      "Harina at Tapioca": "Pundasyon ng malambot at makunat na hugis ng kutsinta.",
+      "Asukal na pula": "Katamisan na nagpapakilig sa panlasa.",
+      "Lihiya (Lye water)": "Pampabuo at pampakunat.",
+      "Kinayod na niyog": "Nagdadagdag ng texture na nakaka-adik kainin kasabay ng kutsinta."
+    },
+    ingredientTheme: "Ang pag-ibig sa matatamis at makukunat na pagkain ay naka-ukit na sa panlasang Pilipino.",
+    nutrition: {
+      calories: 240,
+      carbs: "57g",
+      protein: "3g",
+      fat: "1g",
+      sugar: "24g",
+      fiber: "1g",
+      highlight: "Quick Energy Boost",
+      highlightDescription: "Ang simpleng carbohydrates nito ay madaling natutunaw upang bigyan ka ng agarang lakas at sigla."
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/23/Kutsinta.jpg",
+    quizTags: ["sweet", "traditional", "sharing"]
+  },
+  {
+    id: "prod-008",
+    name: "Nilupak na saging",
+    price: 25,
+    quote: "Nilamas at pinaghalong saba, gata, at asukal — simpleng kakaning puno ng tradisyon at sarap.",
+    history: {
+      origin: "Luzon at Visayas",
+      summary: "Ang paglulupak ay isang proseso ng pagbayo o pagdurog ng saging, kamoteng kahoy, o kamote. Ang nilupak na saging ay sikat sa mga probinsya bilang meryenda.",
+      funFacts: [
+        "Tradisyonal na ginagamit ang malaking lusong at halo upang bayuhin ang saging hanggang maging makinis ang tekstura.",
+        "Maaari ring dagdagan ng margarina para mas bumango at mas maging malinamnam."
+      ],
+      impact: "Isang paraan noon ng mga kabataan at pamilya na magtulungan sa pamamagitan ng salitan sa pagbayo sa lusong."
+    },
+    culturalTie: {
+      boothRelevance: "Isang nakakabusog na meryenda na nagpapakita ng pagka-maparaan gamit ang saging na saba.",
+      themeConnection: "Sinasalamin nito ang bayanihan at pagsisikap sa pamamagitan ng paggawa nito nang mano-mano."
+    },
+    ingredients: [
+      "Saging na saba",
+      "Kinayod na niyog",
+      "Asukal",
+      "Margarina o Butter"
+    ],
+    ingredientDescriptions: {
+      "Saging na saba": "Hilaw o manibalang na saging na pinakuluan bago bayuhin.",
+      "Kinayod na niyog": "Pampalapot at nagbibigay ng natural na linamnam at texture.",
+      "Asukal": "Nagdadagdag ng saktong tamis upang bumagay sa lasa ng saging.",
+      "Margarina o Butter": "Inilalagay habang mainit pa para matunaw at magbigay ng aroma at asim-alat na linamnam."
+    },
+    ingredientTheme: "Pag-asa sa lokal na agrikultura — ang saging at niyog ay karaniwang tumutubo sa bawat bakuran sa probinsya.",
+    nutrition: {
+      calories: 210,
+      carbs: "42g",
+      protein: "2g",
+      fat: "6g",
+      sugar: "18g",
+      fiber: "4g",
+      highlight: "Mataas sa Potasyum",
+      highlightDescription: "Ang saging na saba ay likas na mayaman sa potasyum at hibla na mabuti sa pag-iwas sa pulikat at pagpapabuti ng tiyan."
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Nilupak.jpg",
+    quizTags: ["sweet", "traditional", "comfort"]
+  },
+  {
+    id: "prod-009",
+    name: "Pritong kamote",
+    price: 25,
+    quote: "Matamis, mainit, at malutong na pritong kamote, nababalot ng karamelisadong asukal.",
+    history: {
+      origin: "Kalsada ng Pilipinas",
+      summary: "Tinatawag ding kamote cue kung nakatuhog, ito ay isang sikat na street food at meryenda na piniprito sa asukal na pula.",
+      funFacts: [
+        "Ang kamote ay naging pangunahing alternatibo sa bigas noong panahon ng digmaan dahil madali itong itanim.",
+        "Ang pagprito nang may asukal ay nakakatulong magbigay ng makintab at malutong na coating."
+      ],
+      impact: "Simbolo ng kasipagan at pagiging maparaan ng mga Pilipino pagdating sa abot-kayang pagkain."
+    },
+    culturalTie: {
+      boothRelevance: "Isa sa mga pinakamabentang paborito na agad nakakabuo ng enerhiya para sa mga estudyante at guro.",
+      themeConnection: "Sinasalamin ang masiglang street food culture at agrikultura ng mga halamang-ugat sa bansa."
+    },
+    ingredients: [
+      "Kamote (Sweet potato)",
+      "Asukal na pula",
+      "Mantika"
+    ],
+    ingredientDescriptions: {
+      "Kamote (Sweet potato)": "Nagbibigay ng malambot na loob at mayaman sa fiber at bitamina.",
+      "Asukal na pula": "Natutunaw sa mantika upang maging karamel na bumabalot sa bawat hiwa ng kamote.",
+      "Mantika": "Ginagamit sa deep-frying para maluto ng pantay at malutong."
+    },
+    ingredientTheme: "Ang karamelisasyon ng asukal ay nag-aangat sa simpleng kamote patungo sa isang nakakaadik na matamis na meryenda.",
+    nutrition: {
+      calories: 250,
+      carbs: "45g",
+      protein: "2g",
+      fat: "8g",
+      sugar: "20g",
+      fiber: "5g",
+      highlight: "Bitamina A at Hibla",
+      highlightDescription: "Nagtataglay ng beta-carotene mula sa kamote, nakakatulong sa kalusugan ng mata at nagbibigay ng fiber para sa tiyan."
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/07/Camotecue.jpg",
+    quizTags: ["sweet", "crunchy", "street-food"]
+  },
+  {
+    id: "prod-010",
+    name: "Binaki",
+    price: 25,
+    quote: "Pinasingawang kakaning gawa sa giniling na mais at binalot sa balat nito, tamis at sarap mula sa Bukidnon.",
+    history: {
+      origin: "Bukidnon, Hilagang Mindanao",
+      summary: "Ang Binaki, o pintos sa ilang bahagi ng Cebu, ay isang matamis na tamales na gawa sa sariwang mais.",
+      funFacts: [
+        "Ang pangalan ay sinasabing hango sa salitang 'baki' o palaka, dahil sa hugis ng balot nitong parang nakatiklop na palaka.",
+        "Karaniwan itong binebenta sa mga bus terminal at palengke bilang pasalubong."
+      ],
+      impact: "Ipinagmamalaki ang masaganang ani ng mais sa Mindanao at Visayas."
+    },
+    culturalTie: {
+      boothRelevance: "Isang kakaibang kakanin na hindi madalas makita, na nagdadala ng lasa ng mais mula sa probinsya sa aming booth.",
+      themeConnection: "Pagbibigay-pugay sa mga magsasaka ng mais at pagpapakita ng zero-waste dahil sa paggamit ng balat ng mais (corn husk) bilang pambalot."
+    },
+    ingredients: [
+      "Sariwang butil ng mais",
+      "Gatas na kondensada",
+      "Butter o Margarina",
+      "Balat ng mais (Corn husk)"
+    ],
+    ingredientDescriptions: {
+      "Sariwang butil ng mais": "Ang puso ng kakanin; ginigiling habang sariwa pa para makuha ang natural na gatas nito.",
+      "Gatas na kondensada": "Nagbibigay ng tamis at nagpapakinis sa tekstura.",
+      "Butter o Margarina": "Nagdadagdag ng linamnam at nagpapabango lalo habang pinapasingawan.",
+      "Balat ng mais (Corn husk)": "Nagsisilbing lalagyan at pambalot na nag-iiwan ng amoy ng mais sa mismong kakanin."
+    },
+    ingredientTheme: "Ang paggamit ng buong halaman ng mais mula sa butil hanggang balat ay kahanga-hangang pamamaraan ng mga ninuno.",
+    nutrition: {
+      calories: 190,
+      carbs: "35g",
+      protein: "4g",
+      fat: "5g",
+      sugar: "12g",
+      fiber: "3g",
+      highlight: "Likas na Tamis ng Mais",
+      highlightDescription: "May taglay itong magandang carbohydrates at bitamina B mula sa sariwang mais na tumutulong sa metabolismo."
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Binaki.jpg",
+    quizTags: ["sweet", "traditional", "corn"]
+  },
+  {
+    id: "prod-011",
+    name: "Katas ng pinya",
+    price: 10,
+    quote: "Pampalamig na inumin, matamis, at may asim na siguradong pamatid-uhaw.",
+    history: {
+      origin: "Bukidnon at iba pang plantasyon sa Pilipinas",
+      summary: "Ang Pilipinas ay isa sa pinakamalaking producer ng pinya sa buong mundo, kaya ang katas ng pinya ay karaniwang pampalamig sa kahit anong handaan.",
+      funFacts: [
+        "Ang pinya ay naglalaman ng bromelain, isang enzyme na tumutulong matunaw ang mga kinain lalo na ang mga karne.",
+        "Sikat ito bilang kapareha ng mga mamantikang pagkain o meryenda."
+      ],
+      impact: "Naging pangunahing inuming nagrerepresenta sa kasaganahan ng mga tropikal na prutas sa bansa."
+    },
+    culturalTie: {
+      boothRelevance: "Ang aming pamatid-uhaw na perpektong panghugas pagkatapos kumain ng aming mga matatamis na kakanin.",
+      themeConnection: "Sinasalamin nito ang init ng panahon sa Pilipinas at ang malikhaing solusyon gamit ang tropikal na prutas upang magpalamig."
+    },
+    ingredients: [
+      "Sariwang pinya",
+      "Tubig",
+      "Asukal",
+      "Yelo"
+    ],
+    ingredientDescriptions: {
+      "Sariwang pinya": "Piniga upang makuha ang matamis at maasim nitong katas na sagana sa bitamina.",
+      "Tubig": "Upang balansehin at timplahin ang katas.",
+      "Asukal": "Upang i-adjust ang tamis base sa asim ng pinya.",
+      "Yelo": "Upang magbigay ng napakalamig at nakaka-refresh na pakiramdam."
+    },
+    ingredientTheme: "Ang asim at tamis ng pinya ay nag-aalis ng umay mula sa anumang mabibigat o matatamis na kinain.",
+    nutrition: {
+      calories: 50,
+      carbs: "13g",
       protein: "0g",
       fat: "0g",
-      sugar: "14g",
+      sugar: "10g",
       fiber: "0g",
-      highlight: "Light Hydration",
-      highlightDescription: "A natural, zero-fat herbal infusion with just a touch of wild honey for gentle energy. The lemongrass and pandan are clinically recognized for reducing stress and aiding sleep."
+      highlight: "Bitamina C at Hydration",
+      highlightDescription: "Mayaman sa Bitamina C na nagpapalakas ng resistensya at bromelain na tumutulong sa panunaw."
     },
-    image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=800&q=80",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    quizTags: ["hyped", "savory", "mist"]
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/23/Pineapple_juice.jpg",
+    quizTags: ["refreshing", "sweet", "chill"]
   }
 ];
 

@@ -65,7 +65,7 @@ const Checkout = (() => {
 
   function open() {
     if (Cart.getCount() === 0) {
-      window.showToast('Your cart is empty!', 'warning');
+      window.showToast('Walang laman ang iyong cart!', 'warning');
       return;
     }
 
@@ -143,7 +143,7 @@ const Checkout = (() => {
       window.showToast(result.message, 'success');
       _updateGCashLink();
     } else {
-      window.showToast(result.message, 'error');
+      window.showToast(result.message || 'May naganap na error', 'error');
       input.classList.add('border-red-400');
       setTimeout(() => input.classList.remove('border-red-400'), 1500);
     }
@@ -242,16 +242,16 @@ const Checkout = (() => {
     const gcashName   = payment === 'gcash' ? document.getElementById('f-gcash-name')?.value?.trim() : 'CASH';
     const gcashRef    = payment === 'gcash' ? document.getElementById('f-gcash-ref')?.value?.trim() : 'N/A';
 
-    if (!name)        { window.showToast('Please enter your name.', 'error');              return null; }
+    if (!name)        { window.showToast('Pakilagay ang iyong pangalan.', 'error');              return null; }
     if (payment === 'gcash') {
-      if (!gcashName) { window.showToast('Please enter your GCash account name.', 'error'); return null; }
+      if (!gcashName) { window.showToast('Pakilagay ang iyong GCash account name.', 'error'); return null; }
       if (!gcashRef || gcashRef.length !== 13 || isNaN(Number(gcashRef))) {
-        window.showToast('Please enter a valid 13-digit GCash Reference Number.', 'error'); return null; 
+        window.showToast('Mangyaring ilagay ang wastong 13-digit na GCash Reference Number.', 'error'); return null; 
       }
     }
-    if (!fulfillment) { window.showToast('Please choose pickup or delivery.', 'error'); return null; }
+    if (!fulfillment) { window.showToast('Mangyaring pumili ng paraan ng pagkuha (pickup o delivery).', 'error'); return null; }
     if (fulfillment === 'delivery' && !building) {
-      window.showToast('Please enter your delivery building & room.', 'error');
+      window.showToast('Pakilagay ang gusali at silid para sa delivery.', 'error');
       return null;
     }
 
@@ -266,7 +266,7 @@ const Checkout = (() => {
 
     const snapshot = Cart.getSnapshot();
     if (snapshot.count === 0) {
-      window.showToast('Your cart is empty!', 'warning');
+      window.showToast('Walang laman ang iyong cart!', 'warning');
       return;
     }
 

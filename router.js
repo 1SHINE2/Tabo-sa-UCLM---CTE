@@ -80,6 +80,11 @@ const Router = (() => {
       return;
     }
 
+    if (hash === '#gallery') {
+      showView('view-gallery');
+      return;
+    }
+
     if (hash.startsWith('#gallery-')) {
       showView('view-gallery');
       const titleMap = {

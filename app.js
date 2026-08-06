@@ -90,8 +90,8 @@ const App = (() => {
             <h3 class="shopee-title">${product.name}</h3>
             <p class="text-xs text-smoke mb-2 line-clamp-1">${ingPreview}...</p>
             <div class="shopee-price">₱${product.price}</div>
-            <button type="button" class="shopee-add-btn" onclick="event.preventDefault(); event.stopPropagation(); Cart.changeQty('${product.id}', 1); window.showToast('Added to cart!', 'success');">
-              + Add
+            <button type="button" class="shopee-add-btn" onclick="event.preventDefault(); event.stopPropagation(); Cart.changeQty('${product.id}', 1); window.showToast('Naidagdag sa cart!', 'success');">
+              + Idagdag
             </button>
           </div>
         </a>

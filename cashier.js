@@ -104,7 +104,7 @@ const CashierPOS = (() => {
   function _checkPIN() {
     if (pinBuffer === CASHIER_PIN) {
       pinUnlocked = true;
-      window.showToast('🔓 Cashier Mode Unlocked!', 'success');
+      window.showToast('🔓 Bukas na ang Cashier Mode!', 'success');
       _renderPOS();
       startQueuePolling();
     } else {
@@ -466,7 +466,7 @@ const CashierPOS = (() => {
     if (refInput) refInput.value = '';
     validateGCash();
 
-    window.showToast('Workspace cleared for new walk-in sale.', 'success');
+    window.showToast('Nalinis na ang workspace para sa bagong walk-in sale.', 'success');
   }
 
   function loadOrderToPOS(orderId) {
@@ -544,7 +544,7 @@ const CashierPOS = (() => {
     );
 
     if (!matchedProduct) {
-      window.showToast(`❌ Product not found`, 'error');
+      window.showToast(`❌ Hindi natagpuan ang produkto`, 'error');
       input.value = '';
       return;
     }
@@ -721,7 +721,7 @@ const CashierPOS = (() => {
   // ═══════════════════════════════════════════════════════════════════════════
 
   async function completeSale() {
-    if (bill.size === 0) return window.showToast("Bill is empty!", "error");
+    if (bill.size === 0) return window.showToast("Walang laman ang bill!", "error");
 
     const btn = document.getElementById('btn-complete-sale');
     if (btn) { btn.disabled = true; btn.textContent = '⏳ Processing...'; }
@@ -762,7 +762,7 @@ const CashierPOS = (() => {
         await fetch(WEBHOOK, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updatePayload) });
       } catch(e) {}
 
-      window.showToast('✅ Order Fulfilled & Completed!', 'success');
+      window.showToast('✅ Matagumpay na natapos ang Order!', 'success');
       startNewWalkin();
 
     } else {
@@ -797,7 +797,7 @@ const CashierPOS = (() => {
         await fetch(WEBHOOK, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       } catch(e) {}
 
-      window.showToast('✅ Walk-In Sale Completed!', 'success');
+      window.showToast('✅ Matagumpay na natapos ang Walk-In Sale!', 'success');
       startNewWalkin();
     }
 

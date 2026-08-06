@@ -181,8 +181,8 @@
 
       <!-- Discount Section -->
       <div class="flex gap-2 mb-2">
-        <input type="text" id="voucher-input" class="form-input text-sm uppercase" placeholder="Enter Voucher Code" />
-        <button type="button" id="apply-voucher-btn" class="btn btn-outline" onclick="Checkout.applyVoucher()">Apply</button>
+        <input type="text" id="voucher-input" class="form-input text-sm uppercase" placeholder="Ilagay ang Voucher Code" />
+        <button type="button" id="apply-voucher-btn" class="btn btn-outline" onclick="Checkout.applyVoucher()">Ilapat</button>
       </div>
       <div id="voucher-applied-badge" class="hidden mb-4"></div>
 
@@ -220,29 +220,29 @@
         
         <div id="payment-gcash-fields">
           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4 text-center">
-            <p class="text-xs text-smoke mb-2">Scan or tap to pay via GCash: <strong id="gcash-display-number"></strong></p>
+            <p class="text-xs text-smoke mb-2">I-scan o i-tap para magbayad via GCash: <strong id="gcash-display-number"></strong></p>
             <!-- TODO: Add your GCash QR Image here -->
             <img src="https://placehold.co/200x200/F4E8C9/6B4226?text=GCash+QR" alt="GCash QR" class="w-32 h-32 mx-auto rounded-md shadow-sm mb-3">
             <!-- GCash deep link -->
             <a id="gcash-pay-link" href="#" target="_blank" class="btn btn-primary w-full">
-              <span id="gcash-pay-label">Pay via GCash App</span>
+              <span id="gcash-pay-label">Magbayad via GCash App</span>
             </a>
-            <button id="copy-gcash-btn" type="button" class="btn btn-outline w-full mt-2" onclick="Checkout.copyGCashNumber()">Copy GCash Number</button>
+            <button id="copy-gcash-btn" type="button" class="btn btn-outline w-full mt-2" onclick="Checkout.copyGCashNumber()">Kopyahin ang GCash Number</button>
           </div>
           <div>
-            <label class="form-label">GCash Name (Sender)</label>
-            <input type="text" id="f-gcash-name" class="form-input" placeholder="e.g. Juan D." required />
+            <label class="form-label">Pangalan sa GCash (Nagpadala)</label>
+            <input type="text" id="f-gcash-name" class="form-input" placeholder="hal. Juan D." required />
           </div>
           <div class="mt-3">
             <label class="form-label">GCash Reference No. <span class="text-red-500">*</span></label>
-            <input type="text" id="f-gcash-ref" class="form-input font-mono tracking-widest" placeholder="13 digits (e.g. 1000123456789)" maxlength="13" required />
-            <p class="text-xs text-smoke mt-1">Enter the 13-digit reference number from your receipt to verify payment.</p>
+            <input type="text" id="f-gcash-ref" class="form-input font-mono tracking-widest" placeholder="13 digits (hal. 1000123456789)" maxlength="13" required />
+            <p class="text-xs text-smoke mt-1">Ilagay ang 13-digit reference number mula sa iyong resibo upang kumpirmahin ang bayad.</p>
           </div>
         </div>
         
         <div id="payment-cash-fields" class="hidden bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4 text-center">
-          <p class="text-sm text-smoke font-bold mb-1">Pay at the Booth</p>
-          <p class="text-xs text-smoke">Please prepare the exact amount if possible. We will process your order once payment is received at our booth.</p>
+          <p class="text-sm text-smoke font-bold mb-1">Magbayad sa Booth</p>
+          <p class="text-xs text-smoke">Mangyaring ihanda ang eksaktong halaga kung maaari. Ipoproseso namin ang iyong order kapag natanggap na ang bayad sa aming booth.</p>
         </div>
 
         <div class="space-y-4 mt-4">

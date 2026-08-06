@@ -28,7 +28,7 @@ const Cart = (() => {
       if (!items[requiredId]) {
         currentDiscount = 0;
         activeVoucher = null;
-        window.showToast('Voucher removed (Spirit dish not in cart)', 'warning');
+        window.showToast('Tinanggal ang voucher (Wala sa cart ang Espirituwal na Putahe)', 'warning');
       }
     }
 
@@ -63,14 +63,14 @@ const Cart = (() => {
       const lockedDish = localStorage.getItem('quiz_completed_dish');
 
       if (lockedDish !== requiredId) {
-        window.showToast('Invalid voucher for this device.', 'error');
+        window.showToast('Imbalido ang voucher para sa device na ito.', 'error');
         if (input) input.value = '';
         _render();
         return { success: false, message: 'Invalid voucher for this device.' };
       }
 
       if (!items[requiredId]) {
-        window.showToast('Your Spirit Dish must be in the cart to use this!', 'error');
+        window.showToast('Dapat nasa cart ang iyong Espirituwal na Putahe upang magamit ito!', 'error');
         _render();
         return { success: false, message: 'Your Spirit Dish must be in the cart to use this!' };
       }
@@ -78,12 +78,12 @@ const Cart = (() => {
       // Valid!
       currentDiscount = DISCOUNT_AMOUNT;
       activeVoucher = code;
-      window.showToast('Blessing applied! ₱10 off.', 'success');
+      window.showToast('Nailapat na ang biyaya! ₱10 diskwento.', 'success');
       _render();
       return { success: true, amount: DISCOUNT_AMOUNT, code, message: 'Blessing applied! ₱10 off.' };
     }
 
-    window.showToast('Invalid voucher code.', 'error');
+    window.showToast('Imbalido ang voucher code.', 'error');
     _render();
     return { success: false, message: 'Invalid voucher code.' };
   }

@@ -24,58 +24,58 @@ const Quiz = (() => {
 
   const QUESTIONS = [
     {
-      title: "The Basecamp",
+      title: "Ang Kampo",
       nodeClass: "node-forest",
       bg: "Madjaas.jpg",
-      text: "You arrive at the edge of the Panay forest. How do you prepare?",
+      text: "Nakarating ka sa gilid ng gubat ng Panay. Paano ka maghahanda?",
       options: [
-        { label: "Observe the wildlife silently.", tags: ["chill", "mist"] },
-        { label: "Charge ahead to clear the trail.", tags: ["hyped", "hardcore"] },
-        { label: "Forage for sweet berries.", tags: ["sweet"] }
+        { label: "Tahimik na pagmasdan ang mga hayop.", tags: ["chill", "mist"] },
+        { label: "Diretsong maglakad upang linisin ang daan.", tags: ["hyped", "hardcore"] },
+        { label: "Maghanap ng matatamis na prutas.", tags: ["sweet"] }
       ]
     },
     {
-      title: "The River Crossing",
+      title: "Ang Pagtawid sa Ilog",
       nodeClass: "node-river",
       bg: "Binanog - dance.jpg",
-      text: "A cold mountain river blocks your path. What's your move?",
+      text: "Isang malamig na ilog mula sa bundok ang humarang sa iyong daan. Ano ang gagawin mo?",
       options: [
-        { label: "Find a calm, shallow spot to wade.", tags: ["river", "chill"] },
-        { label: "Dive in and swim against the current.", tags: ["hardcore", "hunt"] },
-        { label: "Rest by the bank and cook a savory meal.", tags: ["savory", "river"] }
+        { label: "Maghanap ng mababaw at kalmadong bahagi upang maglakad.", tags: ["river", "chill"] },
+        { label: "Tumalon at lumangoy salungat sa agos.", tags: ["hardcore", "hunt"] },
+        { label: "Magpahinga sa pampang at magluto ng masarap na pagkain.", tags: ["savory", "river"] }
       ]
     },
     {
-      title: "The Weaver's Hut",
+      title: "Kubo ng Manghahabi",
       nodeClass: "node-mountain",
       bg: "weaving.jpg",
-      text: "You meet an elder weaving Panubok. She offers you a gift.",
+      text: "Nakatagpo mo ang isang matanda na naghahabi ng Panubok. Inalok ka niya ng regalo.",
       options: [
-        { label: "A brightly colored, sweet-smelling cloth.", tags: ["sweet", "weave"] },
-        { label: "A sturdy, earthy-toned hunting sash.", tags: ["savory", "hunt"] },
-        { label: "A soft, misty-grey blanket for the cold.", tags: ["mist", "chill"] }
+        { label: "Isang makulay at mabangong tela.", tags: ["sweet", "weave"] },
+        { label: "Isang matibay na sinturon para sa pangangaso.", tags: ["savory", "hunt"] },
+        { label: "Isang malambot na kumot para sa lamig.", tags: ["mist", "chill"] }
       ]
     },
     {
-      title: "The Evening Fire",
+      title: "Ang Apoy sa Gabi",
       nodeClass: "node-fire",
       bg: "the evening fire.jpg",
-      text: "Night falls. What do you throw into the communal fire?",
+      text: "Sumapit na ang gabi. Ano ang ihuhulog mo sa apoy ng komunidad?",
       options: [
-        { label: "Dry bamboo for a massive, roaring blaze.", tags: ["hyped", "smoky"] },
-        { label: "Slow-burning mahogany for a long, smoky heat.", tags: ["smoky", "chill"] },
-        { label: "Sugarcane husks for a sweet, crackling aroma.", tags: ["sweet", "savory"] }
+        { label: "Tuyong kawayan para sa malaking apoy.", tags: ["hyped", "smoky"] },
+        { label: "Matigas na kahoy para sa matagal at mausok na init.", tags: ["smoky", "chill"] },
+        { label: "Tubo (sugarcane) para sa matamis na amoy.", tags: ["sweet", "savory"] }
       ]
     },
     {
-      title: "The Summit",
+      title: "Ang Tuktok",
       nodeClass: "node-mountain",
       bg: "Madjaas.jpg",
-      text: "You reach the peak at dawn. What calls to your spirit?",
+      text: "Nakarating ka sa tuktok bago mag-umaga. Ano ang tumatawag sa iyong espiritu?",
       options: [
-        { label: "The roaring wind and endless sky.", tags: ["peak", "hardcore"] },
-        { label: "The quiet mist settling in the valleys.", tags: ["mist", "chill"] },
-        { label: "The promise of a grand feast upon returning.", tags: ["savory", "hunt"] }
+        { label: "Ang malakas na hangin at walang hanggang langit.", tags: ["peak", "hardcore"] },
+        { label: "Ang tahimik na hamog na bumababa sa lambak.", tags: ["mist", "chill"] },
+        { label: "Ang pangako ng isang malaking piging pag-uwi.", tags: ["savory", "hunt"] }
       ]
     }
   ];
@@ -107,9 +107,9 @@ const Quiz = (() => {
       screen.style.backgroundImage = "url('Madjaas.jpg')";
       wrapper.innerHTML = `
         <div class="quest-node node-forest">
-          <h2 class="drop-shadow-lg">The Spirit Quest</h2>
-          <p class="text-lg opacity-90 mb-8 text-shadow-sm">Do you want to know which Panay Bukidnon spirit dwells within your appetite? Embark on this 5-stop journey to discover your soul dish and unlock a special blessing.</p>
-          <button class="btn btn-gold btn-lg shadow-lg w-full" onclick="Quiz.nextStep()">Begin the Journey</button>
+          <h2 class="drop-shadow-lg">Ang Pagsasaliksik ng Espiritu</h2>
+          <p class="text-lg opacity-90 mb-8 text-shadow-sm">Gusto mo bang malaman kung aling espiritu ng Panay Bukidnon ang nananahan sa iyong panlasa? Simulan ang paglalakbay na ito upang tuklasin ang iyong 'soul dish' at makakuha ng espesyal na biyaya.</p>
+          <button class="btn btn-gold btn-lg shadow-lg w-full" onclick="Quiz.nextStep()">Simulan ang Paglalakbay</button>
         </div>
       `;
     } 
@@ -127,7 +127,7 @@ const Quiz = (() => {
         <div class="quest-map-container" style="background: transparent; min-height: auto;">
           <div class="quest-path"></div>
           <div class="quest-node ${q.nodeClass}">
-            <div class="text-gold text-sm font-bold tracking-widest uppercase mb-2">Waypoint ${currentStep} / ${QUESTIONS.length}</div>
+            <div class="text-gold text-sm font-bold tracking-widest uppercase mb-2">Hakbang ${currentStep} / ${QUESTIONS.length}</div>
             <h2>${q.title}</h2>
             <p class="text-md opacity-90 mb-6">${q.text}</p>
             <div class="flex flex-col gap-3 relative z-10">
@@ -192,13 +192,13 @@ const Quiz = (() => {
     
     let takenBanner = '';
     if (isAlreadyTaken) {
-      takenBanner = `<div class="bg-earth/80 text-white p-2 rounded text-xs text-center mb-3 font-bold uppercase tracking-wider border border-white/20">You have already completed the quest!</div>`;
+      takenBanner = `<div class="bg-earth/80 text-white p-2 rounded text-xs text-center mb-3 font-bold uppercase tracking-wider border border-white/20">Tapos mo na ang pagsasaliksik!</div>`;
     }
 
     wrapper.innerHTML = `
       <div class="quest-node node-fire" style="background: rgba(0,0,0,0.8);">
         ${takenBanner}
-        <p class="text-gold text-xs font-bold uppercase tracking-widest mb-1">Your Spirit Dish Is</p>
+        <p class="text-gold text-xs font-bold uppercase tracking-widest mb-1">Ang Iyong Espirituwal na Putahe ay</p>
         <h2 class="text-3xl font-display font-bold text-white mb-3">${dish.name}</h2>
         
         <img src="${dish.image}" alt="${dish.name}" style="width:100%; height:160px; object-fit:cover; border-radius:12px; margin-bottom:12px; border: 2px solid var(--color-gold);" />
@@ -206,34 +206,34 @@ const Quiz = (() => {
         <p class="text-sm text-gray-300 mb-3 italic font-display">"${dish.quote || dish.description || ''}"</p>
 
         <div class="text-left bg-white/10 p-3 rounded-lg mb-4 border-l-4 border-gold">
-          <p class="text-xs font-bold text-gold uppercase tracking-wide mb-1">Why this dish?</p>
+          <p class="text-xs font-bold text-gold uppercase tracking-wide mb-1">Bakit ito ang iyong putahe?</p>
           <p class="text-xs text-gray-200 leading-relaxed">${dish.culturalTie?.themeConnection || dish.culturalNote || ''}</p>
         </div>
 
         <div class="bg-black/50 border border-gold/30 p-4 rounded-lg mb-6 relative overflow-hidden">
-          <div class="absolute top-0 right-0 bg-gold text-dark text-[10px] px-2 py-1 font-bold rounded-bl-lg">AUTO-APPLIED</div>
-          <p class="text-xs text-gold uppercase font-bold mb-2">Your Unique Blessing</p>
+          <div class="absolute top-0 right-0 bg-gold text-dark text-[10px] px-2 py-1 font-bold rounded-bl-lg">AWTO-APLIKADO</div>
+          <p class="text-xs text-gold uppercase font-bold mb-2">Ang Iyong Natatanging Biyaya</p>
           <div class="text-xl font-bold tracking-widest text-white mb-1 border-b border-dashed border-gray-600 pb-2">${voucherCode}</div>
-          <p class="text-xs text-gray-300 mt-2">This ₱10 discount has been securely saved to your browser and will be automatically applied at checkout!</p>
+          <p class="text-xs text-gray-300 mt-2">Ang ₱10 diskwento na ito ay awtomatikong ilalapat kapag ikaw ay nag-checkout!</p>
         </div>
 
         <button class="btn btn-gold w-full mb-3 shadow-lg" onclick="Router.navigate('#menu')">
-          View Online Menu
+          Tingnan ang Online Menu
         </button>
         <button class="btn btn-outline border-gray-500 text-gray-300 w-full hover:bg-gray-800" onclick="Router.navigate('#home')">
-          Return Home
+          Bumalik sa Simula
         </button>
       </div>
     `;
   }
 
   function resetQuest() {
-    if (confirm('Reset the Spirit Quest? This clears YOUR saved result so you can retake it. Share this option with others so they can reset on their own device before Friday.')) {
+    if (confirm('I-reset ang Pagsasaliksik? Mabubura nito ang iyong nakaraang resulta. Gusto mo bang magpatuloy?')) {
       localStorage.removeItem('quiz_completed_dish');
       localStorage.removeItem('active_voucher');
       currentStep = 0;
       userTags = [];
-      window.showToast && window.showToast('Quest reset! You can now retake the journey.', 'success');
+      window.showToast && window.showToast('Na-reset na! Maaari ka nang magsimula muli.', 'success');
       // Close sidebar and navigate to quest
       document.getElementById('sidebar-drawer')?.classList.remove('open');
       document.getElementById('sidebar-overlay')?.classList.remove('open');
