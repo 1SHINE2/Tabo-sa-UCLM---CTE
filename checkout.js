@@ -79,8 +79,10 @@ const Checkout = (() => {
     _renderGCashPanel();
 
     // ── Auto-apply Spirit Quest voucher from localStorage ──
+    // Only auto-apply if no voucher has been manually set yet
     const savedVoucher = localStorage.getItem('active_voucher');
-    const alreadyApplied = Cart.getSnapshot().voucherUsed !== 'NONE';
+    const snapshot = Cart.getSnapshot();
+    const alreadyApplied = snapshot.voucherUsed !== 'NONE';
     if (savedVoucher && !alreadyApplied) {
       const input = document.getElementById('voucher-input');
       if (input) input.value = savedVoucher;
@@ -270,6 +272,40 @@ const Checkout = (() => {
       return;
     }
 
+    // ── Server-side TABO10 single-use guard ────────────────────────────────────
+    // localStorage is the first-line check (fast). The server is the authoritative check.
+    if (snapshot.voucherUsed === 'TABO10') {
+      if (GOOGLE_SHEETS_WEBHOOK_URL && GOOGLE_SHEETS_WEBHOOK_URL !== 'YOUR_WEBHOOK_URL_HERE') {
+        try {
+          const checkController = new AbortController();
+          setTimeout(() => checkController.abort(), 5000); // 5s timeout — allow offline fallback
+
+          const checkRes = await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'CHECK_VOUCHER',
+              voucherCode: 'TABO10',
+              customerName: formData.name
+            }),
+            signal: checkController.signal
+          });
+
+          const checkData = await checkRes.json();
+
+          if (checkData.used === true) {
+            window.showToast('Nagamit na ang TABO10 ng pasyenteng ito. Hindi maaaring gamitin muli.', 'error');
+            return; // Block order submission
+          }
+          // used === false → proceed, voucher is valid server-side
+        } catch (err) {
+          // Network error or timeout → allow order as offline fallback (don't block sales)
+          console.warn('[Checkout] TABO10 server check failed (offline?), allowing order:', err.message);
+        }
+      }
+    }
+    // ──────────────────────────────────────────────────────────────────────────
+
     const itemsSummaryStr = snapshot.items.map(l => `${l.name} x${l.qty}`).join(', ');
     const transactionId = `ONL-${Date.now().toString().slice(-6)}`;
     const contactLoc = formData.mobile + (formData.building ? ` / ${formData.building}` : '');
@@ -286,10 +322,10 @@ const Checkout = (() => {
       contactInfo:  contactLoc,
       itemsSummary: itemsSummaryStr,
       subtotal:     snapshot.subtotal,
-      voucherApplied: snapshot.discountCode || 'NONE',
+      voucherApplied: snapshot.voucherUsed || 'NONE',
       discountAmount: snapshot.discount,
       grandTotal:   snapshot.total,
-      amountTendered: formData.payment === 'cash' ? 0 : "N/A", // Updated later by Cashier for Cash
+      amountTendered: formData.payment === 'cash' ? 0 : "N/A",
       changeGiven:  0,
       gcashRef:     formData.gcashRef,
       status:       "Pending",
@@ -307,15 +343,13 @@ const Checkout = (() => {
         lineTotal: l.lineTotal,
       })),
       discount:    snapshot.discount,
-      voucherUsed: snapshot.discountCode || 'none',
+      voucherUsed: snapshot.voucherUsed || 'none',
       total:       snapshot.total,
     };
 
     currentOrderData = { ...payload, formData };
 
     // ── Persist order to localStorage (array) ──────────────────────────────
-    // Uses an ARRAY so all orders accumulate and the cashier feed shows them all.
-    // Was previously a single key (tabo_last_order) that overwrote each time.
     try {
       const existing = JSON.parse(localStorage.getItem('tabo_orders') || '[]');
       existing.push(payload);
@@ -324,16 +358,14 @@ const Checkout = (() => {
       console.warn('[Checkout] Could not persist order to localStorage:', e);
     }
 
-    // ── Close checkout sheet first ────────────────────────────────────────────
+    // ── Close checkout sheet first ─────────────────────────────────────────
     close();
 
-    // ── Attempt webhook submission ────────────────────────────────────────────
-    // Note: Uses 'no-cors' so response body is opaque — we assume success if no network error.
-    // The Google Apps Script must return JSON with MIME type application/json (not text/html).
+    // ── Attempt webhook submission ─────────────────────────────────────────
     if (GOOGLE_SHEETS_WEBHOOK_URL !== "YOUR_WEBHOOK_URL_HERE" && GOOGLE_SHEETS_WEBHOOK_URL !== "") {
       try {
         const controller = new AbortController();
-        const timeoutId  = setTimeout(() => controller.abort(), 8000); // 8s timeout
+        const timeoutId  = setTimeout(() => controller.abort(), 8000);
 
         await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
           method:  'POST',
@@ -344,25 +376,34 @@ const Checkout = (() => {
         });
 
         clearTimeout(timeoutId);
-
-        // ✅ Webhook succeeded — show waiting screen and start polling
         _showWaitingScreen(payload);
 
       } catch (err) {
         console.warn('[Checkout] Webhook failed (offline/timeout):', err.message);
-        // 💡 Offline fallback — show digital receipt instead of blocking order
         _showDigitalReceipt(payload);
       }
 
     } else {
-      // Webhook URL not configured — go straight to receipt
       console.log('[Checkout] Webhook not configured. Payload:', payload);
       _showDigitalReceipt(payload);
     }
 
-    // Mark TABO10 voucher as used (single-use per person per session)
+    // ── Mark TABO10 as used — both localStorage (fast) and server (persistent) ──
     if (snapshot.voucherUsed === 'TABO10') {
       localStorage.setItem('tabo10_used', 'true');
+      // Fire-and-forget REDEEM call to server
+      if (GOOGLE_SHEETS_WEBHOOK_URL && GOOGLE_SHEETS_WEBHOOK_URL !== 'YOUR_WEBHOOK_URL_HERE') {
+        fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'REDEEM_VOUCHER',
+            voucherCode: 'TABO10',
+            customerName: formData.name,
+            transactionId: transactionId
+          })
+        }).catch(() => {}); // Silently fail — order already accepted
+      }
     }
 
     // Clear cart after submission

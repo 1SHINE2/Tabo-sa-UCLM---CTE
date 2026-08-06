@@ -13,17 +13,16 @@ const PRODUCTS = [
     quote: "Malagkit na kanin na binalot sa dahon ng saging, pinasarap ng matamis at siksik na latik.",
     history: {
       origin: "Kabisayaan",
-      summary: "Ang budbud ay isa sa pinakamatandang kakanin sa Visayas, madalas ihain tuwing may pagdiriwang gaya ng kasal, binyag, at pista opisyal. Sa mga komunidad ng Panay Bukidnon, ang paggawa ng budbud ay isang sama-samang gawain — nagtitipon ang mga babae sa komunidad upang tulungan ang isa't isa sa pagbalot at pagpapasingaw. Ang proseso mismo ay isang ritwal ng pagkakabuklod.",
+      summary: "Ang budbud ay tradisyonal na kakanin sa Visayas, madalas ihain tuwing may pagdiriwang gaya ng kasal at pista opisyal. Sa mga komunidad ng Panay Bukidnon, ang paggawa nito ay isang ritwal ng pagkakabuklod ng komunidad.",
       funFacts: [
-        "Ang pagbalot sa dahon ng saging ay nagbibigay ng kakaibang aroma habang ito ay pinapasingawan — isang likas na 'packaging' na libu-libong taon nang ginagamit ng ating mga ninuno.",
-        "Ang latik ay nagmula sa pinakuluang gata ng niyog na naging langis at latak — isang proseso ng pagkuha na walang basura dahil pareho ang langis at latak ay may silbi sa kusina.",
-        "Sa mga pista ng Panay Bukidnon, ang dami ng budbud na naihanda ay minsan sukatan ng kayamanan at kasaganaan ng pamilya."
+        "Ang dahon ng saging na pambalot ay nagbibigay ng kakaibang aroma — isang likas na 'packaging' na libu-libong taon nang ginagamit ng ating mga ninuno.",
+        "Ang latik ay gawa sa pinakuluang gata ng niyog — walang basura, dahil ang langis at latak ay parehong may gamit sa kusina."
       ],
-      impact: "Simbolo ng mainit na pagtanggap at pagkakabuklod-buklod ng pamilyang Pilipino. Ang bawat piraso ay naglalaman hindi lamang ng sangkap kundi ng pagmamahal at pagsisikap ng mga kamay na gumawa nito. Ang pagbabahagi ng budbud ay isang paraan ng pagpapalakas ng ugnayan sa pagitan ng mga tao."
+      impact: "Simbolo ng mainit na pagtanggap at pagkakabuklod ng pamilyang Pilipino, naglalaman ng pagmamahal at pagsisikap ng mga kamay na gumawa nito."
     },
     culturalTie: {
-      boothRelevance: "Ito ang pambato naming kakanin na tiyak na magbabalik sa inyo sa mga alaala ng pista sa probinsya. Sa bawat kagat, muling mararamdaman ang init ng tahanan at ang amoy ng pinasingawang dahon ng saging.",
-      themeConnection: "Ipinapakita nito ang mayamang kultura ng Pilipinas sa paggamit ng niyog at malagkit bilang pangunahing sangkap — mga produktong bunga ng pagtutulungan ng tao at kalikasan sa ating mga taniman at niyugan."
+      boothRelevance: "Ang pambato naming kakanin na magbabalik sa inyo sa mga alaala ng pista sa probinsya.",
+      themeConnection: "Ipinapakita ang mayamang kultura ng Pilipinas sa paggamit ng niyog at malagkit — mga bunga ng pagtutulungan ng tao at kalikasan."
     },
     ingredients: [
       "Malagkit na bigas",
@@ -60,16 +59,16 @@ const PRODUCTS = [
     quote: "Tatlong piraso ng paboritong malagkit na may latik, perpekto para sa barkada o pamilya.",
     history: {
       origin: "Kabisayaan",
-      summary: "Kagaya ng solong budbud, ito ay bahagi ng masaganang tradisyon ng pagbabahagi ng biyaya.",
+      summary: "Kagaya ng solong budbud ngunit mas marami — ang tatlong piraso ay perpekto para sa barkada o pamilya na gustong magbahagi. Sa kulturang Pilipino, ang pagbabahagi ng pagkain ay isang pagpapahayag ng pagmamahal.",
       funFacts: [
-        "Mas makakatipid ka kapag bumili ng maramihan!",
-        "Ang pag-aalok ng pagkain sa kapwa ay likas na kaugaliang Pilipino."
+        "Mas makakatipid ka kapag bumili ng tatlo — ₱50 lang para sa tatlong piraso kumpara sa ₱20 bawat isa.",
+        "Ang pag-aalok ng kakanin sa kapwa ay isang sinaunang kaugaliang Pilipino na nagpapatibay ng ugnayan."
       ],
-      impact: "Nagtataguyod ng samahan sa pamamagitan ng pagbabahagi ng kakanin sa hapag-kainan."
+      impact: "Nagtataguyod ng samahan at pagbibigayan — isang simpleng pagkain na nagiging dahilan upang magtipon ang mga tao."
     },
     culturalTie: {
-      boothRelevance: "Maganda para sa mga magkakaibigang bumibisita sa aming booth.",
-      themeConnection: "Sinasalamin ang diwa ng bayanihan at pagbibigayan sa bawat kagat."
+      boothRelevance: "Perpekto para sa mga magkakaibigang bumibisita sa aming booth — tig-isa bawat isa at may matitira pa!",
+      themeConnection: "Sinasalamin ang diwa ng bayanihan at pagbibigayan na pangunahing haligi ng kulturang Pilipino."
     },
     ingredients: [
       "Malagkit na bigas",
@@ -106,13 +105,12 @@ const PRODUCTS = [
     quote: "Simpleng suman o malagkit na binalot sa dahon ng saging, mainam kapartner ng kape o tsokolate.",
     history: {
       origin: "Pilipinas",
-      summary: "Isang pang-araw-araw na kakanin sa Pilipinas, madalas kinakain sa agahan o meryenda kasabay ng mainit na kape o tsokolate. Ang budbud na walang latik ay nagbibigay ng purong lasa ng malagkit at gata — isang simpleng kasiyahan na hindi nangangailangan ng karagdagang pampatamis para mapahalagahan.",
+      summary: "Pang-araw-araw na kakanin sa buong Pilipinas, madalas kinakain sa agahan kasabay ng mainit na kape. Ang purong lasa ng malagkit at gata ay sapat na — walang karagdagang pampatamis na kailangan.",
       funFacts: [
-        "May iba't ibang bersyon ang suman sa bawat rehiyon ng Pilipinas — may katugma itong tinatawag na 'ibos' sa Ilocos, 'moron' sa Zamboanga, at 'suman sa lihiya' sa Batangas.",
-        "Maaaring isawsaw sa asukal, tsokolate, o mangga ang klasikong budbud — ang bawat pamilya ay may sariling paboritong paraan ng pagkain nito.",
-        "Ayon sa mga matatanda, ang tamang paraan ng pagkain ng budbud ay dahan-dahang alisan ng balot ang dahon at ubusin habang mainit pa."
+        "May iba't ibang pangalan ito sa bawat rehiyon — 'ibos' sa Ilocos, 'moron' sa Zamboanga, at 'suman sa lihiya' sa Batangas.",
+        "Maaaring isawsaw sa asukal, tsokolate, o hinog na mangga ayon sa kagustuhan."
       ],
-      impact: "Isang hindi nawawalang bahagi ng kulturang Pilipino na nag-uugnay sa mga henerasyon. Ang lasa ng budbud ay madalas na unang alaala ng maraming Pilipinong lumaki sa probinsya — isang pagkain ng nostalgia na nagdadala ng init ng tahanan kahit malayo ka na."
+      impact: "Isang hindi nawawalang bahagi ng kulturang Pilipino — ang lasa nito ay nostalgia para sa maraming lumaki sa probinsya."
     },
     culturalTie: {
       boothRelevance: "Ang pinakapayak at klasikong handog sa aming menu, swak sa panlasa ng lahat.",
@@ -151,16 +149,16 @@ const PRODUCTS = [
     quote: "Malambot at malinamnam na puto, pinatungan ng hiniwang keso para sa perpektong tamis at alat.",
     history: {
       origin: "Pilipinas",
-      summary: "Ang puto ay paboritong kapareha ng dinuguan, pancit, o kinakain ng mag-isa bilang meryenda.",
+      summary: "Ang puto ay isa sa pinakasikat na kakanin sa Pilipinas, kinakain sa meryenda, pista, o bilang kapareha ng dinuguan at pancit. Ang malambot at esponghang tekstura nito ay bunga ng wastong paghahalo at pagpapasingaw.",
       funFacts: [
-        "Ang salitang 'puto' ay maaaring nagmula sa salitang Malay na 'puttu' na ibig sabihin ay pinasingawang pagkain.",
-        "Sa mga pista, hindi nawawala ang puto sa hapag dahil sa madali itong kainin at ihanda."
+        "Ang salitang 'puto' ay pinaniniwalaan na nagmula sa Malay na 'puttu' — ibig sabihin ay pinasingawang pagkain.",
+        "Sa bawat pista opisyal sa Pilipinas, halos palaging nandoon ang puto sa hapag-kainan, bata man o matanda ay mahilig dito."
       ],
-      impact: "Isang pangunahing meryenda na nagbibigay ng saya at nakakabusog na karanasan sa bawat bata o matanda."
+      impact: "Isang pangunahing kakanin na magaan sa tiyan at sulit sa presyo — perpektong meryenda para sa lahat ng edad."
     },
     culturalTie: {
-      boothRelevance: "Isang mabilis at murang meryenda na patok sa mga estudyante at dumadaan.",
-      themeConnection: "Ang puto ay kumakatawan sa kasaganahan ng bigas sa ating bansa at ang impluwensyang dayuhan sa pagdagdag ng keso."
+      boothRelevance: "Mabilis at murang meryenda na patok sa mga estudyante at guro na naghahanap ng panawid-gutom.",
+      themeConnection: "Kumakatawan sa kasaganahan ng bigas at ang malikhaing pagsasama ng lokal na pagkain at dayuhang impluwensya sa pagdagdag ng keso."
     },
     ingredients: [
       "Galapong o Harina",
@@ -197,16 +195,16 @@ const PRODUCTS = [
     quote: "Tatlong piraso ng paboritong esponghang puto na may keso. Mas marami, mas masaya!",
     history: {
       origin: "Pilipinas",
-      summary: "Ito ang karaniwang benta ng puto sa mga kanto at pamilihan, mas masarap kapag pinagsaluhan.",
+      summary: "Ang tatlong piraso ng puto ay sulit na meryenda na maaaring ibahagi sa kaibigan o ubusin nang mag-isa sa isang upuan. Ito ang karaniwang pormat ng benta sa mga kanto at palengke ng Pilipinas.",
       funFacts: [
-        "Kapag tatlo ang binili, madalas ay sakto ito bilang pamalit sa isang mabigat na meryenda.",
-        "Ang bilog na hugis ng puto ay sumisimbolo din minsan sa pagkabuo at pagkakaisa."
+        "Tatlong piraso ang sukat-sukat na pamalit sa isang mabibigat na meryenda — sapat para makapagpatuloy ng hapon.",
+        "Ang bilog na hugis ng puto ay sinasabing sumisimbolo sa pagkabuo at pagkakaisa ng komunidad."
       ],
-      impact: "Mura at nakakabusog, ito ang go-to meryenda ng mga Pilipino on the go."
+      impact: "Abot-kaya at nakakabusog — ito ang pinakamabilis na solusyon sa gutom ng mga Pilipinong laging on the go."
     },
     culturalTie: {
-      boothRelevance: "Promo naming alok para sa mga gustong magbahagi sa kaibigan o ubusin nang mag-isa.",
-      themeConnection: "Sinasalamin nito ang abot-kayang pagkain sa mga kalsada at palengke ng Pilipinas."
+      boothRelevance: "Espesyal na promo para sa mga gustong magbahagi sa kaibigan o itago para sa susunod na klase.",
+      themeConnection: "Sinasalamin ang sining ng abot-kayang pagkain sa mga kalsada at palengke ng bansa."
     },
     ingredients: [
       "Galapong o Harina",
@@ -243,16 +241,16 @@ const PRODUCTS = [
     quote: "Makunat, matamis, at malinamnam na kutsinta, siksik sa sarap lalo na kung may niyog.",
     history: {
       origin: "Pilipinas",
-      summary: "Isang tradisyonal na kakanin na laging kasama ng puto tuwing meryenda, gawa sa lye water at asukal na pula.",
+      summary: "Ang kutsinta ay tradisyonal na kakanin na natatangi sa kunat at makulay na hitsura nito, gawa sa lye water at asukal na pula. Ito ay laging kapareha ng puto tuwing meryenda o handaan.",
       funFacts: [
-        "Ang kulay nito ay dahil sa asukal na pula o minsan ay katas ng annatto (atsuete).",
-        "Ang lihiya o lye water ang nagbibigay ng katangi-tanging kunat ng kutsinta."
+        "Ang kayumangging-pula na kulay nito ay nagmumula sa asukal na pula o katas ng annatto (atsuete).",
+        "Ang lihiya (lye water) ang siyang nagbibigay ng katangi-tanging kunat na nagpapakilala sa kutsinta."
       ],
-      impact: "Nagpapakita ng husay sa paggawa ng iba't ibang uri ng kakanin gamit ang parehong pangunahing sangkap."
+      impact: "Nagpapakita ng kahusayan ng ating mga ninuno sa paggawa ng iba't ibang kakanin mula sa mga simpleng sangkap."
     },
     culturalTie: {
-      boothRelevance: "Hindi kumpleto ang karanasan ng kakanin kung walang kutsinta na paborito ng marami.",
-      themeConnection: "Sumisimbolo sa kulay at sigla ng pagkaing Pilipino."
+      boothRelevance: "Hindi kumpleto ang karanasan ng kakanin kung wala ang kutsintang laging pinagkakaabalahan ng marami.",
+      themeConnection: "Sumisimbolo sa kulay, sigla, at pagkamalikhain ng pagkaing Pilipino."
     },
     ingredients: [
       "Harina at Tapioca",
@@ -287,16 +285,16 @@ const PRODUCTS = [
     quote: "Bakit ka pa kukuha ng isa kung kaya mo namang ubusin ang tatlo? Kutsintang may niyog na nagpapalaway.",
     history: {
       origin: "Pilipinas",
-      summary: "Ito ang sulit na pormat para sa mga gustong mapadami ang kain o magbahagi sa iba.",
+      summary: "Ang tatlong piraso ng kutsinta ay sulit na paraan upang maibahagi ang paboritong matatamis na kakanin sa mga kaibigan o pamilya. Perpekto rin ito bilang hapon meryenda kasabay ng mainit na kape.",
       funFacts: [
-        "Madalas itong tinitinda ng mga nag-iikot na magkakanin kasama ng puto at sapin-sapin.",
-        "Sa kulturang Pinoy, ang kakanin ay madalas ipasaubong sa pamilya pagkagaling sa trabaho."
+        "Madalas itong tinatinda ng mga nag-iikot na magkakanin kasama ng puto at sapin-sapin sa mga kanto.",
+        "Sa kultura ng Pilipino, ang kakanin ay laging paboritong pasalubong pagkatapos ng isang araw na trabaho."
       ],
-      impact: "Nagsisilbing pampasaya ng hapag-kainan, perpekto sa mainit na kape tuwing hapon."
+      impact: "Pampasaya ng hapag-kainan at pampagaan ng loob — tatlong piraso ng tamang kunat at tamis na hatid ng kutsinta."
     },
     culturalTie: {
-      boothRelevance: "Ang tatlong piraso ay siguradong magpapasaya ng isang nagugutom na kustomer.",
-      themeConnection: "Sinasalamin nito ang kaugaliang pag-uwi ng pasalubong para sa pamilya."
+      boothRelevance: "Tatlong piraso ay siguradong magpapasaya ng sinumang naghahanap ng masustansyang meryenda.",
+      themeConnection: "Sinasalamin ang pagmamahal ng mga Pilipino sa magaan na pagkain na madaling ibahagi sa iba."
     },
     ingredients: [
       "Harina at Tapioca",
@@ -331,13 +329,12 @@ const PRODUCTS = [
     quote: "Nilamas at pinaghalong saba, gata, at asukal — simpleng kakaning puno ng tradisyon at sarap.",
     history: {
       origin: "Luzon at Visayas",
-      summary: "Ang paglulupak ay isang sinaunang proseso ng pagbayo o pagdurog ng saging, kamoteng kahoy, o kamote gamit ang lusong at halo. Ang nilupak na saging ay sikat sa mga probinsya bilang meryenda at minsan ay pampalakas pagkatapos ng mabuong trabaho sa bukid. Ito ay isa sa mga kakaning may malalim na ugat sa pang-araw-araw na buhay ng mga manggagawa sa lupa.",
+      summary: "Ang nilupak ay gawa sa pinayong saging na saba, ginagawa sa pamamagitan ng tradisyonal na lusong at halo. Ito ay paboritong meryenda sa mga probinsya pagkatapos ng mahabang trabaho sa bukid.",
       funFacts: [
-        "Tradisyonal na ginagamit ang malaking lusong at halo upang bayuhin ang saging hanggang maging makinis ang tekstura — isang gawain na nangangailangan ng lakas at ritmo, kaya madalas ito ay ginagawa nang mayroon pang awit o salitaan.",
-        "Maaari ring dagdagan ng margarina para mas bumango at mas maging malinamnam — isang modernong halo sa tradisyonal na resipe.",
-        "Sa ilang lugar sa Visayas, ang nilupak ay inihahain bilang pagkain ng paghaharap sa mga bisita bilang tanda ng mataas na pagtangkilik."
+        "Ang pagbayo sa lusong ay isang gawain na nangangailangan ng lakas at ritmo — kaya madalas itong ginagawa kasabay ng awit at salitaan.",
+        "Maaari ring dagdagan ng margarina para mas bumango — isang modernong halo sa dalisay na tradisyonal na resipe."
       ],
-      impact: "Isang paraan noon ng mga kabataan at pamilya na magtulungan sa pamamagitan ng salitan sa pagbayo sa lusong — ang gawaing ito ay hindi lamang pagluluto kundi isang okasyon ng pagtitipon at pagbabahagi ng mga kwento."
+      impact: "Simbolo ng bayanihan at pagtitipon ng pamilya — hindi lamang pagluluto kundi isang okasyon ng pagbabahagi ng mga kwento."
     },
     culturalTie: {
       boothRelevance: "Isang nakakabusog na meryenda na nagpapakita ng pagka-maparaan gamit ang saging na saba.",
@@ -462,16 +459,16 @@ const PRODUCTS = [
     quote: "Pampalamig na inumin, matamis, at may asim na siguradong pamatid-uhaw.",
     history: {
       origin: "Bukidnon at iba pang plantasyon sa Pilipinas",
-      summary: "Ang Pilipinas ay isa sa pinakamalaking producer ng pinya sa buong mundo, kaya ang katas ng pinya ay karaniwang pampalamig sa kahit anong handaan.",
+      summary: "Ang Pilipinas ay isa sa pinakamalaking tagagawa ng pinya sa buong mundo, kaya ang katas ng pinya ay karaniwang pampalamig sa mga handaan at araw-araw na buhay. Sariwa, matamis, at may kaasiman — perpektong maibigay ng lakas sa mainit na araw.",
       funFacts: [
-        "Ang pinya ay naglalaman ng bromelain, isang enzyme na tumutulong matunaw ang mga kinain lalo na ang mga karne.",
-        "Sikat ito bilang kapareha ng mga mamantikang pagkain o meryenda."
+        "Ang pinya ay naglalaman ng bromelain, isang enzyme na tumutulong sa pagtunaw ng pagkain lalo na ang mga karne.",
+        "Sikat ito bilang panghugas-ngalangala pagkatapos kumain ng matatamis o mamantikang pagkain."
       ],
-      impact: "Naging pangunahing inuming nagrerepresenta sa kasaganahan ng mga tropikal na prutas sa bansa."
+      impact: "Simbolo ng kasaganahan ng tropikal na prutas ng Pilipinas — isang simpleng inumin na nagrerepresenta ng kalikasan ng ating lupa."
     },
     culturalTie: {
-      boothRelevance: "Ang aming pamatid-uhaw na perpektong panghugas pagkatapos kumain ng aming mga matatamis na kakanin.",
-      themeConnection: "Sinasalamin nito ang init ng panahon sa Pilipinas at ang malikhaing solusyon gamit ang tropikal na prutas upang magpalamig."
+      boothRelevance: "Ang aming paboritong pamatid-uhaw — perpektong panghugas pagkatapos ng aming mga kakanin.",
+      themeConnection: "Sinasalamin ang init ng klima ng Pilipinas at ang malikhaing paggamit ng tropikal na prutas bilang natural na pampalamig."
     },
     ingredients: [
       "Sariwang pinya",

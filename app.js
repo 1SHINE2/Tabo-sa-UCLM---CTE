@@ -99,24 +99,34 @@ const App = (() => {
     }).join('');
   }
 
+  // ── Render counter to prevent ID collisions on re-renders ──────────────────
+  let _renderCount = 0;
+
   // ── Detailed Product View Renderer ──────────────────────────────────────────
   function renderProductView(productId) {
     const container = document.getElementById('view-product');
     const product = window.PRODUCTS.find(p => p.id === productId);
     
     if (!container) return;
+    // Always clear stale DOM first — prevents duplicate IDs
+    container.innerHTML = '';
+
     if (!product) {
-      container.innerHTML = `<div class="p-8 text-center text-red-500">Product not found. <a href="#menu" class="underline">Back to Menu</a></div>`;
+      container.innerHTML = `<div class="p-8 text-center text-red-500">Product not found. <a href="#menu" class="underline">Bumalik sa Menu</a></div>`;
       return;
     }
 
+    // Increment render counter for unique IDs this render cycle
+    _renderCount++;
+    const rc = _renderCount;
+
     const currentQty = window.Cart.getQty(productId);
     
-    // Build tappable ingredient chips with descriptions
+    // Build tappable ingredient chips — IDs prefixed with render counter to guarantee uniqueness
     const ingChips = (product.ingredients || []).map((ing, idx) => {
       const desc = product.ingredientDescriptions?.[ing] || '';
-      const chipId = `ing-chip-${productId}-${idx}`;
-      const descId = `ing-desc-${productId}-${idx}`;
+      const chipId = `ing-chip-${rc}-${productId}-${idx}`;
+      const descId = `ing-desc-${rc}-${productId}-${idx}`;
       return `
         <span class="ingredient-chip tappable-chip" onclick="toggleChipDesc('${descId}', this)" id="${chipId}">
           ${ing} <span class="chip-arrow">▾</span>
@@ -125,8 +135,13 @@ const App = (() => {
       `;
     }).join('');
     
-    // Fun facts
-    const funFactsHtml = (product.history?.funFacts || []).map(fact => `<li>${fact}</li>`).join('');
+    // Fun facts — each as a styled card
+    const funFactsHtml = (product.history?.funFacts || []).map((fact, i) => `
+      <div class="fun-fact-card" style="background: rgba(74,124,89,0.06); border-left: 3px solid var(--color-leaf); border-radius: 0 12px 12px 0; padding: 0.85rem 1rem; margin-bottom: 0.6rem;">
+        <span style="font-size:0.7rem; font-weight:800; color:var(--color-leaf); letter-spacing:0.1em; display:block; margin-bottom:0.25rem;">DETALYE ${String(i+1).padStart(2,'0')}</span>
+        <p style="margin:0; font-size:0.875rem; color:var(--color-smoke); line-height:1.6;">${fact}</p>
+      </div>
+    `).join('');
 
     container.innerHTML = `
       <!-- 1. Header & Quote Hero -->
@@ -145,67 +160,63 @@ const App = (() => {
       </div>
 
       <!-- Main Content Area -->
-      <div class="p-5 max-w-3xl mx-auto pb-6 overflow-hidden">
+      <div class="max-w-3xl mx-auto pb-6 overflow-hidden">
 
-        <!-- 2. Kasaysayan at Pinagmulan (CENTERED) -->
-        <div class="text-center mb-10 mt-4">
-          <h3 class="text-3xl font-display font-bold text-earth mb-3 inline-block border-b-2 border-gold pb-1">Kasaysayan at Pinagmulan</h3>
-          <p class="text-sm text-leaf font-bold uppercase tracking-widest mb-4 mt-2">${product.history?.origin || ''}</p>
-          <p class="text-smoke text-lg leading-relaxed mb-4 font-display italic px-2 max-w-xl mx-auto">
-            ${product.history?.summary || ''}
+        <!-- 2. Kasaysayan — CENTERED with pull quote style -->
+        <div class="text-center px-6 pt-8 pb-6 mb-2">
+          <span style="display:inline-block; font-size:0.7rem; font-weight:800; letter-spacing:0.15em; color:var(--color-leaf); margin-bottom:0.5rem; text-transform:uppercase;">${product.history?.origin || ''}</span>
+          <h3 class="text-3xl font-display font-bold text-earth mb-4" style="border-bottom: 2px solid var(--color-gold); display:inline-block; padding-bottom:4px;">Kasaysayan at Pinagmulan</h3>
+          <p class="text-smoke text-lg leading-relaxed font-display italic max-w-xl mx-auto mt-3" style="font-size:1.05rem;">
+            "${product.history?.summary || ''}"
           </p>
         </div>
-        
-        <!-- Mga Nakaka-intriga na Detalye (UP-RIGHT STAGGER) -->
-        <div class="w-11/12 md:w-4/5 ml-auto mb-10 p-5 bg-leaf/5 rounded-l-2xl border-r-4 border-leaf shadow-sm relative">
-          <div class="absolute -top-4 -right-2 text-leaf/20 text-6xl font-display">&rdquo;</div>
-          <h4 class="text-xl font-bold text-earth mb-3 font-display text-right">Mga Nakaka-intrigang Detalye</h4>
-          <ul class="fun-fact-list mb-0">
-            ${funFactsHtml}
-          </ul>
-        </div>
-        
-        <!-- SOSYO-KULTURAL NA EPEKTO (UP-LEFT STAGGER) -->
-        <div class="w-11/12 md:w-4/5 mr-auto mb-12 p-5 bg-earth/5 rounded-r-2xl border-l-4 border-earth shadow-sm relative">
-          <div class="absolute -top-4 -left-2 text-earth/20 text-6xl font-display">&ldquo;</div>
-          <h4 class="text-xl font-bold text-earth mb-3 font-display text-left">Sosyo-Kultural na Epekto</h4>
-          <p class="text-smoke text-sm leading-relaxed text-left">${product.history?.impact || ''}</p>
+
+        <!-- 3. Fun Facts — RIGHT-STAGGER block -->
+        <div style="width:90%; margin-left:auto; margin-bottom:2rem; padding:1.5rem 1.5rem 1.5rem 1.75rem; background:rgba(74,124,89,0.04); border-radius:1.5rem 0 0 1.5rem; border-right:4px solid var(--color-leaf); position:relative;">
+          <div style="position:absolute; top:-1rem; right:0.5rem; font-size:3.5rem; line-height:1; color:rgba(74,124,89,0.12); font-family:Georgia,serif; pointer-events:none;">&rdquo;</div>
+          <h4 style="font-size:1.1rem; font-weight:800; color:var(--color-earth); margin-bottom:1rem; text-align:right; font-family:var(--font-display,inherit); letter-spacing:0.02em;">Mga Nakaka-intrigang Detalye</h4>
+          ${funFactsHtml}
         </div>
 
-        <!-- 3. Kaugnayan sa Tabo sa UCLM (CENTERED) -->
-        <div class="text-center mb-12">
-          <h3 class="text-3xl font-display font-bold text-earth mb-6 inline-block border-b-2 border-gold pb-1">Kaugnayan sa Tabo sa UCLM</h3>
-          <div class="bg-white p-6 rounded-2xl shadow-card border border-gray-100 text-left max-w-2xl mx-auto">
-            <p class="text-smoke text-sm leading-relaxed mb-4">
-              <strong class="text-earth font-display text-lg block mb-1">Bakit ang putaheng ito?</strong> 
+        <!-- 4. Cultural Impact — LEFT-STAGGER block -->
+        <div style="width:90%; margin-right:auto; margin-bottom:2.5rem; padding:1.5rem 1.75rem 1.5rem 1.5rem; background:rgba(169,27,34,0.04); border-radius:0 1.5rem 1.5rem 0; border-left:4px solid var(--color-earth); position:relative;">
+          <div style="position:absolute; top:-1rem; left:0.5rem; font-size:3.5rem; line-height:1; color:rgba(169,27,34,0.12); font-family:Georgia,serif; pointer-events:none;">&ldquo;</div>
+          <h4 style="font-size:1.1rem; font-weight:800; color:var(--color-earth); margin-bottom:0.75rem; text-align:left; font-family:var(--font-display,inherit); letter-spacing:0.02em;">Sosyo-Kultural na Epekto</h4>
+          <p style="font-size:0.9rem; color:var(--color-smoke); line-height:1.7; text-align:left; margin:0;">${product.history?.impact || ''}</p>
+        </div>
+
+        <!-- 5. Kaugnayan sa Tabo sa UCLM — CENTERED card -->
+        <div class="text-center px-5 mb-10">
+          <h3 class="text-3xl font-display font-bold text-earth mb-5 inline-block pb-1" style="border-bottom:2px solid var(--color-gold);">Kaugnayan sa Tabo sa UCLM</h3>
+          <div style="background:#fff; border-radius:1rem; box-shadow:0 2px 16px rgba(0,0,0,0.06); border:1px solid #f0e8d8; padding:1.5rem; max-width:36rem; margin:0 auto; text-align:left;">
+            <p style="font-size:0.875rem; color:var(--color-smoke); line-height:1.7; margin-bottom:1rem;">
+              <strong style="font-family:var(--font-display,inherit); font-size:1.05rem; color:var(--color-earth); display:block; margin-bottom:0.25rem;">Bakit ang putaheng ito?</strong>
               ${product.culturalTie?.boothRelevance || ''}
             </p>
-            <hr class="border-gray-100 mb-4">
-            <p class="text-smoke text-sm leading-relaxed">
-              <strong class="text-earth font-display text-lg block mb-1">Kaugnayan sa Tema:</strong> 
+            <hr style="border:none; border-top:1px solid #f0e0c8; margin-bottom:1rem;">
+            <p style="font-size:0.875rem; color:var(--color-smoke); line-height:1.7; margin:0;">
+              <strong style="font-family:var(--font-display,inherit); font-size:1.05rem; color:var(--color-earth); display:block; margin-bottom:0.25rem;">Kaugnayan sa Tema:</strong>
               ${product.culturalTie?.themeConnection || ''}
             </p>
           </div>
         </div>
 
-        <!-- 4. Mga Sangkap (Centered, no video) -->
-        <div class="text-center mb-12">
-          <h3 class="text-2xl font-display font-bold text-earth mb-4 inline-block border-b-2 border-gold pb-1">Mga Sangkap ng Kabundukan</h3>
-          <div class="mb-5 flex flex-wrap justify-center gap-2">${ingChips}</div>
-          <p class="text-sm text-smoke font-display italic bg-cream-dark p-4 rounded-xl border border-gray-100 shadow-sm max-w-lg mx-auto">
-            "${product.ingredientTheme || ''}"
-          </p>
+        <!-- 6. Mga Sangkap — RIGHT-STAGGER -->
+        <div style="width:92%; margin-left:auto; margin-bottom:2.5rem; padding:1.5rem; background:rgba(212,160,23,0.04); border-radius:1.5rem 0 0 1.5rem; border-right:4px solid var(--color-gold);">
+          <h3 style="text-align:right; font-size:1.3rem; font-weight:800; color:var(--color-earth); margin-bottom:1rem; font-family:var(--font-display,inherit); border-bottom:2px solid var(--color-gold); padding-bottom:4px; display:inline-block; float:right; clear:both;">Mga Sangkap ng Kabundukan</h3>
+          <div style="clear:both; padding-top:0.5rem; display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:flex-end;">${ingChips}</div>
+          <p style="font-size:0.8rem; color:var(--color-smoke); font-style:italic; text-align:right; margin-top:1rem; margin-bottom:0; font-family:var(--font-display,inherit);">"${product.ingredientTheme || ''}"</p>
         </div>
 
-        <!-- 5. Impormasyon sa Nutrisyon (CENTERED) -->
-        <div class="text-center mb-8">
-          <h3 class="text-3xl font-display font-bold text-earth mb-4 inline-block border-b-2 border-gold pb-1">Impormasyon sa Nutrisyon</h3>
+        <!-- 7. Nutrisyon — CENTERED -->
+        <div class="text-center px-5 mb-8">
+          <h3 class="text-3xl font-display font-bold text-earth mb-4 inline-block pb-1" style="border-bottom:2px solid var(--color-gold);">Impormasyon sa Nutrisyon</h3>
           <div class="mb-5">
             ${product.nutrition?.highlight ? `
-              <button class="nutrition-highlight scale-110 shadow-sm tappable-badge" onclick="toggleNutritionDesc('nutr-desc-${product.id}', this)" style="cursor:pointer; border:none;">
+              <button class="nutrition-highlight scale-110 shadow-sm tappable-badge" onclick="toggleNutritionDesc('nutr-desc-${rc}-${product.id}', this)" style="cursor:pointer; border:none;">
                 ${product.nutrition.highlight} <span style="font-size:0.65rem; opacity:0.8;">▾ tap for info</span>
               </button>
-              <div id="nutr-desc-${product.id}" class="nutrition-desc-box" style="display:none; max-width:480px; margin: 0.75rem auto 0; background: rgba(74,124,89,0.08); border-left: 3px solid var(--color-leaf); border-radius: 0 12px 12px 0; padding: 0.85rem 1rem; text-align: left; font-size: 0.82rem; color: var(--color-smoke); line-height: 1.6; font-style: italic;">
+              <div id="nutr-desc-${rc}-${product.id}" class="nutrition-desc-box" style="display:none; max-width:480px; margin: 0.75rem auto 0; background: rgba(74,124,89,0.08); border-left: 3px solid var(--color-leaf); border-radius: 0 12px 12px 0; padding: 0.85rem 1rem; text-align: left; font-size: 0.82rem; color: var(--color-smoke); line-height: 1.6; font-style: italic;">
                 ${product.nutrition.highlightDescription || ''}
               </div>
             ` : ''}
@@ -221,7 +232,7 @@ const App = (() => {
         </div>
       </div>
 
-      <!-- 6. Bottom Order CTA -->
+      <!-- 8. Bottom Order CTA -->
       <div class="bottom-order-cta">
         <div class="qty-stepper scale-110 mr-4 shadow-sm">
           <button type="button" onclick="Cart.changeQty('${product.id}', -1); window.renderProductView('${product.id}')">−</button>
