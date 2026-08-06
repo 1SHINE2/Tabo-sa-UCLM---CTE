@@ -538,6 +538,7 @@ h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
 .marquee-content {
   display: flex;
   gap: 1rem;
+  width: max-content;
 }
 
 /* Mobile defaults (horizontal) — 20s covers all 5 images once before reset */
@@ -552,6 +553,7 @@ h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
 @media (min-width: 768px) {
   .marquee-content {
     flex-direction: column;
+    height: max-content;
   }
   .marquee-track-1 {
     animation: marqueeUp 45s linear infinite;
