@@ -476,10 +476,24 @@ const CashierPOS = (() => {
     currentActiveOrder = order;
     bill.clear();
 
+    // Handle structured items array (from localStorage/direct)
     if (order.items && Array.isArray(order.items)) {
       order.items.forEach(i => {
         const p = (window.PRODUCTS || []).find(pr => pr.id === i.id || pr.name === i.name);
         if (p) bill.set(p.id, Number(i.qty));
+      });
+    }
+    // Handle itemsSummary string from Google Sheets (e.g. "Tinuom na Manok x2, Tamales x1")
+    else if (order.itemsSummary && typeof order.itemsSummary === 'string') {
+      const parts = order.itemsSummary.split(',').map(s => s.trim());
+      parts.forEach(part => {
+        const match = part.match(/^(.+?)\s+x\s*(\d+)$/i);
+        if (match) {
+          const name = match[1].trim();
+          const qty  = parseInt(match[2], 10);
+          const p = (window.PRODUCTS || []).find(pr => pr.name.toLowerCase() === name.toLowerCase());
+          if (p) bill.set(p.id, qty);
+        }
       });
     }
 
@@ -491,7 +505,7 @@ const CashierPOS = (() => {
     const banner = document.getElementById('pos-active-order-banner');
     if (banner) {
       banner.style.display = 'block';
-      banner.innerHTML = `Processing Order: <strong>${escapeHTML(order.customerName)}</strong> (${getOrderCategory(order)})`;
+      banner.innerHTML = `Pinoproseso ang Order: <strong>${escapeHTML(order.customerName || 'Customer')}</strong> (${getOrderCategory(order)})`;
     }
 
     _renderBill();
@@ -510,6 +524,7 @@ const CashierPOS = (() => {
       tender.value = '';
       calcChange();
     }
+    window.showToast('✅ Na-load na ang order sa POS!', 'success');
   }
 
   // ═══════════════════════════════════════════════════════════════════════════

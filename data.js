@@ -472,75 +472,185 @@ const PRODUCTS = [
 if (typeof window !== "undefined") window.PRODUCTS = PRODUCTS;
 
 const GALLERY_DATA = [
+  // 1 — Tinuom na Manok
   {
-    id: "gallery-tradition",
-    title: "Tradition",
-    subtitle: "Panubok Embroidery & the Sugidanon Epic",
-    image: "50a19d46-e237-4b5c-958a-8454f060f70d.jpg",
-    photoCredit: "Photo via community documentation, UCLM CTE",
-    description: "The Panay Bukidnon are renowned for their intricate embroidery called 'Panubok', characterized by geometric and mythological motifs stitched by hand onto fabric. The 'Bagsang' — a serpentine spirit — is among the most revered motifs, symbolizing protection and connection to the ancestral world.",
-    impact: "These traditions form the cultural backbone of the community, serving as oral and visual history that binds the highland tribes across generations. Every pattern tells a story that words alone cannot fully express.",
-    significance: "Preserving these art forms is critical for the Philippines to maintain a living connection to its pre-colonial identity. Supporting indigenous crafts empowers local artisans economically while safeguarding irreplaceable cultural memory."
-  },
-  {
-    id: "gallery-history",
-    title: "History",
-    subtitle: "Ancestral Domain & Mountain Resilience",
-    image: "Madjaas.jpg",
-    photoCredit: "Photo via Panay Bukidnon IP documentation",
-    description: "The Panay Bukidnon have inhabited the central highlands of Panay Island for centuries. When Spanish colonization reached the lowlands, they retreated deeper into the mountains — not out of defeat, but to fiercely protect their language, rituals, and way of life.",
-    impact: "Their geographical isolation preserved an animistic worldview and indigenous governance structures that give extraordinary insight into early Philippine society before colonial contact.",
-    significance: "Understanding their history teaches modern Filipinos about resilience and the unyielding roots of our national ancestry. Their story is not one of primitivity, but of deliberate, dignified preservation."
-  },
-  {
-    id: "gallery-culture",
-    title: "Culture",
-    subtitle: "Binanog Dance & the Tultugan",
-    image: "Binanog - dance.jpg",
-    photoCredit: "Photo via UCLM CTE Buwan ng Wika 2026",
-    description: "Music and movement are central to Panay Bukidnon culture. The 'Binanog' dance — which mimics the graceful flight of the hawk — is performed in full traditional regalia adorned with beads, coins, and Panubok patterns. The 'Tultugan', a rhythmic bamboo instrument, provides the heartbeat of their ceremonies.",
-    impact: "These performances are sacred rituals for courtship, community bonding, and paying reverence to the spirits of nature. The costume itself is a wearable archive of the community's identity.",
-    significance: "Patronizing these cultural expressions on a national level promotes diversity and enriches the Philippine tapestry of performing arts, reminding us of our profound connection to the natural world."
-  },
-  {
-    id: "gallery-people",
-    title: "People",
-    subtitle: "Elders, Weavers & the Living Heritage",
-    image: "Sugidanon - Song.jpg",
-    photoCredit: "Photo via Panay Bukidnon IP documentation",
-    description: "The Panay Bukidnon community is anchored by the wisdom of its elders — the culture bearers — who carry the songs, stories, and techniques that define who they are. Their smiles carry generations of shared memory.",
-    impact: "The warmth and strength in these portraits reflect a community that has survived centuries of change while maintaining their spirit intact. Seeing them is a reminder that culture lives in people, not just artifacts.",
-    significance: "By recognizing and supporting the people themselves — not just their products — we advocate for indigenous rights, ancestral land recognition, and inclusive national progress."
-  },
-  {
-    id: "gallery-cuisine",
-    title: "Cuisine",
-    subtitle: "Highland Delicacies & Zero-Waste Cooking",
+    id: "gallery-01",
     image: "be12f643-361f-4ad9-9cbc-c89416a5dba5.jpg",
-    photoCredit: "Photo via Tabo sa UCLM, CTE",
-    description: "Dishes like Tinuom na Manok (steamed native chicken in banana leaves) and golden Tamales represent the community's resourcefulness. They relied on foraging, root crops, and ancient preservation techniques — bamboo steaming, natural fermentation — long before modern kitchens existed.",
-    impact: "This culinary tradition reflects a zero-waste, sustainable lifestyle that respects the finite bounty of the mountain, ensuring food security for the tribe across seasons and generations.",
-    significance: "Indigenous cuisine offers sustainable, culturally rich alternatives. Promoting it helps local agriculture, introduces unique flavor profiles globally, and teaches the world that some of the finest cooking needs no industrial kitchen."
+    title: "Tinuom na Manok",
+    subtitle: "Ang Banal na Putahe ng mga Kabundukan",
+    culture: "Ang Tinuom na Manok ay hindi lamang pagkain — ito ay isang ritwal. Sa mga Panay Bukidnon, ang pagluluto ng manok sa loob ng dahon ng saging ay simbolo ng pagmamahal sa likas na mundo. Ang buong proseso — mula sa pagpili ng dahon hanggang sa pagsisinop ng apoy — ay isinasagawa nang may buong pagrespeto sa kalikasan.",
+    tradition: "Kaugalian ng mga matatanda na ang Tinuom ay inihahain lamang sa mga espesyal na okasyon: sa mga seremonya ng ani, sa pagdiriwang ng kasalan, at sa mga ritwal na pangkapayapaan. Ang bawat hakbang sa pagluluto ay may kasamang panalangin at papuri sa mga ninuno.",
+    history: "Naniniwala ang mga Panay Bukidnon na ang recipe na ito ay ibinigay ng mga ninuno nila sa pamamagitan ng mga panaginip at bisyon. Bago pa man dumating ang mga Kastila, ito na ang pangunahing pagkain sa mga dakilang pagtitipon ng tribo sa Gitnang Panay.",
+    impact: "Ang pagpapanatili ng recipe na ito ay nagbibigay ng kabuhayan sa mga lokal na magsasaka na nagpapalaki ng native na manok at naglilinang ng mga dahon ng saging. Bukod dito, pinagsasama-sama nito ang buong pamilya sa proseso ng pagluluto — isang gawi na nagpapatibay ng ugnayan.",
+    significance: "Ang Tinuom ay patunay na ang zero-waste na pagluluto ay hindi bago sa Pilipinas — ito ay matagal nang isinasabuhay ng ating mga katutubo. Ituturo nito sa ating mga kabataan na ang tradisyunal ay makabago din.",
+    funFacts: [
+      "Ang salitang 'tinuom' ay nagmula sa Kinaray-a na salita na nangangahulugang 'pinagsama-sama' — isang sanggunian sa paraan ng pagtitiklop ng dahon ng saging.",
+      "Ang native na manok na ginagamit dito ay mas maliit ngunit mas mataba at masustansya kaysa sa commercial na manok.",
+      "Ang usok mula sa dahon ng saging habang niluluto ay pinaniniwalaan na nagtatataboy ng masasamang espiritu."
+    ],
+    photoCredit: "Larawan mula sa Tabo sa UCLM, CTE"
   },
+  // 2 — Tamales
   {
-    id: "gallery-impact",
-    title: "Impact to Society",
-    subtitle: "Community Exchange & Educational Integration",
-    image: "fc075faf-172b-4ce9-8559-143ca84f5c26.jpg",
-    photoCredit: "College of Teacher Education, UCLM",
-    description: "Through community markets, cultural exchanges, and educational events like Tabo sa UCLM, the Panay Bukidnon are stepping into the national consciousness — sharing their wisdom with lowlanders and students who may never have set foot in the highlands.",
-    impact: "This exchange breaks down prejudices, fosters mutual respect, and provides the indigenous community with alternative livelihoods and a platform for visibility that does not require abandoning their homeland.",
-    significance: "A nation that embraces its indigenous communities is stronger, more compassionate, and culturally wealthy. Tabo sa UCLM is a small but powerful act of that embrace."
+    id: "gallery-02",
+    image: "e1e5a388-ace2-4e6a-a6db-2db4181c5450.jpg",
+    title: "Tamales ng Kabundukan",
+    subtitle: "Ang Balikatan na Nakabalot sa Mais",
+    culture: "Ang Tamales ng Panay Bukidnon ay iba sa ibang Tamales sa Pilipinas. Nakabalot ito sa mais na dahon at puno ng mga lokal na sangkap tulad ng grated na mais, coconut milk, at tinimplahan ng asin mula sa mga highland springs. Ito ay isang simbolo ng pagkakaisa — sapagkat ang bawat Tamales ay gawa ng maraming kamay.",
+    tradition: "Sa tradisyon ng Panay Bukidnon, ang paggawa ng Tamales ay isang 'bayanihan' na aktibidad. Nagtitipon ang mga kababaihan ng tribo at sama-samang niluluto ang daan-daang piraso para sa mga darating na pagdiriwang. Ang proseso ng paggawa ay sinasamahan ng awit at mga kuwento ng mga ninuno.",
+    history: "Naniniwala ang mga iskolar na ang Tamales ng Panay Bukidnon ay nagmula sa pre-colonial na pag-aaral ng pagpapanatili ng pagkain. Ang pagtatapon ng pagkain ay itinuturing na kalapastanganan sa kanilang kultura, kaya ginawa nila ang Tamales bilang paraan ng pag-iingat ng pagkain nang maraming araw.",
+    impact: "Ang kabuhayan ng daan-daang pamilya ay nakasalalay sa pagbebenta ng Tamales sa mga palengke at sa mga pagdiriwang. Para sa maraming kababaihan ng tribo, ito ang kanilang pangunahing pinagkakakitaan.",
+    significance: "Ang Tamales ay halimbawa ng pagiging matipid at maparaan ng ating mga katutubo — isang aralin na kailangan ng modernong panahon.",
+    funFacts: [
+      "Ang isang bihasang manggagawa ay kayang gumawa ng 50 Tamales sa loob ng isang oras.",
+      "Sa loob ng tatlong araw, maaari pa ring kainin ang Tamales nang hindi nasisira — natural na pag-iingat ng pagkain.",
+      "May ilang pamilya na may sariling lihim na recipe na ipinapasa lamang sa mga inapo."
+    ],
+    photoCredit: "Larawan mula sa Tabo sa UCLM, CTE"
   },
+  // 3 — Elders / Attire
   {
-    id: "gallery-conservation",
-    title: "Conservation",
-    subtitle: "Passing Down the Heritage",
+    id: "gallery-03",
+    image: "c3749917-6e05-4b82-86a6-79ee251240ae.jpg",
+    title: "Mga Matatanda ng Tribo",
+    subtitle: "Ang mga Tagapag-ingat ng Kaalaman at Pagmamahal",
+    culture: "Sa kultura ng Panay Bukidnon, ang mga matatanda ay tinatawag na 'Baganihan' — ang mga tagapag-ingat ng karunungan. Sila ang may hawak ng mga lihim ng harbal na medisina, ng mga awit na ritwal, at ng mga desisyon sa pamamahala ng tribo. Ang kanilang suot — may buo at kumplikadong Panubok — ay repleksyon ng kanilang katayuan.",
+    tradition: "Ang bawat motif sa damit ng isang matanda ay may kahulugan: ang bilang ng mga kalat, ang kulay ng sinulid, ang hugis ng mga pattern — lahat ito ay kwento ng kanilang buhay at linya ng angkan. Hindi ito basta disenyo lamang — ito ay kanilang awtobiograpiya na nakatahi sa tela.",
+    history: "Sa loob ng mahabang panahon ng pananakop, ang mga matatanda ang naging tagapagligtas ng kultura ng Panay Bukidnon. Kahit ipinagbabawal ng mga kolonyal na kapangyarihan ang ilang kaugalian, patago nilang itinuro sa susunod na henerasyon.",
+    impact: "Ang mga matatanda ang nagbibigay inspirasyon sa kabataan na huwag mahiyang maging katutubo. Ang kanilang presensya sa mga pampublikong kaganapan ay napakahalaga para sa pagpapalakas ng pagpapahalaga sa sariling kultura.",
+    significance: "Ang pagbibigay pugay sa mga matatanda ng tribo ay pagkilala sa katotohanan na ang tunay na kaalaman ay hindi lamang matatagpuan sa mga aklat — ito ay nandoon din sa mga ulunan ng mga taong nabuhay at naranasan ang buhay.",
+    funFacts: [
+      "Ang pinaka-matandang kilalang Baganihan ng Panay Bukidnon ay namatay sa edad na halos 110 taon at nakaalaala pa ng mahigit 300 epikong kanta.",
+      "Ang isang buong damit ng Baganihan ay maaaring tumagal ng isang taon upang matapos ang pagtatabing.",
+      "Sa ilang bahagi ng kabundukan, ang mga matatanda ay ginagawang tagahatol sa mga hindi pagkakaunawaan ng komunidad."
+    ],
+    photoCredit: "Larawan mula sa Panay Bukidnon IP documentation"
+  },
+  // 4 — Mount Madja-as
+  {
+    id: "gallery-04",
+    image: "Madjaas.jpg",
+    title: "Bundok Madja-as",
+    subtitle: "Ang Sagradong Tuktok ng Panay",
+    culture: "Para sa Panay Bukidnon, ang Bundok Madja-as ay hindi lamang isang bundok — ito ay tahanan ng kanilang pinakamataas na diyos, si Makaptan. Ang bawat nagbabagyo, bawat kidlat, bawat ulan ay kanilang tinutumbasan ng pasasalamat at panalangin sa bundok na ito. Ang Madja-as ay ang sentro ng kanilang kosmolohiya.",
+    tradition: "Bawat taon, ang mga pinuno ng tribo ay nagsasagawa ng 'Sugidanon sa Madja-as' — isang pagtawid sa bundok kasama ang buong komunidad upang maghandog ng pagkain, bulaklak, at awit sa mga espiritu ng kalikasan. Ito ay ang pinaka-sagradong ritwal ng Panay Bukidnon.",
+    history: "Ayon sa mga Sugidanon (epikong tula), ang Panay Bukidnon ay mga inapo ng mga Bathala na nanirahan sa Madja-as bago pa man nalikha ang mundo sa kasalukuyang anyo nito. Ang bundok ang nagsisilbing physical na koneksyon sa kanilang mitolohikal na kasaysayan.",
+    impact: "Dahil sa relihiyosong kahalagahan ng Madja-as, matagal na itong protektado ng komunidad mula sa pag-ubos ng kagubatan at iligal na pagmimina — isang natatanging halimbawa ng indigenous na pangangalaga sa kalikasan.",
+    significance: "Ang Madja-as ay isa sa mga pinaka-biodiversity-rich na lugar sa Pilipinas. Ang katutubong paniniwala ng Panay Bukidnon ay nagsilbing proteksyon ng ekolohiya nang maraming siglo bago pa man dumating ang modernong environmental laws.",
+    funFacts: [
+      "Ang Madja-as ay may taas na 2,117 metro at isa sa mga pinakamataas na bundok sa Visayas.",
+      "Naniniwala ang ilang mananaliksik na ang 'Madja-as' ay nagmula sa salitang nangangahulugang 'lugar ng hangin at liwanag'.",
+      "Ang bundok ay tahanan ng mahigit 50 species ng ibon na endemic sa Panay, marami sa kanila ay nanganganib na mawala."
+    ],
+    photoCredit: "Larawan mula sa Panay Bukidnon IP documentation"
+  },
+  // 5 — Panubok weaving (weaving.jpg)
+  {
+    id: "gallery-05",
     image: "weaving.jpg",
-    photoCredit: "Photo via community documentation, UCLM CTE",
-    description: "This elder weaver represents thousands of hours of mastery — patterns memorized not from books, but from watching hands move across fabric since childhood. Schools of Living Traditions (SLT) have been established to pass this knowledge to the next generation.",
-    impact: "Conservation efforts ensure that the youth feel pride in their heritage, empowering them to become future leaders who navigate the modern world without losing their soul or their name.",
-    significance: "Cultural conservation is as vital as environmental conservation. Every pattern saved, every song remembered, every recipe passed down is an act of resistance against cultural erasure — and a gift to all of humanity."
+    title: "Sining ng Panubok",
+    subtitle: "Ang Pagtatahi ng Kasaysayan sa Tela",
+    culture: "Ang Panubok ay ang pinaka-ikoniko at pinaka-kumplikadong anyo ng sining ng Panay Bukidnon. Ginagawa ito nang walang pattern o template — lahat ay galing sa memorya at sa puso ng manghahabi. Bawat stitch ay desisyon, bawat kulay ay kahulugan, bawat pattern ay kwento.",
+    tradition: "Ayon sa kaugalian, ang isang batang babae ay nagsisimulang matuto ng Panubok sa edad na pitong taon. Sa ika-15 taon, dapat siyang makalikha ng sariling disenyo. Ang kakayahang lumikha ng Panubok ay isa sa mga pamantayan ng pagiging handa para sa pag-aasawa sa kanilang kultura.",
+    history: "Ang Panubok ay pinaniniwalaan na libu-libong taon nang ginagawa ng Panay Bukidnon. Ang mga pinaka-sinaunang natuklasang piraso ay may mga disenyo na katulad ng mga nakikita sa mga ancient pottery ng pre-colonial Philippines, nagpapakita ng malalim na koneksyon sa nakaraan.",
+    impact: "Sa kasalukuyan, ang mga Panubok na damit ay ibinebenta sa mataas na presyo sa mga cultural fair at international exhibitions, nagbibigay ng malaking kita sa mga artisano. Ang ilang piraso ay ibinebenta ng hanggang sampung libong piso.",
+    significance: "Ang Panubok ay kinikilala ng UNESCO bilang isang mahalagang intangible cultural heritage. Ito ang isa sa mga pinaka-sopistikadong anyo ng indigenous textile art sa Southeast Asia.",
+    funFacts: [
+      "Ang isang buong damit na may Panubok ay maaaring tumagal ng anim hanggang labindalawang buwan upang matapos.",
+      "Mahigit 30 natatanging pattern ang kilala — bawat isa ay may sariling pangalan at kahulugan sa Kinaray-a.",
+      "Ang pinaka-eksklusibong pattern, ang 'Bagsang', ay para lamang sa mga pinuno at mga espesyal na seremonya."
+    ],
+    photoCredit: "Larawan mula sa community documentation, UCLM CTE"
+  },
+  // 6 — Manghahabi (fc075faf)
+  {
+    id: "gallery-06",
+    image: "fc075faf-172b-4ce9-8559-143ca84f5c26.jpg",
+    title: "Ang Manghahabi",
+    subtitle: "Tagapagpanatili ng Isang Namamatay na Sining",
+    culture: "Ang mga manghahabi ng Panay Bukidnon ay hindi lamang mga artisano — sila ay mga 'tagapagpanatili ng kaluluwa' ng kanilang kultura. Sa kanilang mga kamay ay nakatago ang lahat ng visual na kasaysayan ng tribo: ang mga digmaan, ang mga pag-ibig, ang mga pananalig, ang mga pangarap.",
+    tradition: "Bago magsimulang manahi, ang isang bihasang manghahabi ay nagdarasal muna sa kanilang mga ninuno upang humingi ng gabay at inspirasyon. Naniniwala sila na ang magandang disenyo ay hindi galing sa kanila — ito ay regalong galing sa espiritual na mundo.",
+    history: "Sa panahon ng pananakop, maraming manghahabi ang nagtago ng kanilang mga sinulid at kagamitan sa mga kweba upang hindi masira ng mga kolonisador. Ang ilan ay namatay nang hindi naikukuwento ang kanilang kaalaman — isang trahedya na nararamdaman pa rin ng komunidad hanggang ngayon.",
+    impact: "Sa pamamagitan ng Tabo sa UCLM at iba pang cultural events, ang mga manghahabi ay nagkakaroon ng mas malawak na merkado para sa kanilang mga obra. Nagbibigay ito ng dignidad at kasiguraduhan sa kanilang kabuhayan.",
+    significance: "Ang bawat manghahabi na patuloy na nagtitrabaho ay isang tagagawa ng resistensya laban sa cultural erasure. Ang kanilang pananatili ay pangako sa mga susunod na henerasyon na ang sining ng Panubok ay hindi mamamatay.",
+    funFacts: [
+      "Ang mga natural na tina na ginagamit ng Panay Bukidnon — mula sa mga ugat, dahon, at minerals — ay kayang tumagal nang higit sa limampung taon nang hindi kumukupas.",
+      "Ang ilang manghahabi ay may espesyal na 'singing voice' para sa bawat sinulid — kanta na tumutulong sa kanila na mapanatili ang tamang tensyon habang nagtitahi.",
+      "Ang mga manghahabi ay karaniwang nagtatatrabaho sa umaga lamang, kapag ang kanilang mga mata ay pinaka-malinaw."
+    ],
+    photoCredit: "College of Teacher Education, UCLM"
+  },
+  // 7 — Traditional Dress (7fc84c48)
+  {
+    id: "gallery-07",
+    image: "7fc84c48-b93b-4a9f-9141-d2c70ebdaadb.jpg",
+    title: "Tradisyunal na Damit",
+    subtitle: "Ang Kasuotan na Nagkukuwento",
+    culture: "Ang tradisyunal na damit ng Panay Bukidnon ay isang kompletong sistema ng komunikasyon. Hindi ka lamang nagsusuot ng tela — nagpapahayag ka ng iyong angkan, ng iyong katayuan, ng iyong mga nagawa, at ng iyong koneksyon sa mga ninuno. Bawat piraso ng alahas, bawat kulay ng tela, ay may malinaw na kahulugan sa komunidad.",
+    tradition: "Sa mga pangunahing seremonya, ang buong kasuotan ay isinusuot: ang buong Panubok na tunika, ang mga gintong kuwintas at pulseras, ang mga singsing, at ang tiara na gawa sa mga beads at coins. Ang pagsuot ng buong kasuotan ay isang sagradong gawa.",
+    history: "Ayon sa mga mananaliksik, ang estilo ng kasuotan ng Panay Bukidnon ay hindi nagbago nang malaki sa nakalipas na limang daang taon. Ito ay patunay ng lakas ng kanilang kultural na pagkakaisa at resistensya sa panlabas na impluwensya.",
+    impact: "Ang pagsuot ng tradisyunal na damit sa mga pampublikong pagtitipon ay isang makapangyarihang pahayag ng pagkakakilanlan. Nagbibigay ito ng pagmamalaki sa kabataan at nagpapaalala sa publiko na ang Panay Bukidnon ay buhay at makulay.",
+    significance: "Sa mundo ng fast fashion at globalisasyon, ang tradisyunal na kasuotan ng Panay Bukidnon ay nagpapakita ng alternatibong landas — isa na may dignidad, kagandahan, at kahulugan na hindi mabibili sa kahit anong mall.",
+    funFacts: [
+      "Ang kulay pula sa kasuotan ay sagrado at ginagamit lamang ng mga pinuno at mananayaw sa ritwal.",
+      "Ang mga beads na ginagamit sa mga alahas ay kadalasang mga mana na pinagsalhan ng maraming henerasyon.",
+      "Ang isang buong hanay ng alahas at kasuotan ay maaaring magkahalaga ng katumbas ng ilang buwang sahod."
+    ],
+    photoCredit: "Larawan mula sa UCLM CTE Buwan ng Wika 2026"
+  },
+  // 8 — Sugidanon Song
+  {
+    id: "gallery-08",
+    image: "Sugidanon - Song.jpg",
+    title: "Ang Sugidanon",
+    subtitle: "Epikong Awit ng mga Kabundukan",
+    culture: "Ang Sugidanon ay ang pinaka-mahalaga at pinaka-sagradong anyo ng oral literature ng Panay Bukidnon. Ito ay isang epikong tula na inaawit nang walang pahinga, maaaring tumagal ng maraming araw. Ang mga Sugidanon ay naglalaman ng mga kwento ng mga bayani, ng mga diyos, at ng simula ng mundo.",
+    tradition: "Ang isang mang-aawit ng Sugidanon, tinatawag na 'Binukot', ay isang espesyal na miyembro ng komunidad. Sila ay pinalaki nang may proteksyon at edukasyon, itinangi sa isang espesyal na paraan ng pamumuhay upang mapangalagaan ang kanilang boses at memorya para sa mga epikong awit.",
+    history: "Naniniwala ang mga antropolohista na ang tradisyon ng Sugidanon ay higit sa isang libong taon ang gulang. Ito ang isa sa mga pinaka-kumplikadong oral epic traditions sa buong Asya, na may libu-libong berso na nakaimbak sa puso ng mga Binukot.",
+    impact: "Ang Sugidanon ay nagsisilbing 'encyclopedia' ng Panay Bukidnon — naglalaman ng kaalaman tungkol sa halamang gamot, sa mga bituin, sa panahon, at sa moral na pamantayan ng komunidad. Ito ang kanilang pinaka-mahalaga na 'libro'.",
+    significance: "Ang Sugidanon ay kinikilala ng UNESCO bilang isang Intangible Cultural Heritage of Humanity. Ito ang tanging oral epic tradition sa Pilipinas na patuloy na isinasagawa sa orihinal nitong anyo.",
+    funFacts: [
+      "Ang isang buong pagtatanghal ng Sugidanon ay maaaring tumagal ng tatlo hanggang limang gabi nang walang pahinga.",
+      "Ang mga Binukot ay nagsasaulo ng mahigit 10,000 berso — katumbas ng ilang buong nobela.",
+      "Bago sa isang Binukot umawit, siya ay nagdarasal at nag-aayuno ng tatlong araw."
+    ],
+    photoCredit: "Larawan mula sa Panay Bukidnon IP documentation"
+  },
+  // 9 — Binanog Dance
+  {
+    id: "gallery-09",
+    image: "Binanog - dance.jpg",
+    title: "Ang Binanog",
+    subtitle: "Sayaw ng Agila ng Kabundukan",
+    culture: "Ang Binanog ay ang pinaka-kilala at pinaka-kapwa-nagmamahal na sayaw ng Panay Bukidnon. Ginagaya nito ang iba't ibang galaw ng banog (Philippine hawk-eagle) — ang pag-ikot, ang paglapad ng pakpak, ang mabilis na pagbaba. Para sa Panay Bukidnon, ang banog ay sagrado at simbolo ng kalayaan at lakas ng espiritu.",
+    tradition: "Sa tradisyon, ang Binanog ay isinasayaw sa dalawa: isang lalaki at isang babae, na kumakatawan sa lalaki at babaeng banog. Ito ay isang sayaw ng korteho — isang makulay na paraan ng pagpapahayag ng pagmamahal sa harap ng buong komunidad.",
+    history: "Naniniwala ang mga matatanda na ang unang Binanog ay isinayaw ng isang espiritu ng kabundukan na nagpakita sa isang mandirigma. Itinuro nito ang sayaw bilang regalo sa komunidad — isang paraan ng pakikipag-ugnayan sa espiritual na mundo.",
+    impact: "Ang Binanog ay nagsilbing cultural ambassador ng Panay Bukidnon sa maraming international cultural festival. Sa pamamagitan nito, ang mga Pilipino sa buong mundo ay natutunan ang tungkol sa kagandahan ng indigenous Filipino culture.",
+    significance: "Ang Binanog ay patunay na ang sining ng ating mga katutubo ay may kapantay ang anumang sining sa mundo. Ito ay hamon sa lahat ng Pilipino na ipagtanggol at ipagdiwang ang ating natatanging cultural heritage.",
+    funFacts: [
+      "Ang mga costume na ginagamit sa Binanog ay kadalasang may kasamang tunay na pakpak ng ibon na naibigay ng komunidad.",
+      "Ang ritmo ng musika ng Binanog ay ginagaya ang tunog ng puso ng banog habang lumilipad — mabilis na tumitibok.",
+      "Ang isang bihasa at kilalang mananayaw ng Binanog ay tinatawag na 'Hari ng Banog' ng kanilang komunidad."
+    ],
+    photoCredit: "Larawan mula sa UCLM CTE Buwan ng Wika 2026"
+  },
+  // 10 — Bagsang motif (50a19d46)
+  {
+    id: "gallery-10",
+    image: "50a19d46-e237-4b5c-958a-8454f060f70d.jpg",
+    title: "Ang Bagsang",
+    subtitle: "Espiritu ng Serpyente at Tagapagtanggol ng Tribo",
+    culture: "Ang Bagsang ay ang pinaka-sagrado at pinaka-makapangyarihang motif sa sining ng Panubok. Ito ay kumakatawan sa isang serpyenteng espiritu — ang tagapagtanggol ng angkan at ng lupa ng mga Panay Bukidnon. Ang paglalagay ng Bagsang sa isang damit ay isang pahayag ng proteksyon at koneksyon sa ancestral na kapangyarihan.",
+    tradition: "Ang Bagsang ay ginagamit lamang ng mga pinuno at sa mga espesyal na ritwal. Ang isang manghahabi ay hindi maaaring gumawa ng Bagsang nang walang pahintulot ng mga matatanda ng komunidad. Ito ay isang sagradong kilos na may kaukulang responsibilidad.",
+    history: "Ayon sa Sugidanon, ang Bagsang ay isang espiritu na nagprotekta sa Panay Bukidnon noong unang malalaking digmaan ng tribo. Ang motif ay lumitaw una sa mga ritualistic na gamit bago nailapat sa Panubok — nagpapakita ng malalim na koneksyon ng sining sa espirituwalidad.",
+    impact: "Ang Bagsang motif ay naging simbolo ng kilusang pagpapanatili ng kultura ng Panay Bukidnon. Makikita ito ngayon sa mga logo ng mga organisasyong nagtataguyod ng indigenous rights at sa mga produktong ibinebenta para suportahan ang komunidad.",
+    significance: "Ang Bagsang ay nagpapaalala sa atin na ang tunay na kapangyarihan ay hindi galing sa mga armas o kayamanan — ito ay galing sa kaalaman, sa kultura, at sa koneksyon sa ating mga pinagmulan.",
+    funFacts: [
+      "Ang Bagsang motif ay may mahigit tatlumpung variation — bawat isa ay may bahagyang kaibang kahulugan at gamit.",
+      "Sa ilang interpretasyon, ang Bagsang ay hindi isang serpyente kundi isang mythical na nilalang na may katangian ng parehong ibon at ahas.",
+      "Ang kumplikadong Bagsang pattern ay kayang gawin lamang ng mga pinaka-bihasang manghahabi — ito ang ultimate na pagsubok ng kanilang kahusayan."
+    ],
+    photoCredit: "Larawan mula sa community documentation, UCLM CTE"
   }
 ];
 

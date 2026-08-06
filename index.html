@@ -39,24 +39,24 @@
     <div class="flex-grow flex flex-col mt-2">
       <!-- 🏠 Homepage -->
       <a href="#home" class="sidebar-link">
-        <span class="text-xl">🏠</span> Homepage
+        <span class="text-xl">🏠</span> Simula
       </a>
       <!-- 🔮 Interactive Quest -->
       <a href="#quest" class="sidebar-link">
-        <span class="text-xl">🔮</span> Interactive Quest
+        <span class="text-xl">🔮</span> Pagsasaliksik
       </a>
       <!-- 🛒 Online Shopping -->
       <a href="#menu" class="sidebar-link">
-        <span class="text-xl">🛒</span> Online Menu
+        <span class="text-xl">🛒</span> Online na Menu
       </a>
       <div class="mt-auto">
         <!-- 🔐 Cashier POS -->
         <a href="#cashier" class="sidebar-link border-t border-gray-200" style="border-bottom: none;">
-          <span class="text-xl">🔐</span> Cashier POS
+          <span class="text-xl">🔐</span> Kahero (POS)
         </a>
         <!-- 🔄 Reset Quest (Admin) -->
         <button onclick="Quiz.resetQuest()" class="sidebar-link w-full text-left" style="background:none;border:none;border-top:1px solid #e5e7eb;color:#A91B22;font-weight:600;">
-          <span class="text-xl">🔄</span> Reset Spirit Quest
+          <span class="text-xl">🔄</span> I-reset ang Spirit Quest
         </button>
       </div>
     </div>
@@ -92,8 +92,8 @@
         <h1 class="text-white text-6xl md:text-8xl font-display font-bold leading-none mb-4 drop-shadow-2xl" style="text-shadow: 0 4px 24px rgba(0,0,0,0.8);">Panay<br>Bukidnon</h1>
         <p class="text-[#F0C84A] text-xl md:text-2xl italic font-display mb-8 drop-shadow-md" style="text-shadow: 0 2px 12px rgba(0,0,0,0.8);">Ating Kilalanin at Isapuso.</p>
         <div class="flex flex-col sm:flex-row gap-4 pointer-events-auto">
-          <button class="btn btn-gold btn-lg shadow-2xl scale-105" onclick="Router.navigate('#menu')">View Online Menu</button>
-          <button class="btn btn-outline btn-lg shadow-2xl" style="border-color:white;color:white;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);" onclick="Router.navigate('#quest')">Take the Spirit Quest</button>
+          <button class="btn btn-gold btn-lg shadow-2xl scale-105" onclick="Router.navigate('#menu')">Tingnan ang Online Menu</button>
+          <button class="btn btn-outline btn-lg shadow-2xl" style="border-color:white;color:white;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);" onclick="Router.navigate('#quest')">Subukan ang Spirit Quest</button>
         </div>
       </div>
 
@@ -117,11 +117,11 @@
     </section>
 
 
-    <!-- 3️⃣ ONLINE SHOPPING MENU VIEW (#menu) -->
+    <!-- 3️⃣ ONLINE MENU VIEW (#menu) -->
     <section id="view-menu" class="view-section">
       <!-- Search Bar -->
       <div class="search-bar-wrapper">
-        <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Search for a dish or ingredient..." />
+        <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Maghanap ng putahe o sangkap..." />
       </div>
 
       <!-- Shopee-style Grid -->
@@ -152,42 +152,9 @@
       </div>
     </section>
 
-    <!-- 7️⃣ CULTURAL GALLERY DETAIL VIEW (#gallery-detail) -->
-    <section id="view-gallery" class="view-section">
-      <div class="p-5 max-w-3xl mx-auto pb-32 pt-6">
-        <a href="#home" class="btn btn-outline mb-6">← Back to Home</a>
-        
-        <h2 id="gallery-detail-title" class="text-4xl md:text-5xl font-display font-bold text-earth mb-2 uppercase tracking-widest leading-tight">Theme Title</h2>
-        <p id="gallery-detail-subtitle" class="text-gold font-bold uppercase tracking-widest text-sm mb-6">Subtitle</p>
-        
-        <div class="w-full aspect-video bg-gray-200 rounded-xl mb-8 overflow-hidden shadow-lg border-2 border-gold/30">
-          <img id="gallery-detail-image" src="" alt="Gallery Image" class="w-full h-full object-cover" />
-        </div>
-        
-        <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100 relative">
-          <!-- Big Quote Decoration -->
-          <div class="absolute -top-6 -left-4 text-earth/10 text-9xl font-display">&ldquo;</div>
-          
-          <h3 class="text-2xl font-display font-bold text-earth mb-3">Description</h3>
-          <p id="gallery-detail-desc" class="text-smoke text-base leading-relaxed mb-8 relative z-10">Description text goes here.</p>
-          
-          <div class="divider"></div>
-          
-          <h3 class="text-2xl font-display font-bold text-earth mb-3">Culture, Tradition & Impact</h3>
-          <p id="gallery-detail-impact" class="text-smoke text-base leading-relaxed mb-8">Impact text goes here.</p>
-          
-          <div class="divider"></div>
-          
-          <div class="bg-earth/5 p-5 rounded-lg border-l-4 border-earth">
-            <h3 class="text-xl font-display font-bold text-earth mb-2">Significance to the Country</h3>
-            <p id="gallery-detail-significance" class="text-smoke text-sm leading-relaxed">Significance text goes here.</p>
-          </div>
-          
-          <!-- Photo Credit -->
-          <p id="gallery-detail-credit" class="text-xs text-gray-400 italic mt-6 text-right border-t border-gray-100 pt-3"></p>
-        </div>
-        
-      </div>
+    <!-- 7️⃣ CULTURAL GALLERY DETAIL VIEW (#gallery) -->
+    <section id="view-gallery" class="view-section" style="background:#0f0906; overflow-y:auto;">
+      <!-- Dynamically rendered by app.js viewGalleryDetail() -->
     </section>
 
   </main> <!-- /app-container -->
@@ -196,7 +163,7 @@
   <div id="cart-bar" class="hidden" onclick="Checkout.open()">
     <span class="text-xl relative">🛒<div id="cart-count-badge">0</div></span>
     <div class="flex-grow flex justify-between font-bold">
-      <span>View Cart</span>
+      <span>Tingnan ang Cart</span>
       <span id="cart-bar-total">₱0</span>
     </div>
   </div>
@@ -205,8 +172,8 @@
   <div id="checkout-overlay" class="hidden" onclick="Checkout.close(event)">
     <div id="checkout-sheet" onclick="event.stopPropagation()">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl">Your Order</h2>
-        <button onclick="Checkout.close()" type="button" class="text-smoke text-2xl" aria-label="Close">&times;</button>
+        <h2 class="text-xl">Ang Iyong Order</h2>
+        <button onclick="Checkout.close()" type="button" class="text-smoke text-2xl" aria-label="Isara">&times;</button>
       </div>
 
       <!-- Cart Items Rendered Here -->
@@ -224,23 +191,23 @@
       <!-- Checkout Form -->
       <div id="checkout-form-container">
         <!-- Fulfillment Options -->
-        <h3 class="text-sm font-bold text-earth mb-2 uppercase tracking-wide">Fulfillment</h3>
+        <h3 class="text-sm font-bold text-earth mb-2 uppercase tracking-wide">Paraan ng Pagkuha</h3>
         <label class="radio-pill" data-fulfillment="pickup">
-          <input type="radio" name="fulfillment" value="pickup" checked /> 🏪 Booth Pickup
+          <input type="radio" name="fulfillment" value="pickup" checked /> 🏪 Kunin sa Booth
         </label>
         <label class="radio-pill" data-fulfillment="delivery">
           <input type="radio" name="fulfillment" value="delivery" /> 🚚 Campus Delivery
         </label>
         
         <div id="delivery-fields" class="hidden mt-3 mb-4 p-3 bg-gray-50 border border-gray-200 rounded-md">
-          <label class="form-label">Delivery Building & Room</label>
-          <input type="text" id="f-destination" class="form-input" placeholder="e.g. CTE Building, Rm 204" />
+          <label class="form-label">Gusali at Silid ng Delivery</label>
+          <input type="text" id="f-destination" class="form-input" placeholder="hal. CTE Building, Rm 204" />
         </div>
 
         <div class="divider"></div>
 
         <!-- Payment Setup -->
-        <h3 class="text-sm font-bold text-earth mb-3 uppercase tracking-wide">Payment Details</h3>
+        <h3 class="text-sm font-bold text-earth mb-3 uppercase tracking-wide">Paraan ng Bayad</h3>
         
         <div class="flex gap-2 mb-4">
           <label class="radio-pill flex-1 text-center" data-payment="gcash">
@@ -280,18 +247,18 @@
 
         <div class="space-y-4 mt-4">
           <div>
-            <label class="form-label">Your Name</label>
-            <input type="text" id="f-name" class="form-input" placeholder="e.g. Maria Clara" required />
+            <label class="form-label">Iyong Pangalan</label>
+            <input type="text" id="f-name" class="form-input" placeholder="hal. Maria Clara" required />
           </div>
         </div>
 
         <div class="mt-8">
           <div class="flex justify-between items-end mb-4">
-            <span class="text-smoke font-semibold">Total to Pay</span>
+            <span class="text-smoke font-semibold">Kabuuang Bayad</span>
             <span id="checkout-grand-total" class="font-display font-bold text-3xl text-earth">₱0</span>
           </div>
           <button id="btn-submit-order" type="button" class="btn btn-gold btn-full btn-lg" onclick="Checkout.submitOrder()">
-            Submit Order
+            Isumite ang Order
           </button>
         </div>
       </div>
