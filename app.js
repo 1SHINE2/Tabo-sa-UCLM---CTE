@@ -312,19 +312,21 @@ const App = (() => {
       { img: '50a19d46-e237-4b5c-958a-8454f060f70d.jpg', caption: 'Bagsang — an embroidered spirit motif', galleryId: 'gallery-tradition' },
     ];
 
+    // Duplicate arrays for infinite marquee scrolling
+    const loopLeft = [...leftItems, ...leftItems, ...leftItems];
+    const loopRight = [...rightItems, ...rightItems, ...rightItems];
+
     function makeTile(item) {
       return `
-        <div class="gallery-tile" onclick="viewGalleryDetail('${item.galleryId}')">
-          <img src="${item.img}" alt="${item.caption}" loading="lazy" />
-          <div class="gallery-tile-caption">${item.caption}</div>
-          <div class="gallery-tile-hint">Explore <span>→</span></div>
-          <div class="gallery-tile-corner">↗</div>
+        <div class="gallery-tile" onclick="viewGalleryDetail('${item.galleryId}')" style="flex-shrink: 0; margin-bottom: 1rem;">
+          <img src="${item.img}" alt="${item.caption}" loading="lazy" style="width: 100%; border-radius: 0.5rem; object-fit: cover;" />
+          <div class="gallery-tile-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; padding: 1rem; font-size: 0.9rem;">${item.caption}</div>
         </div>
       `;
     }
 
-    leftCol.innerHTML = leftItems.map(makeTile).join('');
-    rightCol.innerHTML = rightItems.map(makeTile).join('');
+    leftCol.innerHTML = loopLeft.map(makeTile).join('');
+    rightCol.innerHTML = loopRight.map(makeTile).join('');
   }
 
   window.viewGalleryDetail = function(id) {

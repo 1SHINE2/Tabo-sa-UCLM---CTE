@@ -66,54 +66,43 @@
   <main id="app-container" class="pb-24">
     
     <!-- 1️⃣ HOMEPAGE VIEW (#home) -->
-    <section id="view-home" class="view-section active">
-      <div class="editorial-home">
-        
-        <!-- Left Photo Grid -->
-        <div class="home-side-col" id="home-gallery-left">
-          <!-- Populated by JS -->
-        </div>
-
-        <!-- Center Title Block -->
-        <div class="home-center-title">
-          <h1>Panay<br>Bukidnon</h1>
-          <p>Ating Kilalanin at Isapuso.</p>
-          <div class="home-actions">
-            <button class="btn btn-gold btn-lg shadow-xl" onclick="Router.navigate('#menu')">View Online Menu</button>
-            <button class="btn btn-outline btn-lg shadow-xl" style="border-color:white;color:white;" onclick="Router.navigate('#quest')">Take the Spirit Quest</button>
+    <section id="view-home" class="view-section active relative w-full h-screen overflow-hidden bg-black">
+      
+      <!-- Moving Marquee Background Container -->
+      <div class="absolute inset-0 flex flex-col md:flex-row opacity-50">
+        <!-- Top (Mobile) / Left (Desktop) Track -->
+        <div class="flex-1 overflow-hidden relative">
+          <div class="marquee-content marquee-track-1" id="home-gallery-left">
+            <!-- Populated by JS -->
           </div>
         </div>
-
-        <!-- Right Photo Grid -->
-        <div class="home-side-col" id="home-gallery-right">
-          <!-- Populated by JS -->
+        <!-- Bottom (Mobile) / Right (Desktop) Track -->
+        <div class="flex-1 overflow-hidden relative">
+          <div class="marquee-content marquee-track-2" id="home-gallery-right">
+            <!-- Populated by JS -->
+          </div>
         </div>
-
       </div>
 
-      <!-- Contact Footer -->
-      <footer class="home-footer">
-        <div class="home-footer-inner">
-          <div class="home-footer-brand">
-            <span class="home-footer-logo">🏔️</span>
-            <div>
-              <div class="home-footer-title">Tabo sa UCLM</div>
-              <div class="home-footer-sub">Panay Bukidnon · Buwan ng Wika 2026</div>
-            </div>
-          </div>
-          <div class="home-footer-links">
-            <a href="mailto:cte@uclm.edu.ph" class="home-footer-link">
-              📧 <span>cte@uclm.edu.ph</span>
-            </a>
-            <a href="https://www.facebook.com" target="_blank" rel="noopener" class="home-footer-link">
-              📘 <span>CTE · UCLM Facebook</span>
-            </a>
-            <div class="home-footer-link">
-              📍 <span>University of Cebu – LM Campus</span>
-            </div>
-          </div>
+      <!-- Dark Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-b from-[#1a1008]/90 via-transparent to-[#1a1008]/90 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
+
+      <!-- Center Title Block (Fixed Centered) -->
+      <div class="absolute inset-0 flex flex-col items-center justify-center z-10 p-4 text-center mt-8">
+        <h1 class="text-white text-6xl md:text-8xl font-display font-bold leading-none mb-4 drop-shadow-2xl" style="text-shadow: 0 4px 24px rgba(0,0,0,0.8);">Panay<br>Bukidnon</h1>
+        <p class="text-[#F0C84A] text-xl md:text-2xl italic font-display mb-8 drop-shadow-md" style="text-shadow: 0 2px 12px rgba(0,0,0,0.8);">Ating Kilalanin at Isapuso.</p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button class="btn btn-gold btn-lg shadow-2xl scale-105" onclick="Router.navigate('#menu')">View Online Menu</button>
+          <button class="btn btn-outline btn-lg shadow-2xl" style="border-color:white;color:white;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);" onclick="Router.navigate('#quest')">Take the Spirit Quest</button>
         </div>
-        <div class="home-footer-copy">© 2026 College of Teacher Education, UCLM · All rights reserved.</div>
+      </div>
+
+      <!-- Contact Footer (Absolute Bottom) -->
+      <footer class="absolute bottom-0 w-full p-4 text-center z-10 opacity-70 flex flex-col md:flex-row items-center justify-center gap-4 text-xs text-white">
+        <div>© 2026 College of Teacher Education, UCLM</div>
+        <div class="hidden md:block">•</div>
+        <div>📧 cte@uclm.edu.ph</div>
       </footer>
 
     </section>

@@ -378,6 +378,10 @@ const Checkout = (() => {
         <h2 class="font-display text-white text-3xl font-bold leading-tight relative z-10">Order Received!</h2>
         <p class="text-white/90 text-sm mt-1 relative z-10">Thank you, ${escapeHTML(payload.customerName)}!</p>
       </div>
+      <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-2 shadow-sm text-left">
+        <p class="font-bold text-red-700 text-sm mb-1">📸 Important: Screenshot Required!</p>
+        <p class="text-red-600 text-xs leading-relaxed">Please take a screenshot of this digital receipt now! Once you navigate away from this screen, the receipt cannot be reopened.</p>
+      </div>
       ${_buildReceiptBody(payload, false)}
       <button class="btn btn-primary btn-full mt-4 shadow-lg text-lg py-3" onclick="Router.navigate('#home')">
         🏠 Back to Menu
@@ -399,6 +403,11 @@ const Checkout = (() => {
         <div class="text-4xl mb-2">📱</div>
         <h2 class="font-display text-white text-2xl font-bold">Digital Receipt</h2>
         <p class="text-white/80 text-sm mt-1">Show this screen to the cashier at the booth</p>
+      </div>
+      
+      <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-2 shadow-sm text-left">
+        <p class="font-bold text-red-700 text-sm mb-1">📸 Important: Screenshot Required!</p>
+        <p class="text-red-600 text-xs leading-relaxed">Please take a screenshot of this digital receipt now! Once you navigate away from this screen, the receipt cannot be reopened.</p>
       </div>
 
       <div class="bg-yellow-50 border-x border-t border-yellow-300 p-4 text-sm text-yellow-800 flex gap-3 items-start">

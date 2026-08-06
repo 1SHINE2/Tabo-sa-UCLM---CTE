@@ -517,109 +517,60 @@ h3 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
   --color-dark:        #1A0F0A;   
 }
 
-/* ── HOMEPAGE EDITORIAL GALLERY (FIXED-HEIGHT, REFERENCE-EXACT) ── */
-.editorial-home {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  min-height: calc(100vh - var(--header-height));
-  background-color: var(--color-earth);
-  position: relative;
-  overflow: hidden;
+/* ── HOMEPAGE MARQUEE ANIMATIONS ── */
+@keyframes marqueeUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
 }
-/* Panubok textile background overlay — matches reference photo */
-.editorial-home::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('50a19d46-e237-4b5c-958a-8454f060f70d.jpg');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.25;
-  pointer-events: none;
-  z-index: 0;
+@keyframes marqueeDown {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
 }
-/* Dark gradient overlay for contrast */
-.editorial-home::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, transparent 0%, rgba(26, 15, 10, 0.8) 100%);
-  pointer-events: none;
-  z-index: 1;
+@keyframes marqueeLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
 
-/* Mobile: horizontal scroll gallery first */
-.home-side-col {
-  order: 1;
+.marquee-content {
   display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  gap: 0.75rem;
-  padding: 1rem;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  z-index: 10;
-  position: relative;
+  gap: 1rem;
 }
 
-/* Center title */
-.home-center-title {
-  order: 2;
-  text-align: center;
-  padding: 2rem 1.5rem 1.5rem;
-  z-index: 10;
-  color: white;
-  position: relative;
+/* Mobile defaults (horizontal) */
+.marquee-track-1 {
+  animation: marqueeLeft 35s linear infinite;
 }
-.home-center-title h1 {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 4rem;
-  line-height: 1.0;
-  font-weight: 700;
-  color: white;
-  text-shadow: 0 2px 30px rgba(0,0,0,0.5);
-  margin-bottom: 0.75rem;
-}
-.home-center-title p {
-  font-family: var(--font-body);
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  color: white;
-  opacity: 0.85;
-  margin-bottom: 0;
-}
-.home-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1.75rem;
-  align-items: center;
-}
-.home-actions .btn {
-  width: 100%;
-  max-width: 260px;
+.marquee-track-2 {
+  animation: marqueeRight 35s linear infinite;
 }
 
-/* Second mobile gallery */
-.home-side-col:last-child {
-  order: 3;
+/* Desktop overrides (vertical) */
+@media (min-width: 768px) {
+  .marquee-content {
+    flex-direction: column;
+  }
+  .marquee-track-1 {
+    animation: marqueeUp 45s linear infinite;
+  }
+  .marquee-track-2 {
+    animation: marqueeDown 45s linear infinite;
+  }
 }
 
 /* Gallery tiles */
 .gallery-tile {
   position: relative;
-  width: 180px;
-  height: 240px;
+  width: 220px;
+  height: 280px;
   flex-shrink: 0;
   border-radius: 14px;
   overflow: hidden;        /* prevents scale bleed outside border-radius */
   box-shadow: 0 6px 24px rgba(0,0,0,0.5);
   cursor: pointer;
-  scroll-snap-align: start;
   transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s ease;
   background: #1A0F0A;
 }
