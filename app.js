@@ -171,18 +171,18 @@ const App = (() => {
           </p>
         </div>
 
-        <!-- 3. Fun Facts — RIGHT-STAGGER block -->
-        <div style="width:90%; margin-left:auto; margin-bottom:2rem; padding:1.5rem 1.5rem 1.5rem 1.75rem; background:rgba(74,124,89,0.04); border-radius:1.5rem 0 0 1.5rem; border-right:4px solid var(--color-leaf); position:relative;">
-          <div style="position:absolute; top:-1rem; right:0.5rem; font-size:3.5rem; line-height:1; color:rgba(74,124,89,0.12); font-family:Georgia,serif; pointer-events:none;">&rdquo;</div>
-          <h4 style="font-size:1.1rem; font-weight:800; color:var(--color-earth); margin-bottom:1rem; text-align:right; font-family:var(--font-display,inherit); letter-spacing:0.02em;">Mga Nakaka-intrigang Detalye</h4>
-          ${funFactsHtml}
+        <!-- 3. Fun Facts — CENTERED -->
+        <div class="text-center px-6 mb-10 mt-6">
+          <h4 class="text-xl font-bold text-earth mb-4 font-display">Mga Nakaka-intrigang Detalye</h4>
+          <div class="inline-block text-left">
+            ${funFactsHtml}
+          </div>
         </div>
 
-        <!-- 4. Cultural Impact — LEFT-STAGGER block -->
-        <div style="width:90%; margin-right:auto; margin-bottom:2.5rem; padding:1.5rem 1.75rem 1.5rem 1.5rem; background:rgba(169,27,34,0.04); border-radius:0 1.5rem 1.5rem 0; border-left:4px solid var(--color-earth); position:relative;">
-          <div style="position:absolute; top:-1rem; left:0.5rem; font-size:3.5rem; line-height:1; color:rgba(169,27,34,0.12); font-family:Georgia,serif; pointer-events:none;">&ldquo;</div>
-          <h4 style="font-size:1.1rem; font-weight:800; color:var(--color-earth); margin-bottom:0.75rem; text-align:left; font-family:var(--font-display,inherit); letter-spacing:0.02em;">Sosyo-Kultural na Epekto</h4>
-          <p style="font-size:0.9rem; color:var(--color-smoke); line-height:1.7; text-align:left; margin:0;">${product.history?.impact || ''}</p>
+        <!-- 4. Cultural Impact — CENTERED -->
+        <div class="text-center px-6 mb-12">
+          <h4 class="text-xl font-bold text-earth mb-4 font-display">Sosyo-Kultural na Epekto</h4>
+          <p class="text-smoke text-base leading-relaxed max-w-xl mx-auto">${product.history?.impact || ''}</p>
         </div>
 
         <!-- 5. Kaugnayan sa Tabo sa UCLM — CENTERED card -->
@@ -201,11 +201,13 @@ const App = (() => {
           </div>
         </div>
 
-        <!-- 6. Mga Sangkap — RIGHT-STAGGER -->
-        <div style="width:92%; margin-left:auto; margin-bottom:2.5rem; padding:1.5rem; background:rgba(212,160,23,0.04); border-radius:1.5rem 0 0 1.5rem; border-right:4px solid var(--color-gold);">
-          <h3 style="text-align:right; font-size:1.3rem; font-weight:800; color:var(--color-earth); margin-bottom:1rem; font-family:var(--font-display,inherit); border-bottom:2px solid var(--color-gold); padding-bottom:4px; display:inline-block; float:right; clear:both;">Mga Sangkap ng Kabundukan</h3>
-          <div style="clear:both; padding-top:0.5rem; display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:flex-end;">${ingChips}</div>
-          <p style="font-size:0.8rem; color:var(--color-smoke); font-style:italic; text-align:right; margin-top:1rem; margin-bottom:0; font-family:var(--font-display,inherit);">"${product.ingredientTheme || ''}"</p>
+        <!-- 6. Mga Sangkap — CENTERED -->
+        <div class="text-center mb-12">
+          <h3 class="text-2xl font-display font-bold text-earth mb-4 inline-block border-b-2 border-gold pb-1">Mga Sangkap ng Kabundukan</h3>
+          <div class="mb-5 flex flex-wrap justify-center gap-2">${ingChips}</div>
+          <p class="text-sm text-smoke font-display italic bg-cream-dark p-4 rounded-xl border border-gray-100 shadow-sm max-w-lg mx-auto">
+            "${product.ingredientTheme || ''}"
+          </p>
         </div>
 
         <!-- 7. Nutrisyon — CENTERED -->
@@ -364,10 +366,9 @@ const App = (() => {
       <div style="background: #0f0906; min-height: 100vh; color: #f5f0e8;">
         <div class="max-w-3xl mx-auto px-5 py-12">
 
-          <!-- Section: Kultura -->
-          <div class="mb-16">
-            <div class="flex items-center gap-3 mb-6">
-              <span style="width:3px; height:2.5rem; background:#D4A017; border-radius:2px; display:block;"></span>
+          <!-- Section: Kultura (LEFT STAGGER) -->
+          <div class="mb-16" style="width:90%; margin-right:auto; padding:1.5rem 1.75rem 1.5rem 1.5rem; background:rgba(212,160,23,0.05); border-radius:0 1.5rem 1.5rem 0; border-left:4px solid #D4A017;">
+            <div class="flex items-center gap-3 mb-4">
               <h2 class="font-display text-3xl font-bold" style="color:#D4A017;">Kultura</h2>
             </div>
             <p class="text-lg leading-relaxed" style="color:#d4c9b5; font-family: Georgia, serif;">${item.culture}</p>
@@ -384,19 +385,18 @@ const App = (() => {
             </div>
           </div>
 
-          <!-- Section: Tradisyon -->
-          <div class="mb-16">
-            <div class="flex items-center gap-3 mb-6">
-              <span style="width:3px; height:2.5rem; background:#8B1A1A; border-radius:2px; display:block;"></span>
+          <!-- Section: Tradisyon (RIGHT STAGGER) -->
+          <div class="mb-16" style="width:90%; margin-left:auto; padding:1.5rem 1.5rem 1.5rem 1.75rem; background:rgba(139,26,26,0.05); border-radius:1.5rem 0 0 1.5rem; border-right:4px solid #8B1A1A; text-align:right;">
+            <div class="flex items-center justify-end gap-3 mb-4">
               <h2 class="font-display text-3xl font-bold" style="color:#c0392b;">Tradisyon</h2>
             </div>
-            <p class="text-lg leading-relaxed" style="color:#d4c9b5; font-family: Georgia, serif;">${item.tradition}</p>
+            <p class="text-lg leading-relaxed text-right" style="color:#d4c9b5; font-family: Georgia, serif;">${item.tradition}</p>
           </div>
 
-          <!-- Section: Kasaysayan -->
-          <div class="mb-16 p-8 rounded-2xl" style="background: rgba(212,160,23,0.07); border-left: 4px solid #D4A017;">
-            <h2 class="font-display text-3xl font-bold mb-6" style="color:#D4A017;">Kasaysayan</h2>
-            <p class="text-lg leading-relaxed" style="color:#d4c9b5; font-family: Georgia, serif;">${item.history}</p>
+          <!-- Section: Kasaysayan (CENTERED) -->
+          <div class="mb-16 p-8 rounded-2xl text-center" style="background: rgba(212,160,23,0.07); border-top: 2px solid #D4A017;">
+            <h2 class="font-display text-3xl font-bold mb-4" style="color:#D4A017;">Kasaysayan</h2>
+            <p class="text-lg leading-relaxed inline-block" style="color:#d4c9b5; font-family: Georgia, serif;">${item.history}</p>
           </div>
 
           <!-- Photo Placeholder 2 -->
@@ -410,28 +410,26 @@ const App = (() => {
             </div>
           </div>
 
-          <!-- Section: Epekto sa Buhay ng Tao -->
-          <div class="mb-16">
-            <div class="flex items-center gap-3 mb-6">
-              <span style="width:3px; height:2.5rem; background:#D4A017; border-radius:2px; display:block;"></span>
+          <!-- Section: Epekto sa Buhay ng Tao (LEFT STAGGER) -->
+          <div class="mb-16" style="width:90%; margin-right:auto; padding:1.5rem 1.75rem 1.5rem 1.5rem; background:rgba(212,160,23,0.05); border-radius:0 1.5rem 1.5rem 0; border-left:4px solid #D4A017;">
+            <div class="flex items-center gap-3 mb-4">
               <h2 class="font-display text-3xl font-bold" style="color:#D4A017;">Epekto sa Buhay ng Tao</h2>
             </div>
             <p class="text-lg leading-relaxed" style="color:#d4c9b5; font-family: Georgia, serif;">${item.impact}</p>
           </div>
 
-          <!-- Section: Kahalagahan -->
-          <div class="mb-16 p-8 rounded-2xl" style="background: rgba(139,26,26,0.1); border-left: 4px solid #8B1A1A;">
-            <h2 class="font-display text-3xl font-bold mb-6" style="color:#c0392b;">Kahalagahan sa Bansa, Kultura, at Etika</h2>
-            <p class="text-lg leading-relaxed" style="color:#d4c9b5; font-family: Georgia, serif;">${item.significance}</p>
+          <!-- Section: Kahalagahan (CENTERED) -->
+          <div class="mb-16 p-8 rounded-2xl text-center" style="background: rgba(139,26,26,0.1); border-top: 2px solid #8B1A1A;">
+            <h2 class="font-display text-3xl font-bold mb-4" style="color:#c0392b;">Kahalagahan sa Bansa, Kultura, at Etika</h2>
+            <p class="text-lg leading-relaxed inline-block" style="color:#d4c9b5; font-family: Georgia, serif;">${item.significance}</p>
           </div>
 
-          <!-- Section: Mga Kawili-Wiling Katotohanan -->
-          <div class="mb-16">
-            <div class="flex items-center gap-3 mb-8">
-              <span style="width:3px; height:2.5rem; background:#D4A017; border-radius:2px; display:block;"></span>
+          <!-- Section: Mga Kawili-Wiling Katotohanan (RIGHT STAGGER) -->
+          <div class="mb-16" style="width:90%; margin-left:auto; padding:1.5rem 1.5rem 1.5rem 1.75rem; background:rgba(212,160,23,0.05); border-radius:1.5rem 0 0 1.5rem; border-right:4px solid #D4A017; text-align:right;">
+            <div class="flex items-center justify-end gap-3 mb-6">
               <h2 class="font-display text-3xl font-bold" style="color:#D4A017;">Mga Kawili-Wiling Katotohanan</h2>
             </div>
-            <div class="space-y-4">
+            <div class="space-y-4 text-left">
               ${(item.funFacts || []).map((fact, i) => `
                 <div class="flex gap-4 p-5 rounded-xl" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(212,160,23,0.15);">
                   <span class="font-display font-bold text-2xl shrink-0" style="color: rgba(212,160,23,0.5);">${String(i+1).padStart(2,'0')}</span>

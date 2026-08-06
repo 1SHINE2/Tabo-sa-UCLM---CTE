@@ -21,15 +21,6 @@ const Cart = (() => {
     items[productId] += delta;
     if (items[productId] <= 0) delete items[productId];
     
-    // If they remove the item that the SPIRIT voucher applies to, remove the voucher
-    if (activeVoucher && activeVoucher.startsWith('SPIRIT-')) {
-      const requiredId = `prod-${activeVoucher.split('-')[1]}`;
-      if (!items[requiredId]) {
-        activeVoucher = null;
-        window.showToast('Tinanggal ang voucher (Wala sa cart ang Espirituwal na Putahe)', 'warning');
-      }
-    }
-    
     // If TABO10 is active, check if subtotal dropped below 50
     if (activeVoucher === 'TABO10') {
       let subtotal = 0;
@@ -94,31 +85,6 @@ const Cart = (() => {
       return { success: true, code, message: '10% discount applied!' };
     }
 
-    // Check if it's a SPIRIT-xxx code
-    if (code.startsWith('SPIRIT-')) {
-      const requiredId = `prod-${code.split('-')[1]}`;
-      const lockedDish = localStorage.getItem('quiz_completed_dish');
-
-      if (lockedDish !== requiredId) {
-        window.showToast('Imbalido ang voucher para sa device na ito.', 'error');
-        if (input) input.value = '';
-        _render();
-        return { success: false, message: 'Invalid voucher for this device.' };
-      }
-
-      if (!items[requiredId]) {
-        window.showToast('Dapat nasa cart ang iyong Espirituwal na Putahe upang magamit ito!', 'error');
-        _render();
-        return { success: false, message: 'Your Spirit Dish must be in the cart to use this!' };
-      }
-
-      // Valid!
-      activeVoucher = code;
-      window.showToast('Nailapat na ang biyaya! ₱10 diskwento.', 'success');
-      _render();
-      return { success: true, amount: DISCOUNT_AMOUNT, code, message: 'Blessing applied! ₱10 off.' };
-    }
-
     window.showToast('Imbalido ang voucher code.', 'error');
     _render();
     return { success: false, message: 'Invalid voucher code.' };
@@ -144,8 +110,6 @@ const Cart = (() => {
       } else {
         activeVoucher = null;
       }
-    } else if (activeVoucher && activeVoucher.startsWith('SPIRIT-')) {
-      dynamicDiscount = DISCOUNT_AMOUNT;
     }
 
     const total = Math.max(0, subtotal - dynamicDiscount);

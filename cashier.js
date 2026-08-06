@@ -320,9 +320,9 @@ const CashierPOS = (() => {
   }
 
   function getOrderCategory(order) {
-    const oType = (order.orderType || 'Online').trim();
-    const fill  = (order.fulfillment || '').trim().toLowerCase();
-    const pay   = (order.paymentMethod || order.payment || 'Cash').trim();
+    const oType = (order.OrderType || order.orderType || 'Online').trim();
+    const fill  = (order.Fulfillment || order.fulfillment || '').trim().toLowerCase();
+    const pay   = (order.PaymentMethod || order.paymentMethod || order.payment || 'Cash').trim();
     
     if (oType === 'Walk-in') {
       return `Walk-in - ${pay}`;
@@ -363,7 +363,24 @@ const CashierPOS = (() => {
       });
       const orderData = await orderRes.json();
       if (orderData && orderData.orders) {
-        orderFeed = orderData.orders.reverse();
+        orderFeed = orderData.orders.map(o => ({
+          transactionId: o.TransactionID || o.transactionId,
+          timestamp: o.Timestamp || o.timestamp,
+          orderType: o.OrderType || o.orderType,
+          fulfillment: o.Fulfillment || o.fulfillment,
+          paymentMethod: o.PaymentMethod || o.paymentMethod,
+          customerName: o.CustomerName || o.customerName,
+          contactInfo: o.ContactInfo || o.contactInfo,
+          itemsSummary: o.ItemsSummary || o.itemsSummary,
+          subtotal: o.Subtotal || o.subtotal,
+          voucherApplied: o.VoucherApplied || o.voucherApplied,
+          discountAmount: o.DiscountAmount || o.discountAmount,
+          grandTotal: o.GrandTotal || o.grandTotal,
+          amountTendered: o.AmountTendered || o.amountTendered,
+          changeGiven: o.ChangeGiven || o.changeGiven,
+          gcashRef: o.GCashRef || o.gcashRef,
+          status: o.Status || o.status
+        })).reverse();
         _renderOrderFeed();
       }
 

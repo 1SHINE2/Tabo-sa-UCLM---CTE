@@ -185,7 +185,8 @@ const Quiz = (() => {
     const dish = window.PRODUCTS.find(p => p.id === matchedDishId);
     if (!dish) return;
 
-    const voucherCode = `SPIRIT-${matchedDishId.replace('prod-', '')}`;
+    // Use the global TABO10 voucher instead of a dynamic SPIRIT one
+    const voucherCode = 'TABO10';
     localStorage.setItem('active_voucher', voucherCode); // Save for auto-apply
 
     screen.style.backgroundImage = `url('${dish.image}')`;
@@ -214,7 +215,7 @@ const Quiz = (() => {
           <div class="absolute top-0 right-0 bg-gold text-dark text-[10px] px-2 py-1 font-bold rounded-bl-lg">AWTO-APLIKADO</div>
           <p class="text-xs text-gold uppercase font-bold mb-2">Ang Iyong Natatanging Biyaya</p>
           <div class="text-xl font-bold tracking-widest text-white mb-1 border-b border-dashed border-gray-600 pb-2">${voucherCode}</div>
-          <p class="text-xs text-gray-300 mt-2">Ang ₱10 diskwento na ito ay awtomatikong ilalapat kapag ikaw ay nag-checkout!</p>
+          <p class="text-xs text-gray-300 mt-2">Ang 10% diskwento na ito ay awtomatikong ilalapat kapag umabot ng ₱50 ang iyong order!</p>
         </div>
 
         <button class="btn btn-gold w-full mb-3 shadow-lg" onclick="Router.navigate('#menu')">
