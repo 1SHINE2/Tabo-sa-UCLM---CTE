@@ -83,10 +83,13 @@ const App = (() => {
       // Small preview of ingredients
       const ingPreview = product.ingredients ? product.ingredients.slice(0, 2).join(', ') : '';
       
+      const isPromo = product.name.includes('3 piraso');
+
       return `
         <a href="#${product.id}" class="shopee-card animate-slide-up relative block">
           <div class="relative">
             <img src="${product.image}" alt="${product.name}" loading="lazy" />
+            ${isPromo ? `<div class="promo-badge">🎁 3 Piraso · Mas Sulit!</div>` : ''}
             <div class="absolute top-2 left-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-full border border-white/20 flex items-center gap-1 backdrop-blur-sm">
               <span class="animate-pulse">👆</span> Pindutin para sa detalye
             </div>
